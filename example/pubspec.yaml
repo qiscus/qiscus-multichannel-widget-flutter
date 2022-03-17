@@ -1,0 +1,29 @@
+name: multichannel_flutter_sample
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  qiscus_multichannel_widget:
+  grouped_list: ^4.2.0
+  date_format: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+dependency_overrides:
+  qiscus_multichannel_widget:
+    path: ../
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
