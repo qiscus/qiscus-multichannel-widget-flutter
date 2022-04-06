@@ -2,33 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class LoginPage extends Page {
-  const LoginPage({required this.mulchan})
-      : super(key: const ValueKey("LoginPageKey"));
-
-  final QMultichannelWidget mulchan;
+  const LoginPage() : super(key: const ValueKey("LoginPageKey"));
 
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
-      builder: (context) => LoginScreen(
-        mulchan: mulchan,
-      ),
+      builder: (context) => LoginScreen(),
     );
   }
 }
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key, required this.mulchan}) : super(key: key);
-
-  final QMultichannelWidget mulchan;
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  late final mulchan = widget.mulchan;
   late final usernameController = TextEditingController(text: 'guest-1001');
   late final displayNameController = TextEditingController(text: 'guest-1001');
 
@@ -64,10 +56,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: _onDoLogin,
-                    child: const Text('Login'),
+                  child: QMultichannelConsumer(
+                    builder: (context, ref) {
+                      return ElevatedButton(
+                        onPressed: () => _onDoLogin(ref),
+                        child: const Text('Login'),
+                      );
+                    },
                   ),
+                ),
+                QMultichannelConsumer(
+                  builder: (_, QMultichannel ref) {
+                    ref.clearUser();
+                    if (ref.roomId == null) {
+                      ref.setUser(
+                        userId: 'guest-1001',
+                        displayName: 'guest-1001',
+                      );
+                      ref.initiateChat();
+                    }
+                    return Container();
+                  },
                 ),
               ],
             ),
@@ -77,14 +86,11 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _onDoLogin() {
+  void _onDoLogin(QMultichannel mulchan) async {
     var username = usernameController.text;
     var displayName = displayNameController.text;
 
-    print('username($username) displayName($displayName)');
     mulchan.setUser(userId: username, displayName: displayName);
-    mulchan.initiateChat().catchError((error) {
-      print("got error: $error");
-    });
+    await mulchan.initiateChat();
   }
 }

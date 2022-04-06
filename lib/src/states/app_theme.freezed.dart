@@ -19,23 +19,23 @@ class _$QAppThemeTearOff {
   const _$QAppThemeTearOff();
 
   _QAppTheme call(
-      {Color baseColor = const Color.fromARGB(1, 249, 249, 249),
-      Color navigationColor = const Color.fromARGB(1, 85, 178, 154),
-      Color navigationTitleColor = const Color.fromARGB(1, 255, 255, 255),
-      Color systemEventTextColor = const Color.fromARGB(1, 255, 255, 255),
-      Color rightBubbleColor = const Color.fromARGB(1, 85, 178, 154),
-      Color rightBubbleTextColor = const Color.fromARGB(1, 255, 255, 255),
-      Color leftBubbleColor = const Color.fromARGB(1, 244, 244, 244),
-      Color leftBubbleTextColor = const Color.fromARGB(1, 102, 102, 102),
-      Color timeLabelTextColor = const Color.fromARGB(1, 123, 123, 123),
+      {Color baseColor = const Color.fromARGB(255, 249, 249, 249),
+      Color navigationColor = const Color.fromARGB(255, 85, 178, 154),
+      Color navigationTitleColor = const Color.fromARGB(255, 255, 255, 255),
+      Color systemEventTextColor = const Color.fromARGB(255, 255, 255, 255),
+      Color rightBubbleColor = const Color.fromARGB(255, 85, 178, 154),
+      Color rightBubbleTextColor = const Color.fromARGB(255, 255, 255, 255),
+      Color leftBubbleColor = const Color.fromARGB(255, 244, 244, 244),
+      Color leftBubbleTextColor = const Color.fromARGB(255, 102, 102, 102),
+      Color timeLabelTextColor = const Color.fromARGB(255, 123, 123, 123),
       Color timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
-      Color emptyTextColor = const Color.fromARGB(1, 153, 153, 153),
-      Color emptyBackgroundColor = const Color.fromARGB(1, 249, 249, 249),
-      Color sendContainerColor = const Color.fromARGB(1, 255, 255, 255),
+      Color emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
+      Color emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
+      Color sendContainerColor = const Color.fromARGB(255, 255, 255, 255),
       Color sendContainerBackgroundColor =
-          const Color.fromARGB(1, 250, 250, 250),
-      Color fieldChatBorderColor = const Color.fromARGB(1, 227, 227, 227),
-      Color fieldChatTextColor = const Color.fromARGB(1, 51, 51, 51)}) {
+          const Color.fromARGB(255, 250, 250, 250),
+      Color fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),
+      Color fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51)}) {
     return _QAppTheme(
       baseColor: baseColor,
       navigationColor: navigationColor,
@@ -329,23 +329,23 @@ class __$QAppThemeCopyWithImpl<$Res> extends _$QAppThemeCopyWithImpl<$Res>
 
 class _$_QAppTheme implements _QAppTheme {
   const _$_QAppTheme(
-      {this.baseColor = const Color.fromARGB(1, 249, 249, 249),
-      this.navigationColor = const Color.fromARGB(1, 85, 178, 154),
-      this.navigationTitleColor = const Color.fromARGB(1, 255, 255, 255),
-      this.systemEventTextColor = const Color.fromARGB(1, 255, 255, 255),
-      this.rightBubbleColor = const Color.fromARGB(1, 85, 178, 154),
-      this.rightBubbleTextColor = const Color.fromARGB(1, 255, 255, 255),
-      this.leftBubbleColor = const Color.fromARGB(1, 244, 244, 244),
-      this.leftBubbleTextColor = const Color.fromARGB(1, 102, 102, 102),
-      this.timeLabelTextColor = const Color.fromARGB(1, 123, 123, 123),
+      {this.baseColor = const Color.fromARGB(255, 249, 249, 249),
+      this.navigationColor = const Color.fromARGB(255, 85, 178, 154),
+      this.navigationTitleColor = const Color.fromARGB(255, 255, 255, 255),
+      this.systemEventTextColor = const Color.fromARGB(255, 255, 255, 255),
+      this.rightBubbleColor = const Color.fromARGB(255, 85, 178, 154),
+      this.rightBubbleTextColor = const Color.fromARGB(255, 255, 255, 255),
+      this.leftBubbleColor = const Color.fromARGB(255, 244, 244, 244),
+      this.leftBubbleTextColor = const Color.fromARGB(255, 102, 102, 102),
+      this.timeLabelTextColor = const Color.fromARGB(255, 123, 123, 123),
       this.timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
-      this.emptyTextColor = const Color.fromARGB(1, 153, 153, 153),
-      this.emptyBackgroundColor = const Color.fromARGB(1, 249, 249, 249),
-      this.sendContainerColor = const Color.fromARGB(1, 255, 255, 255),
+      this.emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
+      this.emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
+      this.sendContainerColor = const Color.fromARGB(255, 255, 255, 255),
       this.sendContainerBackgroundColor =
-          const Color.fromARGB(1, 250, 250, 250),
-      this.fieldChatBorderColor = const Color.fromARGB(1, 227, 227, 227),
-      this.fieldChatTextColor = const Color.fromARGB(1, 51, 51, 51)});
+          const Color.fromARGB(255, 250, 250, 250),
+      this.fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),
+      this.fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51)});
 
   @JsonKey()
   @override

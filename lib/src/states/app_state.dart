@@ -8,19 +8,35 @@ import 'user_config.dart';
 part 'app_state.freezed.dart';
 
 @freezed
+class AppState with _$AppState {
+  const factory AppState.initial() = _AppStateInitial;
+
+  const factory AppState.ready({
+    required int roomId,
+    required QAccount account,
+  }) = _AppStateReady;
+}
+
+@freezed
 class QAppState with _$QAppState {
-  factory QAppState.initial() = _QAppStateInitial;
+  factory QAppState.initial({
+    @Default(QAppConfig()) QAppConfig appConfig,
+    @Default(QAppTheme()) QAppTheme theme,
+  }) = _QAppStateInitial;
+
   factory QAppState.setup({
     required String appId,
     @Default(QAppConfig()) QAppConfig appConfig,
     @Default(QAppTheme()) QAppTheme theme,
   }) = _QAppStateSetup;
+
   factory QAppState.authenticated({
     required String appId,
     required QUserConfig userConfig,
     @Default(QAppConfig()) QAppConfig appConfig,
     @Default(QAppTheme()) QAppTheme theme,
   }) = _QAppStateAuthenticated;
+
   factory QAppState.ready({
     required String appId,
     required QAccount account,

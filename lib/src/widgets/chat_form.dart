@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/src/utils/colors.dart';
 
-class QChatForm extends StatelessWidget {
+import '../../qiscus_multichannel_widget.dart';
+
+class QChatForm extends ConsumerWidget {
   QChatForm({
     Key? key,
-    required this.onSubmit,
   }) : super(key: key);
 
-  final void Function(String) onSubmit;
   final TextEditingController _messageController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         color: "#fafafa".toColor(),
@@ -19,52 +18,61 @@ class QChatForm extends StatelessWidget {
           top: BorderSide(width: 1, color: "#e3e3e3".toColor()),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: SafeArea(
-          child: Row(
-            children: <Widget>[
-              TextButton(
-                onPressed: () {},
-                child: Image.asset("assets/ic-add.png"),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: TextField(
-                    controller: _messageController,
-                    onSubmitted: (_) => _onSubmit(),
-                    decoration: InputDecoration(
-                      hintText: 'Your message here...',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: '#e3e3e3'.toColor(),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(
-                          color: '#e3e3e3'.toColor(),
+      child: QMultichannelConsumer(
+        builder: (context, ref) {
+          var account = ref.account;
+          final fgColor = ref.theme.fieldChatTextColor;
+          final borderColor = ref.theme.fieldChatBorderColor;
+
+          final border = OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: borderColor),
+          );
+
+          return Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: SafeArea(
+              child: Row(
+                children: <Widget>[
+                  TextButton(
+                    onPressed: () {},
+                    child: Image.asset("assets/ic-add.png"),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: Colors.white,
+                      child: TextField(
+                        enabled: account.hasValue,
+                        controller: _messageController,
+                        onSubmitted: (_) => _onSubmit(ref),
+                        decoration: InputDecoration(
+                          hintText: 'Your message here...',
+                          disabledBorder: border,
+                          enabledBorder: border,
+                          focusedBorder: border,
                         ),
                       ),
                     ),
                   ),
-                ),
+                  TextButton(
+                    onPressed: () {
+                      _onSubmit(ref);
+                    },
+                    child: Image.asset("assets/ic-send.png"),
+                  ),
+                ],
               ),
-              TextButton(
-                onPressed: () => _onSubmit(),
-                child: Image.asset("assets/ic-send.png"),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  void _onSubmit() {
-    onSubmit(_messageController.text);
+  void _onSubmit(QMultichannel ref) async {
+    var text = _messageController.text;
+    var message = await ref.generateMessage(text: text);
+    await ref.sendMessage(message);
     _messageController.text = '';
   }
 }

@@ -238,10 +238,10 @@ packages:
   qiscus_chat_sdk:
     dependency: transitive
     description:
-      name: qiscus_chat_sdk
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.0-beta.1"
+      path: "../../qiscus-chat-sdk-flutter"
+      relative: true
+    source: path
+    version: "1.0.18"
   qiscus_multichannel_widget:
     dependency: "direct main"
     description:

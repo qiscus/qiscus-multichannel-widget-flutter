@@ -1,12 +1,10 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
-import 'package:qiscus_multichannel_widget/src/widgets/chat_form.dart';
+import 'package:qiscus_multichannel_widget/src/models.dart';
 
-import '../bloc/app_bloc.dart';
-import '../states/app_state.dart';
+import '../../qiscus_multichannel_widget.dart';
+import '../widgets/chat_form.dart';
+import '../widgets/chat_system.dart';
 import '../widgets/widgets.dart';
 
 class QChatRoomPage extends Page {
@@ -16,45 +14,53 @@ class QChatRoomPage extends Page {
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
-      builder: (context) => const QChatRoomScreen(),
+      builder: (context) => QChatRoomScreen(),
     );
   }
 }
 
-class QChatRoomScreen extends StatefulWidget {
-  const QChatRoomScreen({
-    Key? key,
-  }) : super(key: key);
+class QChatRoomScreen extends StatelessWidget {
+  QChatRoomScreen({Key? key}) : super(key: key);
 
-  @override
-  _ChatRoomScreenState createState() => _ChatRoomScreenState();
-}
+  // final message = QMessageSystem.fromMessage(QMessage(
+  //   chatRoomId: -1,
+  //   extras: null,
+  //   id: 1,
+  //   payload: null,
+  //   previousMessageId: 1,
+  //   sender: const QUser(
+  //     id: 'user-1',
+  //     name: 'System',
+  //     avatarUrl: 'https://via.placeholder.com/150x150',
+  //   ),
+  //   status: QMessageStatus.read,
+  //   text: 'Ini contoh system message',
+  //   timestamp: DateTime.now(),
+  //   type: QMessageType.custom,
+  //   uniqueId: '',
+  // ));
+  // late final messages = <QMessage>[
+  //   message,
+  //   message,
+  // ];
 
-class _ChatRoomScreenState extends State<QChatRoomScreen> {
   @override
   Widget build(BuildContext context) {
-    var qiscus = context.qiscus();
-    var room = context.room()!;
-    var account = context.account()!;
-
     return Scaffold(
-      extendBodyBehindAppBar: false,
-      appBar: buildAppBar(context: context, room: room),
+      appBar: buildAppBar(context: context),
       body: Column(
         children: [
           Expanded(
             flex: 1,
-            child: BlocSelector<QAppBloc, QAppState, List<QMessage>>(
-              selector: (state) => state.maybeMap(
-                orElse: () => [],
-                ready: (v) => v.messages,
-              ),
-              builder: (context, messages) {
+            child: QMultichannelConsumer(
+              builder: (context, ref) {
+                var messages = ref.messages;
+
                 return GroupedListView<QMessage, DateTime>(
                   elements: messages,
                   groupBy: (message) => message.timestamp,
                   itemBuilder: (context, message) {
-                    return _buildChatBubble(context, account, message);
+                    return _buildChatBubble(context, ref, message);
                   },
                   groupSeparatorBuilder: (DateTime date) {
                     return _buildSeparator(date);
@@ -63,17 +69,7 @@ class _ChatRoomScreenState extends State<QChatRoomScreen> {
               },
             ),
           ),
-          QChatForm(
-            onSubmit: (String text) {
-              var message = qiscus.generateMessage(
-                chatRoomId: room.id,
-                text: text,
-              );
-              qiscus.sendMessage(message: message).then((message) {
-                print('sukses kirim pesan: ${message.id}');
-              });
-            },
-          ),
+          QChatForm(),
         ],
       ),
     );
@@ -84,11 +80,36 @@ class _ChatRoomScreenState extends State<QChatRoomScreen> {
   }
 
   Widget _buildChatBubble(
-      BuildContext context, QAccount account, QMessage message) {
-    if (message.sender.id == account.id) {
-      return QChatBubbleRight(message: message);
-    } else {
-      return QChatBubbleLeft(message: message);
+    BuildContext context,
+    QMultichannel ref,
+    QMessage message,
+  ) {
+    var accountId = ref.account.whenData((v) => v.id);
+
+    // print('type: ${message.type} ${message.runtimeType}');
+
+    if (message.type == QMessageType.custom) {
+      var type = message.payload;
     }
+
+    if (message is QMessageSystem) {
+      return QChatSystem(message: message);
+    }
+
+    return accountId.when(
+      data: (accountId) {
+        if (message.sender.id == accountId) {
+          return QChatBubbleRight(message: message);
+        } else {
+          return QChatBubbleLeft(message: message);
+        }
+      },
+      loading: () {
+        return const CircularProgressIndicator();
+      },
+      error: (e, _) {
+        return Text(e.toString());
+      },
+    );
   }
 }

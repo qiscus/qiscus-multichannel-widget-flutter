@@ -4,8 +4,6 @@ import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'pages/login.dart';
 
 void main() {
-  const app = App();
-
   runApp(const App());
 }
 
@@ -17,62 +15,47 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
-  static const appId = 'sdksample';
-  late final QMultichannelWidget mulchan = QMultichannelWidget.builder(
-    appId: appId,
-  );
-  QiscusSDK get qiscus => mulchan.qiscus;
+  static const appId = 'akoop-i0xwcb7spjwzhro';
 
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
-      instance: mulchan,
-      builder: (context, state) {
-        var room = context.room();
-        print('room: $room');
-
+      appId: appId,
+      theme: QAppTheme(
+        rightBubbleColor: Colors.amberAccent.withAlpha(150),
+        leftBubbleColor: Colors.blueAccent.withAlpha(150),
+        rightBubbleTextColor: Colors.black87,
+        leftBubbleTextColor: Colors.black87,
+        fieldChatBorderColor: Colors.amberAccent,
+        fieldChatTextColor: Colors.teal,
+        navigationColor: Colors.teal,
+        navigationTitleColor: Colors.tealAccent,
+      ),
+      builder: (context) {
         return MaterialApp(
-          theme: ThemeData(
-            primaryColor: "#27B199".toColor(),
-            colorScheme: ColorScheme.light(
-              primary: "#27B199".toColor(),
-            ),
-          ),
-          home: Navigator(
-            pages: [
-              LoginPage(mulchan: mulchan),
-              if (room != null) QChatRoomPage(),
-            ],
-            onPopPage: (route, result) {
-              if (!route.didPop(result)) {
-                return false;
-              }
-
-              return true;
-            },
-          ),
+          home: _buildNavigator(),
         );
       },
     );
   }
-}
 
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-    required this.mulchan,
-  }) : super(key: key);
-  final QMultichannelWidget mulchan;
+  Widget _buildNavigator() {
+    return QMultichannelConsumer(
+      builder: (context, ref) {
+        var roomId = ref.roomId;
+        if (roomId == null) {
+          ref.setUser(userId: 'guest-1001', displayName: 'guest-1001');
+          ref.initiateChat();
+        }
 
-  @override
-  Widget build(BuildContext context) {
-    return QMultichannelBuilder(
-      builder: (context, state) {
-        var room = context.room();
-        print('room: $room');
         return Navigator(
-          pages: [
-            LoginPage(mulchan: mulchan),
+          pages: const [
+            // LoginPage(),
+            // ...room.maybeWhen(
+            //   orElse: () => const [],
+            //   data: (room) => [QChatRoomPage()],
+            // ),
+            QChatRoomPage(),
           ],
           onPopPage: (route, result) {
             if (!route.didPop(result)) {

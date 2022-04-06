@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 AppBar buildAppBar({
   required BuildContext context,
-  required QChatRoom room,
+  void Function()? onBack,
 }) {
   return AppBar(
     centerTitle: false,
     elevation: 2,
+    // backgroundColor: ,
     leading: TextButton(
-      onPressed: () {},
-      child: Icon(
-        Icons.arrow_back,
-        size: 34,
-        color: Theme.of(context).appBarTheme.iconTheme?.color ?? Colors.white,
+      onPressed: () {
+        onBack?.call();
+      },
+      child: QMultichannelConsumer(
+        builder: (context, ref) {
+          return Icon(
+            Icons.arrow_back,
+            size: 34,
+            color: ref.theme.navigationTitleColor,
+          );
+        },
       ),
     ),
     title: Row(
@@ -22,26 +29,45 @@ AppBar buildAppBar({
           dimension: 44,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: room.avatarUrl != null
-                ? Image.network(
-                    room.avatarUrl!,
-                    fit: BoxFit.cover,
-                    height: 44,
-                    width: 44,
-                  )
-                : Image.asset(
-                    "assets/avatar.png",
-                    fit: BoxFit.cover,
-                    height: 44,
-                    width: 44,
-                  ),
+            child: buildAvatar(),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 10.0),
-          child: Text(room.name ?? 'Room name'),
+          child: QMultichannelConsumer(
+            builder: (context, ref) {
+              // var roomName = ref.room.whenOrNull(data: (v) => v.name);
+              var title = ref.title;
+
+              return Text(title);
+            },
+          ),
         ),
       ],
     ),
+  );
+}
+
+Widget buildAvatar() {
+  return QMultichannelConsumer(
+    builder: (context, QMultichannel ref) {
+      var avatarUrl = ref.avatarUrl;
+
+      if (avatarUrl != null) {
+        return Image.network(
+          avatarUrl,
+          fit: BoxFit.cover,
+          height: 44,
+          width: 44,
+        );
+      } else {
+        return Image.asset(
+          "assets/avatar.png",
+          fit: BoxFit.cover,
+          height: 44,
+          width: 44,
+        );
+      }
+    },
   );
 }
