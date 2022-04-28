@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-part 'chat_image.freezed.dart';
-part 'chat_image.g.dart';
+import '../models.dart';
 
-class QChatImage extends StatelessWidget {
-  const QChatImage({
+part 'chat_file.freezed.dart';
+part 'chat_file.g.dart';
+
+class QChatFile extends StatelessWidget {
+  const QChatFile({
     Key? key,
     required this.message,
-    required this.url,
   }) : super(key: key);
 
-  final String url;
-  final QMessage message;
+  final QMessageFile message;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,13 @@ class QChatImage extends StatelessWidget {
       builder: (context, ref) {
         final bgColor = _getBgColor(ref);
 
-        var payload = QImagePayload.fromJson(message.payload!);
+        var url = Uri.tryParse(message.url)!;
+        var name = url.pathSegments.last;
+
+        QImagePayload? payload;
+        if (message.payload != null) {
+          payload = QImagePayload.fromJson(message.payload!);
+        }
 
         return Padding(
           padding: const EdgeInsets.only(left: 10, right: 5),
@@ -45,44 +51,33 @@ class QChatImage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(7),
                       child: GestureDetector(
                         onTap: () async {
-                          await launchUrlString(url);
+                          await launchUrl(url);
                         },
-                        child: Stack(
-                          children: <Widget>[
-                            Image.network(
-                              url,
-                              fit: BoxFit.contain,
-                            ),
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withAlpha(80),
+                        child: Container(
+                          height: 50,
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: <Widget>[
+                                const Icon(Icons.attach_file, size: 24),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 5),
+                                  child: Text(name),
                                 ),
-                                child: const Icon(
-                                  Icons.image,
-                                  size: 34,
-                                  color: Colors.white,
-                                ),
-                              ),
+                              ],
                             ),
-                            const Positioned(
-                              bottom: 10,
-                              right: 10,
-                              child: Icon(
-                                Icons.open_in_new,
-                                size: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                    if (payload.caption?.isNotEmpty == true)
+                    if (payload?.caption?.isNotEmpty == true)
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          payload.caption!,
+                          payload!.caption!,
                           textAlign: TextAlign.left,
                         ),
                       ),

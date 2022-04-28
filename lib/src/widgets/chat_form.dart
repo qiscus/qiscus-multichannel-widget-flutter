@@ -21,7 +21,6 @@ class QChatForm extends ConsumerWidget {
       child: QMultichannelConsumer(
         builder: (context, ref) {
           var account = ref.account;
-          final fgColor = ref.theme.fieldChatTextColor;
           final borderColor = ref.theme.fieldChatBorderColor;
 
           final border = OutlineInputBorder(
@@ -30,7 +29,7 @@ class QChatForm extends ConsumerWidget {
           );
 
           return Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
             child: SafeArea(
               child: Row(
                 children: <Widget>[

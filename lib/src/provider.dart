@@ -11,6 +11,7 @@ import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
+import 'widgets/chat_buttons.dart';
 
 final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
   var appId = ref.watch(appIdProvider);
@@ -97,7 +98,7 @@ final initiateChatProvider = FutureProvider((ref) async {
   var resp = await http.post(url, body: data);
   var json = jsonDecode(resp.body);
   var identityToken = json['data']['identity_token'] as String;
-  var isSessional = json['data']['is_sessional'] as bool;
+  // var isSessional = json['data']['is_sessional'] as bool;
   var room = json['data']['customer_room'];
   var roomId = int.parse(room['room_id']);
   var user = await qiscus.setUserWithIdentityToken(token: identityToken);
@@ -212,7 +213,7 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     });
     ref.subscribe(messageReceivedProvider, (QMessage message) {
       state = [
-        ...state,
+        ...state.where((m) => m.uniqueId != message.uniqueId),
         message,
       ];
     });
@@ -268,33 +269,36 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   }
 }
 
-final mappedMessagesProvider = Provider((ref) {
-  final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');
+final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
   var messages = ref.watch(messagesProvider);
 
   return messages.map((it) {
-    var url = fileRe.stringMatch(it.text);
+    QMessage? message;
 
-    print('type: ${it.type}');
-    print('sender: ${it.sender.name}');
-
-    if (it.type == QMessageType.attachment && url != null) {
-      return QMessageAttachment.fromMessage(it);
-    }
+    message ??= QMessageImage.tryParse(it);
+    message ??= QMessageVideo.tryParse(it);
+    message ??= QMessageFile.tryParse(it);
+    // Not yet mature
+    // message ??= QMessageButton.tryParse(it);
+    message ??= QMessageReply.tryParse(it);
+    message ??= QMessageSystem.tryParse(it);
+    message ??= it;
 
     // if (it.type == QMessageType.custom) {
     //   // FOR debugging purpose to place breakpoint
     //   var payload = it.payload!;
+    //   print('payload: $payload');
     // }
 
-    if (it.type == QMessageType.custom && it.payload!['type'] == 'reply') {
-      return QMessageReply.fromMessage(it);
-    }
+    return message;
+  })
+      // TODO: Remove me after done working with video message
+      // .whereType<QMessageVideo>()
+      // .whereType<QMessageImage>()
+      // .whereType<QMessageFile>()
+      .map((it) {
+    print('message.type ${it.runtimeType}');
 
-    if (it.type == QMessageType.custom &&
-        it.sender.name.toLowerCase() == 'system') {
-      return QMessageSystem.fromMessage(it);
-    }
     return it;
   }).toList();
 });
@@ -404,25 +408,12 @@ class QMultichannel {
   }) async {
     var roomId = await ref.watch(roomIdProvider.future);
     var q = await qiscus.future;
-
-    var completer = Completer<String>();
-    q.upload(
-      file: file,
-      callback: (err, __, url) {
-        if (url != null) {
-          completer.complete(url);
-        }
-        if (err != null) {
-          completer.completeError('Error uploading file');
-        }
-      },
-    );
-
-    var url = await completer.future;
+    var stream = q.upload(file);
+    var data = await stream.firstWhere((item) => item.data != null);
     return q.generateFileAttachmentMessage(
       chatRoomId: roomId,
       caption: caption,
-      url: url,
+      url: data.data!,
     );
   }
 }

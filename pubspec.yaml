@@ -4,26 +4,29 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: ">=2.16.0 <3.0.0"
-  flutter: ">=1.17.0"
+  sdk: '>=2.16.0 <3.0.0'
+  flutter: '>=1.17.0'
 
 dependencies:
-  date_format: ^2.0.5
   flutter:
     sdk: flutter
+  # qiscus_chat_sdk: ^2.0.0-beta.1
+  qiscus_chat_sdk:
+    path: ../qiscus-chat-sdk-flutter
   freezed_annotation: ^1.1.0
   grouped_list: ^4.2.0
   http: ^0.13.4
   flutter_riverpod: ^2.0.0-dev.4
-  # qiscus_chat_sdk: ^2.0.0-beta.1
-  qiscus_chat_sdk:
-    path: ../qiscus-chat-sdk-flutter
+  date_format: ^2.0.5
+  open_file: ^3.2.1
+  url_launcher: ^6.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
   freezed: ^1.1.1
+  json_serializable: ^6.1.6
   build_runner: ^2.1.7
 
 # dependency_overrides:

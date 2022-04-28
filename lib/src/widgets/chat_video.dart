@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:qiscus_multichannel_widget/src/models.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-part 'chat_image.freezed.dart';
-part 'chat_image.g.dart';
+part 'chat_video.freezed.dart';
+part 'chat_video.g.dart';
 
-class QChatImage extends StatelessWidget {
-  const QChatImage({
+class QChatVideo extends StatelessWidget {
+  const QChatVideo({
     Key? key,
     required this.message,
-    required this.url,
   }) : super(key: key);
 
-  final String url;
-  final QMessage message;
+  final QMessageVideo message;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,11 @@ class QChatImage extends StatelessWidget {
       builder: (context, ref) {
         final bgColor = _getBgColor(ref);
 
-        var payload = QImagePayload.fromJson(message.payload!);
+        QImagePayload? payload;
+        if (message.payload != null) {
+          payload = QImagePayload.fromJson(message.payload!);
+        }
+        var url = message.url;
 
         return Padding(
           padding: const EdgeInsets.only(left: 10, right: 5),
@@ -47,42 +50,51 @@ class QChatImage extends StatelessWidget {
                         onTap: () async {
                           await launchUrlString(url);
                         },
-                        child: Stack(
-                          children: <Widget>[
-                            Image.network(
-                              url,
-                              fit: BoxFit.contain,
-                            ),
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withAlpha(80),
-                                ),
-                                child: const Icon(
-                                  Icons.image,
-                                  size: 34,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                            const Positioned(
-                              bottom: 10,
-                              right: 10,
-                              child: Icon(
-                                Icons.open_in_new,
-                                size: 24,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ],
+                        child: QMultichannelConsumer(
+                          builder: (context, ref) {
+                            return ref.qiscus.maybeWhen(
+                              orElse: () => const CircularProgressIndicator(),
+                              data: (qiscus) {
+                                return Stack(
+                                  children: <Widget>[
+                                    Image.network(
+                                      qiscus.getThumbnailURL(url),
+                                      fit: BoxFit.contain,
+                                    ),
+                                    Positioned.fill(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withAlpha(80),
+                                        ),
+                                        child: const Icon(
+                                          Icons.play_circle_outline,
+                                          size: 34,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                    const Positioned(
+                                      bottom: 10,
+                                      right: 10,
+                                      child: Icon(
+                                        Icons.open_in_new,
+                                        size: 24,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
                     ),
-                    if (payload.caption?.isNotEmpty == true)
+                    if (payload?.caption?.isNotEmpty == true)
                       Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Text(
-                          payload.caption!,
+                          payload!.caption!,
                           textAlign: TextAlign.left,
                         ),
                       ),

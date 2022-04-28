@@ -43,13 +43,21 @@ class QMessageReply extends QMessage {
           sender: message.sender,
           timestamp: message.timestamp,
         );
+
+  static QMessageReply? tryParse(QMessage message) {
+    if (message.type == QMessageType.custom &&
+        message.payload?['type'] == 'reply') {
+      return QMessageReply.fromMessage(message);
+    }
+    return null;
+  }
 }
 
-class QMessageAttachment extends QMessage {
-  final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');
+class QMessageImage extends QMessage {
+  static final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');
   late String url = fileRe.stringMatch(text)!;
 
-  QMessageAttachment.fromMessage(QMessage message)
+  QMessageImage.fromMessage(QMessage message)
       : super(
           id: message.id,
           chatRoomId: message.chatRoomId,
@@ -63,6 +71,94 @@ class QMessageAttachment extends QMessage {
           sender: message.sender,
           timestamp: message.timestamp,
         );
+
+  static QMessageImage? tryParse(QMessage message) {
+    var url = fileRe.stringMatch(message.text);
+    if (message.type == QMessageType.attachment && url != null) {
+      return QMessageImage.fromMessage(message);
+    }
+
+    return null;
+  }
+}
+
+class QMessageVideo extends QMessage {
+  static final fileRe = RegExp(r'(https?:\/\/.*\.(?:mp4|ogg|mkv|3gp|aac))');
+  late final url = fileRe.stringMatch(text)!;
+
+  QMessageVideo.fromMessage(QMessage message)
+      : super(
+          id: message.id,
+          chatRoomId: message.chatRoomId,
+          previousMessageId: message.previousMessageId,
+          uniqueId: message.uniqueId,
+          text: message.text,
+          status: message.status,
+          type: message.type,
+          extras: message.extras,
+          payload: message.payload,
+          sender: message.sender,
+          timestamp: message.timestamp,
+        );
+
+  static QMessageVideo? tryParse(QMessage message) {
+    var url = fileRe.stringMatch(message.text);
+
+    if (url != null) {
+      message.type = QMessageType.attachment;
+    }
+    if (message.type == QMessageType.attachment && url != null) {
+      return QMessageVideo.fromMessage(message);
+    }
+
+    return null;
+  }
+}
+
+class QMessageFile extends QMessage {
+  late final url = text //
+      .replaceAll('[file]', '')
+      .replaceAll('[/file]', '')
+      .trim();
+
+  QMessageFile.fromMessage(QMessage message)
+      : super(
+          id: message.id,
+          chatRoomId: message.chatRoomId,
+          previousMessageId: message.previousMessageId,
+          uniqueId: message.uniqueId,
+          text: message.text,
+          status: message.status,
+          type: message.type,
+          extras: message.extras,
+          payload: message.payload,
+          sender: message.sender,
+          timestamp: message.timestamp,
+        );
+
+  static QMessageFile? tryParse(QMessage message) {
+    String? url;
+
+    var containsFileTag =
+        message.text.contains('[file]') && message.text.contains('[/file]');
+    var isImage = QMessageImage.fileRe.hasMatch(message.text);
+    var isVideo = QMessageVideo.fileRe.hasMatch(message.text);
+    if (containsFileTag && !(isImage || isVideo)) {
+      url = message.text
+          .replaceAll('[file]', '')
+          .replaceAll('[/file]', '')
+          .trim();
+    }
+
+    if (url != null) {
+      message.type = QMessageType.attachment;
+    }
+    if (message.type == QMessageType.attachment && url != null) {
+      return QMessageFile.fromMessage(message);
+    }
+
+    return null;
+  }
 }
 
 class QMessageSystem extends QMessage {
@@ -80,4 +176,12 @@ class QMessageSystem extends QMessage {
           sender: message.sender,
           timestamp: message.timestamp,
         );
+
+  static QMessageSystem? tryParse(QMessage message) {
+    if (message.type == QMessageType.custom &&
+        message.sender.name.toLowerCase() == 'system') {
+      return QMessageSystem.fromMessage(message);
+    }
+    return null;
+  }
 }

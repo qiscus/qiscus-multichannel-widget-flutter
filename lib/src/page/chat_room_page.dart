@@ -14,13 +14,13 @@ class QChatRoomPage extends Page {
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
-      builder: (context) => QChatRoomScreen(),
+      builder: (context) => const QChatRoomScreen(),
     );
   }
 }
 
 class QChatRoomScreen extends StatelessWidget {
-  QChatRoomScreen({Key? key}) : super(key: key);
+  const QChatRoomScreen({Key? key}) : super(key: key);
 
   // final message = QMessageSystem.fromMessage(QMessage(
   //   chatRoomId: -1,
@@ -88,9 +88,9 @@ class QChatRoomScreen extends StatelessWidget {
 
     // print('type: ${message.type} ${message.runtimeType}');
 
-    if (message.type == QMessageType.custom) {
-      var type = message.payload;
-    }
+    // if (message.type == QMessageType.custom) {
+    //   var type = message.payload;
+    // }
 
     if (message is QMessageSystem) {
       return QChatSystem(message: message);

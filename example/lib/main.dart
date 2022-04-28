@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
-import 'pages/login.dart';
-
 void main() {
   runApp(const App());
 }
@@ -21,16 +19,16 @@ class _AppStateBuilder extends State<App> {
   Widget build(BuildContext context) {
     return QMultichannelProvider(
       appId: appId,
-      theme: QAppTheme(
-        rightBubbleColor: Colors.amberAccent.withAlpha(150),
-        leftBubbleColor: Colors.blueAccent.withAlpha(150),
-        rightBubbleTextColor: Colors.black87,
-        leftBubbleTextColor: Colors.black87,
-        fieldChatBorderColor: Colors.amberAccent,
-        fieldChatTextColor: Colors.teal,
-        navigationColor: Colors.teal,
-        navigationTitleColor: Colors.tealAccent,
-      ),
+      // theme: QAppTheme(
+      //   rightBubbleColor: Colors.amberAccent.withAlpha(150),
+      //   leftBubbleColor: Colors.blueAccent.withAlpha(150),
+      //   rightBubbleTextColor: Colors.black87,
+      //   leftBubbleTextColor: Colors.black87,
+      //   fieldChatBorderColor: Colors.amberAccent,
+      //   fieldChatTextColor: Colors.teal,
+      //   navigationColor: Colors.teal,
+      //   navigationTitleColor: Colors.tealAccent,
+      // ),
       builder: (context) {
         return MaterialApp(
           home: _buildNavigator(),
