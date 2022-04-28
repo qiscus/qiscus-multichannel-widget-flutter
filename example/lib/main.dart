@@ -13,7 +13,7 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
-  static const appId = 'akoop-i0xwcb7spjwzhro';
+  static const appId = 'YOUR_APP_ID';
 
   @override
   Widget build(BuildContext context) {
