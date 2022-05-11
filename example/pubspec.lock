@@ -243,9 +243,9 @@ packages:
   qiscus_chat_sdk:
     dependency: transitive
     description:
-      path: "../../qiscus-chat-sdk-flutter"
-      relative: true
-    source: path
+      name: qiscus_chat_sdk
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "2.0.0-beta.2"
   qiscus_multichannel_widget:
     dependency: "direct main"
