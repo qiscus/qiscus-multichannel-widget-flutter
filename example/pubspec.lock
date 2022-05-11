@@ -117,7 +117,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.4"
+    version: "2.0.0-dev.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -141,7 +141,7 @@ packages:
       name: freezed_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "2.0.3"
   grouped_list:
     dependency: "direct main"
     description:
@@ -246,21 +246,21 @@ packages:
       path: "../../qiscus-chat-sdk-flutter"
       relative: true
     source: path
-    version: "1.0.18"
+    version: "2.0.0-beta.2"
   qiscus_multichannel_widget:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.0.1"
+    version: "1.0.0-beta.1"
   riverpod:
     dependency: transitive
     description:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.4"
+    version: "2.0.0-dev.6"
   sealed_unions:
     dependency: transitive
     description:

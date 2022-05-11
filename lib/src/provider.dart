@@ -11,7 +11,6 @@ import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
-import 'widgets/chat_buttons.dart';
 
 final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
   var appId = ref.watch(appIdProvider);
@@ -119,7 +118,13 @@ final messageReceivedProvider = StreamProvider((ref) async* {
   ref.onDispose(() {
     qiscus.unsubscribeChatRoom(room);
   });
-  yield* qiscus.onMessageReceived();
+  var stream = qiscus.onMessageReceived();
+  stream = stream.map((it) {
+    print('message received $it');
+    return it;
+  });
+
+  yield* stream;
 });
 final messageReadProvider = StreamProvider((ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);
@@ -291,15 +296,6 @@ final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
     // }
 
     return message;
-  })
-      // TODO: Remove me after done working with video message
-      // .whereType<QMessageVideo>()
-      // .whereType<QMessageImage>()
-      // .whereType<QMessageFile>()
-      .map((it) {
-    print('message.type ${it.runtimeType}');
-
-    return it;
   }).toList();
 });
 

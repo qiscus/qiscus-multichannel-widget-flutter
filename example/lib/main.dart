@@ -13,22 +13,34 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
-  static const appId = 'YOUR_APP_ID';
-
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
-      appId: appId,
-      // theme: QAppTheme(
-      //   rightBubbleColor: Colors.amberAccent.withAlpha(150),
-      //   leftBubbleColor: Colors.blueAccent.withAlpha(150),
-      //   rightBubbleTextColor: Colors.black87,
-      //   leftBubbleTextColor: Colors.black87,
-      //   fieldChatBorderColor: Colors.amberAccent,
-      //   fieldChatTextColor: Colors.teal,
-      //   navigationColor: Colors.teal,
-      //   navigationTitleColor: Colors.tealAccent,
-      // ),
+      appId: 'YOUR APP ID HERE',
+      baseUrl: 'your base url here',
+      avatar: QAvatarConfig.enabled(),
+      channelId: 'your channel id from multichannel dashboard',
+      hideEventUI: false,
+      subtitle: QSubtitleConfig.editable('custom subtitle here'),
+      title: 'custom title here',
+      theme: QAppTheme(
+        baseColor: Color.fromARGB(255, 249, 249, 249),
+        navigationColor: Color.fromARGB(255, 85, 178, 154),
+        navigationTitleColor: Color.fromARGB(255, 255, 255, 255),
+        systemEventTextColor: Color.fromARGB(255, 255, 255, 255),
+        rightBubbleColor: Color.fromARGB(255, 85, 178, 154),
+        rightBubbleTextColor: Color.fromARGB(255, 255, 255, 255),
+        leftBubbleColor: Color.fromARGB(255, 244, 244, 244),
+        leftBubbleTextColor: Color.fromARGB(255, 102, 102, 102),
+        timeLabelTextColor: Color.fromARGB(255, 123, 123, 123),
+        timeBackgroundColor: Color.fromARGB(0, 0, 0, 0),
+        emptyTextColor: Color.fromARGB(255, 153, 153, 153),
+        emptyBackgroundColor: Color.fromARGB(255, 249, 249, 249),
+        sendContainerColor: Color.fromARGB(255, 255, 255, 255),
+        sendContainerBackgroundColor: Color.fromARGB(255, 250, 250, 250),
+        fieldChatBorderColor: Color.fromARGB(255, 227, 227, 227),
+        fieldChatTextColor: Color.fromARGB(255, 51, 51, 51),
+      ),
       builder: (context) {
         return MaterialApp(
           home: _buildNavigator(),
