@@ -1,7 +1,7 @@
 name: qiscus_multichannel_widget
-description: A new Flutter package project.
+description: Omnichannel Platform to Increase Sales and Customer Loyalty.
 version: 1.0.0-beta.1
-homepage:
+homepage: https://www.qiscus.com/en
 
 environment:
   sdk: '>=2.16.0 <3.0.0'
