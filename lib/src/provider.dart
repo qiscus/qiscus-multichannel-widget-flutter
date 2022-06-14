@@ -26,6 +26,8 @@ final subtitleConfigProvider =
     StateProvider((_) => const QSubtitleConfig.disabled());
 final titleConfigProvider = StateProvider((_) => 'Customer Service');
 final channelIdConfigProvider = StateProvider<String?>((_) => null);
+final deviceIdConfigProvider = StateProvider<String?>((_) => null);
+final deviceIdDevelopmentModeProvider = StateProvider((_) => false);
 final systemEventConfigProvider = StateProvider<bool>((_) => true);
 final appThemeConfigProvider = StateProvider((_) => const QAppTheme());
 final appIdProvider = StateProvider<String?>((_) => null);
@@ -78,6 +80,8 @@ final initiateChatProvider = FutureProvider((ref) async {
   var channelId = ref.watch(channelIdConfigProvider);
   var sdkUserExtras = ref.watch(sdkUserExtrasProvider);
   var url = ref.watch(initiateChatUrlProvider);
+  var deviceId = ref.watch(deviceIdConfigProvider);
+  var deviceIdDevelopmentMode = ref.watch(deviceIdDevelopmentModeProvider);
 
   // return -1;
 
@@ -101,6 +105,15 @@ final initiateChatProvider = FutureProvider((ref) async {
   var room = json['data']['customer_room'];
   var roomId = int.parse(room['room_id']);
   var user = await qiscus.setUserWithIdentityToken(token: identityToken);
+
+  if (deviceId != null) {
+    try {
+      await qiscus.registerDeviceToken(
+        token: deviceId,
+        isDevelopment: deviceIdDevelopmentMode,
+      );
+    } catch (_) {}
+  }
 
   ref.read(appStateProvider.notifier).state = AppState.ready(
     roomId: roomId,
@@ -359,6 +372,11 @@ class QMultichannel {
     ref.read(channelIdConfigProvider.notifier).state = channelId;
   }
 
+  void setDeviceId(String deviceId, {bool isDevelopment = false}) {
+    ref.read(deviceIdConfigProvider.notifier).state = deviceId;
+    ref.read(deviceIdDevelopmentModeProvider.notifier).state = isDevelopment;
+  }
+
   Future<void> clearUser() async {
     // TODO: clear user
   }
@@ -412,4 +430,65 @@ class QMultichannel {
       url: data.data!,
     );
   }
+}
+
+final uploaderProvider =
+    StateNotifierProvider<UploadStateNotifier, Set<QUpload>>((ref) {
+  return UploadStateNotifier(ref);
+});
+
+class UploadStateNotifier extends StateNotifier<Set<QUpload>> {
+  final Ref ref;
+
+  UploadStateNotifier(this.ref, [Set<QUpload> state = const {}]) : super(state);
+
+  void add(File file) async {
+    var qiscus = await ref.read(qiscusProvider.future);
+    var roomId = await ref.read(roomIdProvider.future);
+
+    var progress = QUpload(file, 0);
+    state = {...state, progress};
+
+    var cancelToken = CancelToken();
+    progress.cancel = cancelToken.cancel;
+
+    var stream = qiscus.upload(file, cancelToken: cancelToken);
+    await for (var data in stream) {
+      if (data.data == null) {
+        progress.progress = data.progress;
+        state = {...state, progress};
+      } else {
+        state = state.where((v) => v != progress).toSet();
+        var m = qiscus.generateFileAttachmentMessage(
+          chatRoomId: roomId,
+          caption: '',
+          url: data.data!,
+        );
+        await ref.read(messagesProvider.notifier).sendMessage(m);
+      }
+    }
+  }
+
+  void cancel(QUpload file) {
+    state.firstWhere((v) => v == file).cancel?.call();
+    state = state.where((v) => v != file).toSet();
+  }
+}
+
+class QUpload {
+  File file;
+  double progress;
+  void Function()? cancel;
+
+  QUpload(this.file, this.progress);
+
+  @override
+  operator ==(Object other) =>
+      identical(this, other) ||
+      other is QUpload &&
+          runtimeType == other.runtimeType &&
+          file == other.file;
+
+  @override
+  int get hashCode => Object.hash(runtimeType, file);
 }

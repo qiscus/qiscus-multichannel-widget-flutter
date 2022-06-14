@@ -12,26 +12,7 @@ part of 'app_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$AppStateTearOff {
-  const _$AppStateTearOff();
-
-  _AppStateInitial initial() {
-    return const _AppStateInitial();
-  }
-
-  _AppStateReady ready({required int roomId, required QAccount account}) {
-    return _AppStateReady(
-      roomId: roomId,
-      account: account,
-    );
-  }
-}
-
-/// @nodoc
-const $AppState = _$AppStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$AppState {
@@ -91,21 +72,22 @@ class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$AppStateInitialCopyWith<$Res> {
-  factory _$AppStateInitialCopyWith(
-          _AppStateInitial value, $Res Function(_AppStateInitial) then) =
-      __$AppStateInitialCopyWithImpl<$Res>;
+abstract class _$$_AppStateInitialCopyWith<$Res> {
+  factory _$$_AppStateInitialCopyWith(
+          _$_AppStateInitial value, $Res Function(_$_AppStateInitial) then) =
+      __$$_AppStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$AppStateInitialCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements _$AppStateInitialCopyWith<$Res> {
-  __$AppStateInitialCopyWithImpl(
-      _AppStateInitial _value, $Res Function(_AppStateInitial) _then)
-      : super(_value, (v) => _then(v as _AppStateInitial));
+class __$$_AppStateInitialCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res>
+    implements _$$_AppStateInitialCopyWith<$Res> {
+  __$$_AppStateInitialCopyWithImpl(
+      _$_AppStateInitial _value, $Res Function(_$_AppStateInitial) _then)
+      : super(_value, (v) => _then(v as _$_AppStateInitial));
 
   @override
-  _AppStateInitial get _value => super._value as _AppStateInitial;
+  _$_AppStateInitial get _value => super._value as _$_AppStateInitial;
 }
 
 /// @nodoc
@@ -121,7 +103,7 @@ class _$_AppStateInitial implements _AppStateInitial {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _AppStateInitial);
+        (other.runtimeType == runtimeType && other is _$_AppStateInitial);
   }
 
   @override
@@ -195,29 +177,29 @@ abstract class _AppStateInitial implements AppState {
 }
 
 /// @nodoc
-abstract class _$AppStateReadyCopyWith<$Res> {
-  factory _$AppStateReadyCopyWith(
-          _AppStateReady value, $Res Function(_AppStateReady) then) =
-      __$AppStateReadyCopyWithImpl<$Res>;
+abstract class _$$_AppStateReadyCopyWith<$Res> {
+  factory _$$_AppStateReadyCopyWith(
+          _$_AppStateReady value, $Res Function(_$_AppStateReady) then) =
+      __$$_AppStateReadyCopyWithImpl<$Res>;
   $Res call({int roomId, QAccount account});
 }
 
 /// @nodoc
-class __$AppStateReadyCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
-    implements _$AppStateReadyCopyWith<$Res> {
-  __$AppStateReadyCopyWithImpl(
-      _AppStateReady _value, $Res Function(_AppStateReady) _then)
-      : super(_value, (v) => _then(v as _AppStateReady));
+class __$$_AppStateReadyCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+    implements _$$_AppStateReadyCopyWith<$Res> {
+  __$$_AppStateReadyCopyWithImpl(
+      _$_AppStateReady _value, $Res Function(_$_AppStateReady) _then)
+      : super(_value, (v) => _then(v as _$_AppStateReady));
 
   @override
-  _AppStateReady get _value => super._value as _AppStateReady;
+  _$_AppStateReady get _value => super._value as _$_AppStateReady;
 
   @override
   $Res call({
     Object? roomId = freezed,
     Object? account = freezed,
   }) {
-    return _then(_AppStateReady(
+    return _then(_$_AppStateReady(
       roomId: roomId == freezed
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
@@ -249,7 +231,7 @@ class _$_AppStateReady implements _AppStateReady {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _AppStateReady &&
+            other is _$_AppStateReady &&
             const DeepCollectionEquality().equals(other.roomId, roomId) &&
             const DeepCollectionEquality().equals(other.account, account));
   }
@@ -262,8 +244,8 @@ class _$_AppStateReady implements _AppStateReady {
 
   @JsonKey(ignore: true)
   @override
-  _$AppStateReadyCopyWith<_AppStateReady> get copyWith =>
-      __$AppStateReadyCopyWithImpl<_AppStateReady>(this, _$identity);
+  _$$_AppStateReadyCopyWith<_$_AppStateReady> get copyWith =>
+      __$$_AppStateReadyCopyWithImpl<_$_AppStateReady>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -330,78 +312,20 @@ class _$_AppStateReady implements _AppStateReady {
 
 abstract class _AppStateReady implements AppState {
   const factory _AppStateReady(
-      {required int roomId, required QAccount account}) = _$_AppStateReady;
+      {required final int roomId,
+      required final QAccount account}) = _$_AppStateReady;
 
-  int get roomId;
-  QAccount get account;
+  int get roomId => throw _privateConstructorUsedError;
+  QAccount get account => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$AppStateReadyCopyWith<_AppStateReady> get copyWith =>
+  _$$_AppStateReadyCopyWith<_$_AppStateReady> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$QAppStateTearOff {
-  const _$QAppStateTearOff();
-
-  _QAppStateInitial initial(
-      {QAppConfig appConfig = const QAppConfig(),
-      QAppTheme theme = const QAppTheme()}) {
-    return _QAppStateInitial(
-      appConfig: appConfig,
-      theme: theme,
-    );
-  }
-
-  _QAppStateSetup setup(
-      {required String appId,
-      QAppConfig appConfig = const QAppConfig(),
-      QAppTheme theme = const QAppTheme()}) {
-    return _QAppStateSetup(
-      appId: appId,
-      appConfig: appConfig,
-      theme: theme,
-    );
-  }
-
-  _QAppStateAuthenticated authenticated(
-      {required String appId,
-      required QUserConfig userConfig,
-      QAppConfig appConfig = const QAppConfig(),
-      QAppTheme theme = const QAppTheme()}) {
-    return _QAppStateAuthenticated(
-      appId: appId,
-      userConfig: userConfig,
-      appConfig: appConfig,
-      theme: theme,
-    );
-  }
-
-  _QAppStateReady ready(
-      {required String appId,
-      required QAccount account,
-      required QChatRoom room,
-      List<QMessage> messages = const [],
-      QAppConfig appConfig = const QAppConfig(),
-      QAppTheme theme = const QAppTheme()}) {
-    return _QAppStateReady(
-      appId: appId,
-      account: account,
-      room: room,
-      messages: messages,
-      appConfig: appConfig,
-      theme: theme,
-    );
-  }
-}
-
-/// @nodoc
-const $QAppState = _$QAppStateTearOff();
 
 /// @nodoc
 mixin _$QAppState {
   QAppConfig get appConfig => throw _privateConstructorUsedError;
   QAppTheme get theme => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(QAppConfig appConfig, QAppTheme theme) initial,
@@ -525,11 +449,11 @@ class _$QAppStateCopyWithImpl<$Res> implements $QAppStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QAppStateInitialCopyWith<$Res>
+abstract class _$$_QAppStateInitialCopyWith<$Res>
     implements $QAppStateCopyWith<$Res> {
-  factory _$QAppStateInitialCopyWith(
-          _QAppStateInitial value, $Res Function(_QAppStateInitial) then) =
-      __$QAppStateInitialCopyWithImpl<$Res>;
+  factory _$$_QAppStateInitialCopyWith(
+          _$_QAppStateInitial value, $Res Function(_$_QAppStateInitial) then) =
+      __$$_QAppStateInitialCopyWithImpl<$Res>;
   @override
   $Res call({QAppConfig appConfig, QAppTheme theme});
 
@@ -540,22 +464,22 @@ abstract class _$QAppStateInitialCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QAppStateInitialCopyWithImpl<$Res>
+class __$$_QAppStateInitialCopyWithImpl<$Res>
     extends _$QAppStateCopyWithImpl<$Res>
-    implements _$QAppStateInitialCopyWith<$Res> {
-  __$QAppStateInitialCopyWithImpl(
-      _QAppStateInitial _value, $Res Function(_QAppStateInitial) _then)
-      : super(_value, (v) => _then(v as _QAppStateInitial));
+    implements _$$_QAppStateInitialCopyWith<$Res> {
+  __$$_QAppStateInitialCopyWithImpl(
+      _$_QAppStateInitial _value, $Res Function(_$_QAppStateInitial) _then)
+      : super(_value, (v) => _then(v as _$_QAppStateInitial));
 
   @override
-  _QAppStateInitial get _value => super._value as _QAppStateInitial;
+  _$_QAppStateInitial get _value => super._value as _$_QAppStateInitial;
 
   @override
   $Res call({
     Object? appConfig = freezed,
     Object? theme = freezed,
   }) {
-    return _then(_QAppStateInitial(
+    return _then(_$_QAppStateInitial(
       appConfig: appConfig == freezed
           ? _value.appConfig
           : appConfig // ignore: cast_nullable_to_non_nullable
@@ -574,11 +498,11 @@ class _$_QAppStateInitial implements _QAppStateInitial {
   _$_QAppStateInitial(
       {this.appConfig = const QAppConfig(), this.theme = const QAppTheme()});
 
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppConfig appConfig;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppTheme theme;
 
   @override
@@ -590,7 +514,7 @@ class _$_QAppStateInitial implements _QAppStateInitial {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppStateInitial &&
+            other is _$_QAppStateInitial &&
             const DeepCollectionEquality().equals(other.appConfig, appConfig) &&
             const DeepCollectionEquality().equals(other.theme, theme));
   }
@@ -603,8 +527,8 @@ class _$_QAppStateInitial implements _QAppStateInitial {
 
   @JsonKey(ignore: true)
   @override
-  _$QAppStateInitialCopyWith<_QAppStateInitial> get copyWith =>
-      __$QAppStateInitialCopyWithImpl<_QAppStateInitial>(this, _$identity);
+  _$$_QAppStateInitialCopyWith<_$_QAppStateInitial> get copyWith =>
+      __$$_QAppStateInitialCopyWithImpl<_$_QAppStateInitial>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -698,25 +622,26 @@ class _$_QAppStateInitial implements _QAppStateInitial {
 }
 
 abstract class _QAppStateInitial implements QAppState {
-  factory _QAppStateInitial({QAppConfig appConfig, QAppTheme theme}) =
-      _$_QAppStateInitial;
+  factory _QAppStateInitial(
+      {final QAppConfig appConfig,
+      final QAppTheme theme}) = _$_QAppStateInitial;
 
   @override
-  QAppConfig get appConfig;
+  QAppConfig get appConfig => throw _privateConstructorUsedError;
   @override
-  QAppTheme get theme;
+  QAppTheme get theme => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppStateInitialCopyWith<_QAppStateInitial> get copyWith =>
+  _$$_QAppStateInitialCopyWith<_$_QAppStateInitial> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$QAppStateSetupCopyWith<$Res>
+abstract class _$$_QAppStateSetupCopyWith<$Res>
     implements $QAppStateCopyWith<$Res> {
-  factory _$QAppStateSetupCopyWith(
-          _QAppStateSetup value, $Res Function(_QAppStateSetup) then) =
-      __$QAppStateSetupCopyWithImpl<$Res>;
+  factory _$$_QAppStateSetupCopyWith(
+          _$_QAppStateSetup value, $Res Function(_$_QAppStateSetup) then) =
+      __$$_QAppStateSetupCopyWithImpl<$Res>;
   @override
   $Res call({String appId, QAppConfig appConfig, QAppTheme theme});
 
@@ -727,14 +652,15 @@ abstract class _$QAppStateSetupCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QAppStateSetupCopyWithImpl<$Res> extends _$QAppStateCopyWithImpl<$Res>
-    implements _$QAppStateSetupCopyWith<$Res> {
-  __$QAppStateSetupCopyWithImpl(
-      _QAppStateSetup _value, $Res Function(_QAppStateSetup) _then)
-      : super(_value, (v) => _then(v as _QAppStateSetup));
+class __$$_QAppStateSetupCopyWithImpl<$Res>
+    extends _$QAppStateCopyWithImpl<$Res>
+    implements _$$_QAppStateSetupCopyWith<$Res> {
+  __$$_QAppStateSetupCopyWithImpl(
+      _$_QAppStateSetup _value, $Res Function(_$_QAppStateSetup) _then)
+      : super(_value, (v) => _then(v as _$_QAppStateSetup));
 
   @override
-  _QAppStateSetup get _value => super._value as _QAppStateSetup;
+  _$_QAppStateSetup get _value => super._value as _$_QAppStateSetup;
 
   @override
   $Res call({
@@ -742,7 +668,7 @@ class __$QAppStateSetupCopyWithImpl<$Res> extends _$QAppStateCopyWithImpl<$Res>
     Object? appConfig = freezed,
     Object? theme = freezed,
   }) {
-    return _then(_QAppStateSetup(
+    return _then(_$_QAppStateSetup(
       appId: appId == freezed
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
@@ -769,11 +695,11 @@ class _$_QAppStateSetup implements _QAppStateSetup {
 
   @override
   final String appId;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppConfig appConfig;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppTheme theme;
 
   @override
@@ -785,7 +711,7 @@ class _$_QAppStateSetup implements _QAppStateSetup {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppStateSetup &&
+            other is _$_QAppStateSetup &&
             const DeepCollectionEquality().equals(other.appId, appId) &&
             const DeepCollectionEquality().equals(other.appConfig, appConfig) &&
             const DeepCollectionEquality().equals(other.theme, theme));
@@ -800,8 +726,8 @@ class _$_QAppStateSetup implements _QAppStateSetup {
 
   @JsonKey(ignore: true)
   @override
-  _$QAppStateSetupCopyWith<_QAppStateSetup> get copyWith =>
-      __$QAppStateSetupCopyWithImpl<_QAppStateSetup>(this, _$identity);
+  _$$_QAppStateSetupCopyWith<_$_QAppStateSetup> get copyWith =>
+      __$$_QAppStateSetupCopyWithImpl<_$_QAppStateSetup>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -896,27 +822,27 @@ class _$_QAppStateSetup implements _QAppStateSetup {
 
 abstract class _QAppStateSetup implements QAppState {
   factory _QAppStateSetup(
-      {required String appId,
-      QAppConfig appConfig,
-      QAppTheme theme}) = _$_QAppStateSetup;
+      {required final String appId,
+      final QAppConfig appConfig,
+      final QAppTheme theme}) = _$_QAppStateSetup;
 
-  String get appId;
+  String get appId => throw _privateConstructorUsedError;
   @override
-  QAppConfig get appConfig;
+  QAppConfig get appConfig => throw _privateConstructorUsedError;
   @override
-  QAppTheme get theme;
+  QAppTheme get theme => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppStateSetupCopyWith<_QAppStateSetup> get copyWith =>
+  _$$_QAppStateSetupCopyWith<_$_QAppStateSetup> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$QAppStateAuthenticatedCopyWith<$Res>
+abstract class _$$_QAppStateAuthenticatedCopyWith<$Res>
     implements $QAppStateCopyWith<$Res> {
-  factory _$QAppStateAuthenticatedCopyWith(_QAppStateAuthenticated value,
-          $Res Function(_QAppStateAuthenticated) then) =
-      __$QAppStateAuthenticatedCopyWithImpl<$Res>;
+  factory _$$_QAppStateAuthenticatedCopyWith(_$_QAppStateAuthenticated value,
+          $Res Function(_$_QAppStateAuthenticated) then) =
+      __$$_QAppStateAuthenticatedCopyWithImpl<$Res>;
   @override
   $Res call(
       {String appId,
@@ -932,15 +858,16 @@ abstract class _$QAppStateAuthenticatedCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QAppStateAuthenticatedCopyWithImpl<$Res>
+class __$$_QAppStateAuthenticatedCopyWithImpl<$Res>
     extends _$QAppStateCopyWithImpl<$Res>
-    implements _$QAppStateAuthenticatedCopyWith<$Res> {
-  __$QAppStateAuthenticatedCopyWithImpl(_QAppStateAuthenticated _value,
-      $Res Function(_QAppStateAuthenticated) _then)
-      : super(_value, (v) => _then(v as _QAppStateAuthenticated));
+    implements _$$_QAppStateAuthenticatedCopyWith<$Res> {
+  __$$_QAppStateAuthenticatedCopyWithImpl(_$_QAppStateAuthenticated _value,
+      $Res Function(_$_QAppStateAuthenticated) _then)
+      : super(_value, (v) => _then(v as _$_QAppStateAuthenticated));
 
   @override
-  _QAppStateAuthenticated get _value => super._value as _QAppStateAuthenticated;
+  _$_QAppStateAuthenticated get _value =>
+      super._value as _$_QAppStateAuthenticated;
 
   @override
   $Res call({
@@ -949,7 +876,7 @@ class __$QAppStateAuthenticatedCopyWithImpl<$Res>
     Object? appConfig = freezed,
     Object? theme = freezed,
   }) {
-    return _then(_QAppStateAuthenticated(
+    return _then(_$_QAppStateAuthenticated(
       appId: appId == freezed
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
@@ -990,11 +917,11 @@ class _$_QAppStateAuthenticated implements _QAppStateAuthenticated {
   final String appId;
   @override
   final QUserConfig userConfig;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppConfig appConfig;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppTheme theme;
 
   @override
@@ -1006,7 +933,7 @@ class _$_QAppStateAuthenticated implements _QAppStateAuthenticated {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppStateAuthenticated &&
+            other is _$_QAppStateAuthenticated &&
             const DeepCollectionEquality().equals(other.appId, appId) &&
             const DeepCollectionEquality()
                 .equals(other.userConfig, userConfig) &&
@@ -1024,8 +951,8 @@ class _$_QAppStateAuthenticated implements _QAppStateAuthenticated {
 
   @JsonKey(ignore: true)
   @override
-  _$QAppStateAuthenticatedCopyWith<_QAppStateAuthenticated> get copyWith =>
-      __$QAppStateAuthenticatedCopyWithImpl<_QAppStateAuthenticated>(
+  _$$_QAppStateAuthenticatedCopyWith<_$_QAppStateAuthenticated> get copyWith =>
+      __$$_QAppStateAuthenticatedCopyWithImpl<_$_QAppStateAuthenticated>(
           this, _$identity);
 
   @override
@@ -1121,29 +1048,29 @@ class _$_QAppStateAuthenticated implements _QAppStateAuthenticated {
 
 abstract class _QAppStateAuthenticated implements QAppState {
   factory _QAppStateAuthenticated(
-      {required String appId,
-      required QUserConfig userConfig,
-      QAppConfig appConfig,
-      QAppTheme theme}) = _$_QAppStateAuthenticated;
+      {required final String appId,
+      required final QUserConfig userConfig,
+      final QAppConfig appConfig,
+      final QAppTheme theme}) = _$_QAppStateAuthenticated;
 
-  String get appId;
-  QUserConfig get userConfig;
+  String get appId => throw _privateConstructorUsedError;
+  QUserConfig get userConfig => throw _privateConstructorUsedError;
   @override
-  QAppConfig get appConfig;
+  QAppConfig get appConfig => throw _privateConstructorUsedError;
   @override
-  QAppTheme get theme;
+  QAppTheme get theme => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppStateAuthenticatedCopyWith<_QAppStateAuthenticated> get copyWith =>
+  _$$_QAppStateAuthenticatedCopyWith<_$_QAppStateAuthenticated> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$QAppStateReadyCopyWith<$Res>
+abstract class _$$_QAppStateReadyCopyWith<$Res>
     implements $QAppStateCopyWith<$Res> {
-  factory _$QAppStateReadyCopyWith(
-          _QAppStateReady value, $Res Function(_QAppStateReady) then) =
-      __$QAppStateReadyCopyWithImpl<$Res>;
+  factory _$$_QAppStateReadyCopyWith(
+          _$_QAppStateReady value, $Res Function(_$_QAppStateReady) then) =
+      __$$_QAppStateReadyCopyWithImpl<$Res>;
   @override
   $Res call(
       {String appId,
@@ -1160,14 +1087,15 @@ abstract class _$QAppStateReadyCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QAppStateReadyCopyWithImpl<$Res> extends _$QAppStateCopyWithImpl<$Res>
-    implements _$QAppStateReadyCopyWith<$Res> {
-  __$QAppStateReadyCopyWithImpl(
-      _QAppStateReady _value, $Res Function(_QAppStateReady) _then)
-      : super(_value, (v) => _then(v as _QAppStateReady));
+class __$$_QAppStateReadyCopyWithImpl<$Res>
+    extends _$QAppStateCopyWithImpl<$Res>
+    implements _$$_QAppStateReadyCopyWith<$Res> {
+  __$$_QAppStateReadyCopyWithImpl(
+      _$_QAppStateReady _value, $Res Function(_$_QAppStateReady) _then)
+      : super(_value, (v) => _then(v as _$_QAppStateReady));
 
   @override
-  _QAppStateReady get _value => super._value as _QAppStateReady;
+  _$_QAppStateReady get _value => super._value as _$_QAppStateReady;
 
   @override
   $Res call({
@@ -1178,7 +1106,7 @@ class __$QAppStateReadyCopyWithImpl<$Res> extends _$QAppStateCopyWithImpl<$Res>
     Object? appConfig = freezed,
     Object? theme = freezed,
   }) {
-    return _then(_QAppStateReady(
+    return _then(_$_QAppStateReady(
       appId: appId == freezed
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
@@ -1192,7 +1120,7 @@ class __$QAppStateReadyCopyWithImpl<$Res> extends _$QAppStateCopyWithImpl<$Res>
           : room // ignore: cast_nullable_to_non_nullable
               as QChatRoom,
       messages: messages == freezed
-          ? _value.messages
+          ? _value._messages
           : messages // ignore: cast_nullable_to_non_nullable
               as List<QMessage>,
       appConfig: appConfig == freezed
@@ -1214,9 +1142,10 @@ class _$_QAppStateReady implements _QAppStateReady {
       {required this.appId,
       required this.account,
       required this.room,
-      this.messages = const [],
+      final List<QMessage> messages = const [],
       this.appConfig = const QAppConfig(),
-      this.theme = const QAppTheme()});
+      this.theme = const QAppTheme()})
+      : _messages = messages;
 
   @override
   final String appId;
@@ -1224,14 +1153,19 @@ class _$_QAppStateReady implements _QAppStateReady {
   final QAccount account;
   @override
   final QChatRoom room;
-  @JsonKey()
+  final List<QMessage> _messages;
   @override
-  final List<QMessage> messages;
   @JsonKey()
+  List<QMessage> get messages {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_messages);
+  }
+
   @override
+  @JsonKey()
   final QAppConfig appConfig;
-  @JsonKey()
   @override
+  @JsonKey()
   final QAppTheme theme;
 
   @override
@@ -1243,11 +1177,11 @@ class _$_QAppStateReady implements _QAppStateReady {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppStateReady &&
+            other is _$_QAppStateReady &&
             const DeepCollectionEquality().equals(other.appId, appId) &&
             const DeepCollectionEquality().equals(other.account, account) &&
             const DeepCollectionEquality().equals(other.room, room) &&
-            const DeepCollectionEquality().equals(other.messages, messages) &&
+            const DeepCollectionEquality().equals(other._messages, _messages) &&
             const DeepCollectionEquality().equals(other.appConfig, appConfig) &&
             const DeepCollectionEquality().equals(other.theme, theme));
   }
@@ -1258,14 +1192,14 @@ class _$_QAppStateReady implements _QAppStateReady {
       const DeepCollectionEquality().hash(appId),
       const DeepCollectionEquality().hash(account),
       const DeepCollectionEquality().hash(room),
-      const DeepCollectionEquality().hash(messages),
+      const DeepCollectionEquality().hash(_messages),
       const DeepCollectionEquality().hash(appConfig),
       const DeepCollectionEquality().hash(theme));
 
   @JsonKey(ignore: true)
   @override
-  _$QAppStateReadyCopyWith<_QAppStateReady> get copyWith =>
-      __$QAppStateReadyCopyWithImpl<_QAppStateReady>(this, _$identity);
+  _$$_QAppStateReadyCopyWith<_$_QAppStateReady> get copyWith =>
+      __$$_QAppStateReadyCopyWithImpl<_$_QAppStateReady>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1360,23 +1294,23 @@ class _$_QAppStateReady implements _QAppStateReady {
 
 abstract class _QAppStateReady implements QAppState {
   factory _QAppStateReady(
-      {required String appId,
-      required QAccount account,
-      required QChatRoom room,
-      List<QMessage> messages,
-      QAppConfig appConfig,
-      QAppTheme theme}) = _$_QAppStateReady;
+      {required final String appId,
+      required final QAccount account,
+      required final QChatRoom room,
+      final List<QMessage> messages,
+      final QAppConfig appConfig,
+      final QAppTheme theme}) = _$_QAppStateReady;
 
-  String get appId;
-  QAccount get account;
-  QChatRoom get room;
-  List<QMessage> get messages;
+  String get appId => throw _privateConstructorUsedError;
+  QAccount get account => throw _privateConstructorUsedError;
+  QChatRoom get room => throw _privateConstructorUsedError;
+  List<QMessage> get messages => throw _privateConstructorUsedError;
   @override
-  QAppConfig get appConfig;
+  QAppConfig get appConfig => throw _privateConstructorUsedError;
   @override
-  QAppTheme get theme;
+  QAppTheme get theme => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppStateReadyCopyWith<_QAppStateReady> get copyWith =>
+  _$$_QAppStateReadyCopyWith<_$_QAppStateReady> get copyWith =>
       throw _privateConstructorUsedError;
 }

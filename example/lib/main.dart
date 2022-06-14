@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
+const appId = 'akoop-i0xwcb7spjwzhro';
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const App());
 }
 
@@ -16,30 +19,15 @@ class _AppStateBuilder extends State<App> {
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
-      appId: 'YOUR APP ID HERE',
-      baseUrl: 'your base url here',
-      avatar: QAvatarConfig.enabled(),
-      channelId: 'your channel id from multichannel dashboard',
-      hideEventUI: false,
-      subtitle: QSubtitleConfig.editable('custom subtitle here'),
-      title: 'custom title here',
+      appId: appId,
       theme: QAppTheme(
-        baseColor: Color.fromARGB(255, 249, 249, 249),
-        navigationColor: Color.fromARGB(255, 85, 178, 154),
-        navigationTitleColor: Color.fromARGB(255, 255, 255, 255),
-        systemEventTextColor: Color.fromARGB(255, 255, 255, 255),
-        rightBubbleColor: Color.fromARGB(255, 85, 178, 154),
-        rightBubbleTextColor: Color.fromARGB(255, 255, 255, 255),
-        leftBubbleColor: Color.fromARGB(255, 244, 244, 244),
-        leftBubbleTextColor: Color.fromARGB(255, 102, 102, 102),
-        timeLabelTextColor: Color.fromARGB(255, 123, 123, 123),
-        timeBackgroundColor: Color.fromARGB(0, 0, 0, 0),
-        emptyTextColor: Color.fromARGB(255, 153, 153, 153),
-        emptyBackgroundColor: Color.fromARGB(255, 249, 249, 249),
-        sendContainerColor: Color.fromARGB(255, 255, 255, 255),
-        sendContainerBackgroundColor: Color.fromARGB(255, 250, 250, 250),
-        fieldChatBorderColor: Color.fromARGB(255, 227, 227, 227),
-        fieldChatTextColor: Color.fromARGB(255, 51, 51, 51),
+        // navigationTitleColor: Colors.amber,
+        navigationColor: Colors.blueGrey,
+        fieldChatBorderColor: Colors.blueGrey,
+        fieldChatTextColor: Colors.blue,
+        leftBubbleColor: Colors.blueGrey,
+        rightBubbleColor: Colors.blue,
+        leftBubbleTextColor: Colors.white,
       ),
       builder: (context) {
         return MaterialApp(

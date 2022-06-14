@@ -12,29 +12,7 @@ part of 'subtitle_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$QSubtitleConfigTearOff {
-  const _$QSubtitleConfigTearOff();
-
-  _QSubtitleDisabled disabled() {
-    return const _QSubtitleDisabled();
-  }
-
-  _QSubtitleEnabled enabled() {
-    return const _QSubtitleEnabled();
-  }
-
-  _QSubtitleEditable editable(String subtitle) {
-    return _QSubtitleEditable(
-      subtitle,
-    );
-  }
-}
-
-/// @nodoc
-const $QSubtitleConfig = _$QSubtitleConfigTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$QSubtitleConfig {
@@ -102,22 +80,22 @@ class _$QSubtitleConfigCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$QSubtitleDisabledCopyWith<$Res> {
-  factory _$QSubtitleDisabledCopyWith(
-          _QSubtitleDisabled value, $Res Function(_QSubtitleDisabled) then) =
-      __$QSubtitleDisabledCopyWithImpl<$Res>;
+abstract class _$$_QSubtitleDisabledCopyWith<$Res> {
+  factory _$$_QSubtitleDisabledCopyWith(_$_QSubtitleDisabled value,
+          $Res Function(_$_QSubtitleDisabled) then) =
+      __$$_QSubtitleDisabledCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$QSubtitleDisabledCopyWithImpl<$Res>
+class __$$_QSubtitleDisabledCopyWithImpl<$Res>
     extends _$QSubtitleConfigCopyWithImpl<$Res>
-    implements _$QSubtitleDisabledCopyWith<$Res> {
-  __$QSubtitleDisabledCopyWithImpl(
-      _QSubtitleDisabled _value, $Res Function(_QSubtitleDisabled) _then)
-      : super(_value, (v) => _then(v as _QSubtitleDisabled));
+    implements _$$_QSubtitleDisabledCopyWith<$Res> {
+  __$$_QSubtitleDisabledCopyWithImpl(
+      _$_QSubtitleDisabled _value, $Res Function(_$_QSubtitleDisabled) _then)
+      : super(_value, (v) => _then(v as _$_QSubtitleDisabled));
 
   @override
-  _QSubtitleDisabled get _value => super._value as _QSubtitleDisabled;
+  _$_QSubtitleDisabled get _value => super._value as _$_QSubtitleDisabled;
 }
 
 /// @nodoc
@@ -133,7 +111,7 @@ class _$_QSubtitleDisabled implements _QSubtitleDisabled {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _QSubtitleDisabled);
+        (other.runtimeType == runtimeType && other is _$_QSubtitleDisabled);
   }
 
   @override
@@ -213,22 +191,22 @@ abstract class _QSubtitleDisabled implements QSubtitleConfig {
 }
 
 /// @nodoc
-abstract class _$QSubtitleEnabledCopyWith<$Res> {
-  factory _$QSubtitleEnabledCopyWith(
-          _QSubtitleEnabled value, $Res Function(_QSubtitleEnabled) then) =
-      __$QSubtitleEnabledCopyWithImpl<$Res>;
+abstract class _$$_QSubtitleEnabledCopyWith<$Res> {
+  factory _$$_QSubtitleEnabledCopyWith(
+          _$_QSubtitleEnabled value, $Res Function(_$_QSubtitleEnabled) then) =
+      __$$_QSubtitleEnabledCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$QSubtitleEnabledCopyWithImpl<$Res>
+class __$$_QSubtitleEnabledCopyWithImpl<$Res>
     extends _$QSubtitleConfigCopyWithImpl<$Res>
-    implements _$QSubtitleEnabledCopyWith<$Res> {
-  __$QSubtitleEnabledCopyWithImpl(
-      _QSubtitleEnabled _value, $Res Function(_QSubtitleEnabled) _then)
-      : super(_value, (v) => _then(v as _QSubtitleEnabled));
+    implements _$$_QSubtitleEnabledCopyWith<$Res> {
+  __$$_QSubtitleEnabledCopyWithImpl(
+      _$_QSubtitleEnabled _value, $Res Function(_$_QSubtitleEnabled) _then)
+      : super(_value, (v) => _then(v as _$_QSubtitleEnabled));
 
   @override
-  _QSubtitleEnabled get _value => super._value as _QSubtitleEnabled;
+  _$_QSubtitleEnabled get _value => super._value as _$_QSubtitleEnabled;
 }
 
 /// @nodoc
@@ -244,7 +222,7 @@ class _$_QSubtitleEnabled implements _QSubtitleEnabled {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _QSubtitleEnabled);
+        (other.runtimeType == runtimeType && other is _$_QSubtitleEnabled);
   }
 
   @override
@@ -324,29 +302,29 @@ abstract class _QSubtitleEnabled implements QSubtitleConfig {
 }
 
 /// @nodoc
-abstract class _$QSubtitleEditableCopyWith<$Res> {
-  factory _$QSubtitleEditableCopyWith(
-          _QSubtitleEditable value, $Res Function(_QSubtitleEditable) then) =
-      __$QSubtitleEditableCopyWithImpl<$Res>;
+abstract class _$$_QSubtitleEditableCopyWith<$Res> {
+  factory _$$_QSubtitleEditableCopyWith(_$_QSubtitleEditable value,
+          $Res Function(_$_QSubtitleEditable) then) =
+      __$$_QSubtitleEditableCopyWithImpl<$Res>;
   $Res call({String subtitle});
 }
 
 /// @nodoc
-class __$QSubtitleEditableCopyWithImpl<$Res>
+class __$$_QSubtitleEditableCopyWithImpl<$Res>
     extends _$QSubtitleConfigCopyWithImpl<$Res>
-    implements _$QSubtitleEditableCopyWith<$Res> {
-  __$QSubtitleEditableCopyWithImpl(
-      _QSubtitleEditable _value, $Res Function(_QSubtitleEditable) _then)
-      : super(_value, (v) => _then(v as _QSubtitleEditable));
+    implements _$$_QSubtitleEditableCopyWith<$Res> {
+  __$$_QSubtitleEditableCopyWithImpl(
+      _$_QSubtitleEditable _value, $Res Function(_$_QSubtitleEditable) _then)
+      : super(_value, (v) => _then(v as _$_QSubtitleEditable));
 
   @override
-  _QSubtitleEditable get _value => super._value as _QSubtitleEditable;
+  _$_QSubtitleEditable get _value => super._value as _$_QSubtitleEditable;
 
   @override
   $Res call({
     Object? subtitle = freezed,
   }) {
-    return _then(_QSubtitleEditable(
+    return _then(_$_QSubtitleEditable(
       subtitle == freezed
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
@@ -372,7 +350,7 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QSubtitleEditable &&
+            other is _$_QSubtitleEditable &&
             const DeepCollectionEquality().equals(other.subtitle, subtitle));
   }
 
@@ -382,8 +360,9 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
 
   @JsonKey(ignore: true)
   @override
-  _$QSubtitleEditableCopyWith<_QSubtitleEditable> get copyWith =>
-      __$QSubtitleEditableCopyWithImpl<_QSubtitleEditable>(this, _$identity);
+  _$$_QSubtitleEditableCopyWith<_$_QSubtitleEditable> get copyWith =>
+      __$$_QSubtitleEditableCopyWithImpl<_$_QSubtitleEditable>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -455,10 +434,11 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
 }
 
 abstract class _QSubtitleEditable implements QSubtitleConfig {
-  const factory _QSubtitleEditable(String subtitle) = _$_QSubtitleEditable;
+  const factory _QSubtitleEditable(final String subtitle) =
+      _$_QSubtitleEditable;
 
-  String get subtitle;
+  String get subtitle => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$QSubtitleEditableCopyWith<_QSubtitleEditable> get copyWith =>
+  _$$_QSubtitleEditableCopyWith<_$_QSubtitleEditable> get copyWith =>
       throw _privateConstructorUsedError;
 }

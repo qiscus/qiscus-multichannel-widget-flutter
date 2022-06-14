@@ -12,53 +12,7 @@ part of 'app_theme.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$QAppThemeTearOff {
-  const _$QAppThemeTearOff();
-
-  _QAppTheme call(
-      {Color baseColor = const Color.fromARGB(255, 249, 249, 249),
-      Color navigationColor = const Color.fromARGB(255, 85, 178, 154),
-      Color navigationTitleColor = const Color.fromARGB(255, 255, 255, 255),
-      Color systemEventTextColor = const Color.fromARGB(255, 255, 255, 255),
-      Color rightBubbleColor = const Color.fromARGB(255, 85, 178, 154),
-      Color rightBubbleTextColor = const Color.fromARGB(255, 255, 255, 255),
-      Color leftBubbleColor = const Color.fromARGB(255, 244, 244, 244),
-      Color leftBubbleTextColor = const Color.fromARGB(255, 102, 102, 102),
-      Color timeLabelTextColor = const Color.fromARGB(255, 123, 123, 123),
-      Color timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
-      Color emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
-      Color emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
-      Color sendContainerColor = const Color.fromARGB(255, 255, 255, 255),
-      Color sendContainerBackgroundColor =
-          const Color.fromARGB(255, 250, 250, 250),
-      Color fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),
-      Color fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51)}) {
-    return _QAppTheme(
-      baseColor: baseColor,
-      navigationColor: navigationColor,
-      navigationTitleColor: navigationTitleColor,
-      systemEventTextColor: systemEventTextColor,
-      rightBubbleColor: rightBubbleColor,
-      rightBubbleTextColor: rightBubbleTextColor,
-      leftBubbleColor: leftBubbleColor,
-      leftBubbleTextColor: leftBubbleTextColor,
-      timeLabelTextColor: timeLabelTextColor,
-      timeBackgroundColor: timeBackgroundColor,
-      emptyTextColor: emptyTextColor,
-      emptyBackgroundColor: emptyBackgroundColor,
-      sendContainerColor: sendContainerColor,
-      sendContainerBackgroundColor: sendContainerBackgroundColor,
-      fieldChatBorderColor: fieldChatBorderColor,
-      fieldChatTextColor: fieldChatTextColor,
-    );
-  }
-}
-
-/// @nodoc
-const $QAppTheme = _$QAppThemeTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$QAppTheme {
@@ -204,10 +158,10 @@ class _$QAppThemeCopyWithImpl<$Res> implements $QAppThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
-  factory _$QAppThemeCopyWith(
-          _QAppTheme value, $Res Function(_QAppTheme) then) =
-      __$QAppThemeCopyWithImpl<$Res>;
+abstract class _$$_QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
+  factory _$$_QAppThemeCopyWith(
+          _$_QAppTheme value, $Res Function(_$_QAppTheme) then) =
+      __$$_QAppThemeCopyWithImpl<$Res>;
   @override
   $Res call(
       {Color baseColor,
@@ -229,13 +183,14 @@ abstract class _$QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$QAppThemeCopyWithImpl<$Res> extends _$QAppThemeCopyWithImpl<$Res>
-    implements _$QAppThemeCopyWith<$Res> {
-  __$QAppThemeCopyWithImpl(_QAppTheme _value, $Res Function(_QAppTheme) _then)
-      : super(_value, (v) => _then(v as _QAppTheme));
+class __$$_QAppThemeCopyWithImpl<$Res> extends _$QAppThemeCopyWithImpl<$Res>
+    implements _$$_QAppThemeCopyWith<$Res> {
+  __$$_QAppThemeCopyWithImpl(
+      _$_QAppTheme _value, $Res Function(_$_QAppTheme) _then)
+      : super(_value, (v) => _then(v as _$_QAppTheme));
 
   @override
-  _QAppTheme get _value => super._value as _QAppTheme;
+  _$_QAppTheme get _value => super._value as _$_QAppTheme;
 
   @override
   $Res call({
@@ -256,7 +211,7 @@ class __$QAppThemeCopyWithImpl<$Res> extends _$QAppThemeCopyWithImpl<$Res>
     Object? fieldChatBorderColor = freezed,
     Object? fieldChatTextColor = freezed,
   }) {
-    return _then(_QAppTheme(
+    return _then(_$_QAppTheme(
       baseColor: baseColor == freezed
           ? _value.baseColor
           : baseColor // ignore: cast_nullable_to_non_nullable
@@ -347,53 +302,53 @@ class _$_QAppTheme implements _QAppTheme {
       this.fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),
       this.fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51)});
 
-  @JsonKey()
   @override
+  @JsonKey()
   final Color baseColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color navigationColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color navigationTitleColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color systemEventTextColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color rightBubbleColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color rightBubbleTextColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color leftBubbleColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color leftBubbleTextColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color timeLabelTextColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color timeBackgroundColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color emptyTextColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color emptyBackgroundColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color sendContainerColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color sendContainerBackgroundColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color fieldChatBorderColor;
-  @JsonKey()
   @override
+  @JsonKey()
   final Color fieldChatTextColor;
 
   @override
@@ -405,7 +360,7 @@ class _$_QAppTheme implements _QAppTheme {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppTheme &&
+            other is _$_QAppTheme &&
             const DeepCollectionEquality().equals(other.baseColor, baseColor) &&
             const DeepCollectionEquality()
                 .equals(other.navigationColor, navigationColor) &&
@@ -462,63 +417,63 @@ class _$_QAppTheme implements _QAppTheme {
 
   @JsonKey(ignore: true)
   @override
-  _$QAppThemeCopyWith<_QAppTheme> get copyWith =>
-      __$QAppThemeCopyWithImpl<_QAppTheme>(this, _$identity);
+  _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>
+      __$$_QAppThemeCopyWithImpl<_$_QAppTheme>(this, _$identity);
 }
 
 abstract class _QAppTheme implements QAppTheme {
   const factory _QAppTheme(
-      {Color baseColor,
-      Color navigationColor,
-      Color navigationTitleColor,
-      Color systemEventTextColor,
-      Color rightBubbleColor,
-      Color rightBubbleTextColor,
-      Color leftBubbleColor,
-      Color leftBubbleTextColor,
-      Color timeLabelTextColor,
-      Color timeBackgroundColor,
-      Color emptyTextColor,
-      Color emptyBackgroundColor,
-      Color sendContainerColor,
-      Color sendContainerBackgroundColor,
-      Color fieldChatBorderColor,
-      Color fieldChatTextColor}) = _$_QAppTheme;
+      {final Color baseColor,
+      final Color navigationColor,
+      final Color navigationTitleColor,
+      final Color systemEventTextColor,
+      final Color rightBubbleColor,
+      final Color rightBubbleTextColor,
+      final Color leftBubbleColor,
+      final Color leftBubbleTextColor,
+      final Color timeLabelTextColor,
+      final Color timeBackgroundColor,
+      final Color emptyTextColor,
+      final Color emptyBackgroundColor,
+      final Color sendContainerColor,
+      final Color sendContainerBackgroundColor,
+      final Color fieldChatBorderColor,
+      final Color fieldChatTextColor}) = _$_QAppTheme;
 
   @override
-  Color get baseColor;
+  Color get baseColor => throw _privateConstructorUsedError;
   @override
-  Color get navigationColor;
+  Color get navigationColor => throw _privateConstructorUsedError;
   @override
-  Color get navigationTitleColor;
+  Color get navigationTitleColor => throw _privateConstructorUsedError;
   @override
-  Color get systemEventTextColor;
+  Color get systemEventTextColor => throw _privateConstructorUsedError;
   @override
-  Color get rightBubbleColor;
+  Color get rightBubbleColor => throw _privateConstructorUsedError;
   @override
-  Color get rightBubbleTextColor;
+  Color get rightBubbleTextColor => throw _privateConstructorUsedError;
   @override
-  Color get leftBubbleColor;
+  Color get leftBubbleColor => throw _privateConstructorUsedError;
   @override
-  Color get leftBubbleTextColor;
+  Color get leftBubbleTextColor => throw _privateConstructorUsedError;
   @override
-  Color get timeLabelTextColor;
+  Color get timeLabelTextColor => throw _privateConstructorUsedError;
   @override
-  Color get timeBackgroundColor;
+  Color get timeBackgroundColor => throw _privateConstructorUsedError;
   @override
-  Color get emptyTextColor;
+  Color get emptyTextColor => throw _privateConstructorUsedError;
   @override
-  Color get emptyBackgroundColor;
+  Color get emptyBackgroundColor => throw _privateConstructorUsedError;
   @override
-  Color get sendContainerColor;
+  Color get sendContainerColor => throw _privateConstructorUsedError;
   @override
-  Color get sendContainerBackgroundColor;
+  Color get sendContainerBackgroundColor => throw _privateConstructorUsedError;
   @override
-  Color get fieldChatBorderColor;
+  Color get fieldChatBorderColor => throw _privateConstructorUsedError;
   @override
-  Color get fieldChatTextColor;
+  Color get fieldChatTextColor => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppThemeCopyWith<_QAppTheme> get copyWith =>
+  _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>
       throw _privateConstructorUsedError;
 }

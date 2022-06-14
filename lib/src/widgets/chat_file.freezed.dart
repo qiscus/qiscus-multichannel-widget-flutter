@@ -12,40 +12,11 @@ part of 'chat_file.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 QImagePayload _$QImagePayloadFromJson(Map<String, dynamic> json) {
   return _QImagePayload.fromJson(json);
 }
-
-/// @nodoc
-class _$QImagePayloadTearOff {
-  const _$QImagePayloadTearOff();
-
-  _QImagePayload call(
-      {required String url,
-      required String? caption,
-      @JsonKey(name: 'file_name') required String? fileName,
-      required int? size,
-      required int? pages,
-      @JsonKey(name: 'encryption_key') required String? encryptionKey}) {
-    return _QImagePayload(
-      url: url,
-      caption: caption,
-      fileName: fileName,
-      size: size,
-      pages: pages,
-      encryptionKey: encryptionKey,
-    );
-  }
-
-  QImagePayload fromJson(Map<String, Object?> json) {
-    return QImagePayload.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $QImagePayload = _$QImagePayloadTearOff();
 
 /// @nodoc
 mixin _$QImagePayload {
@@ -126,11 +97,11 @@ class _$QImagePayloadCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$QImagePayloadCopyWith<$Res>
+abstract class _$$_QImagePayloadCopyWith<$Res>
     implements $QImagePayloadCopyWith<$Res> {
-  factory _$QImagePayloadCopyWith(
-          _QImagePayload value, $Res Function(_QImagePayload) then) =
-      __$QImagePayloadCopyWithImpl<$Res>;
+  factory _$$_QImagePayloadCopyWith(
+          _$_QImagePayload value, $Res Function(_$_QImagePayload) then) =
+      __$$_QImagePayloadCopyWithImpl<$Res>;
   @override
   $Res call(
       {String url,
@@ -142,15 +113,15 @@ abstract class _$QImagePayloadCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QImagePayloadCopyWithImpl<$Res>
+class __$$_QImagePayloadCopyWithImpl<$Res>
     extends _$QImagePayloadCopyWithImpl<$Res>
-    implements _$QImagePayloadCopyWith<$Res> {
-  __$QImagePayloadCopyWithImpl(
-      _QImagePayload _value, $Res Function(_QImagePayload) _then)
-      : super(_value, (v) => _then(v as _QImagePayload));
+    implements _$$_QImagePayloadCopyWith<$Res> {
+  __$$_QImagePayloadCopyWithImpl(
+      _$_QImagePayload _value, $Res Function(_$_QImagePayload) _then)
+      : super(_value, (v) => _then(v as _$_QImagePayload));
 
   @override
-  _QImagePayload get _value => super._value as _QImagePayload;
+  _$_QImagePayload get _value => super._value as _$_QImagePayload;
 
   @override
   $Res call({
@@ -161,7 +132,7 @@ class __$QImagePayloadCopyWithImpl<$Res>
     Object? pages = freezed,
     Object? encryptionKey = freezed,
   }) {
-    return _then(_QImagePayload(
+    return _then(_$_QImagePayload(
       url: url == freezed
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
@@ -228,7 +199,7 @@ class _$_QImagePayload implements _QImagePayload {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QImagePayload &&
+            other is _$_QImagePayload &&
             const DeepCollectionEquality().equals(other.url, url) &&
             const DeepCollectionEquality().equals(other.caption, caption) &&
             const DeepCollectionEquality().equals(other.fileName, fileName) &&
@@ -238,6 +209,7 @@ class _$_QImagePayload implements _QImagePayload {
                 .equals(other.encryptionKey, encryptionKey));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -250,8 +222,8 @@ class _$_QImagePayload implements _QImagePayload {
 
   @JsonKey(ignore: true)
   @override
-  _$QImagePayloadCopyWith<_QImagePayload> get copyWith =>
-      __$QImagePayloadCopyWithImpl<_QImagePayload>(this, _$identity);
+  _$$_QImagePayloadCopyWith<_$_QImagePayload> get copyWith =>
+      __$$_QImagePayloadCopyWithImpl<_$_QImagePayload>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -261,33 +233,34 @@ class _$_QImagePayload implements _QImagePayload {
 
 abstract class _QImagePayload implements QImagePayload {
   const factory _QImagePayload(
-          {required String url,
-          required String? caption,
-          @JsonKey(name: 'file_name') required String? fileName,
-          required int? size,
-          required int? pages,
-          @JsonKey(name: 'encryption_key') required String? encryptionKey}) =
-      _$_QImagePayload;
+      {required final String url,
+      required final String? caption,
+      @JsonKey(name: 'file_name')
+          required final String? fileName,
+      required final int? size,
+      required final int? pages,
+      @JsonKey(name: 'encryption_key')
+          required final String? encryptionKey}) = _$_QImagePayload;
 
   factory _QImagePayload.fromJson(Map<String, dynamic> json) =
       _$_QImagePayload.fromJson;
 
   @override
-  String get url;
+  String get url => throw _privateConstructorUsedError;
   @override
-  String? get caption;
+  String? get caption => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'file_name')
-  String? get fileName;
+  String? get fileName => throw _privateConstructorUsedError;
   @override
-  int? get size;
+  int? get size => throw _privateConstructorUsedError;
   @override
-  int? get pages;
+  int? get pages => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'encryption_key')
-  String? get encryptionKey;
+  String? get encryptionKey => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QImagePayloadCopyWith<_QImagePayload> get copyWith =>
+  _$$_QImagePayloadCopyWith<_$_QImagePayload> get copyWith =>
       throw _privateConstructorUsedError;
 }

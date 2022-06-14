@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
@@ -91,6 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
     var displayName = displayNameController.text;
 
     mulchan.setUser(userId: username, displayName: displayName);
+    var deviceId = await FirebaseMessaging.instance.getToken();
+    mulchan.setDeviceId(deviceId!);
+
     await mulchan.initiateChat();
   }
 }

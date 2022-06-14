@@ -12,28 +12,7 @@ part of 'user_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$QUserConfigTearOff {
-  const _$QUserConfigTearOff();
-
-  _QUserConfig call(
-      {required String userId,
-      required String displayName,
-      String? avatarUrl,
-      Map<String, dynamic>? userProperties}) {
-    return _QUserConfig(
-      userId: userId,
-      displayName: displayName,
-      avatarUrl: avatarUrl,
-      userProperties: userProperties,
-    );
-  }
-}
-
-/// @nodoc
-const $QUserConfig = _$QUserConfigTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$QUserConfig {
@@ -97,11 +76,11 @@ class _$QUserConfigCopyWithImpl<$Res> implements $QUserConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QUserConfigCopyWith<$Res>
+abstract class _$$_QUserConfigCopyWith<$Res>
     implements $QUserConfigCopyWith<$Res> {
-  factory _$QUserConfigCopyWith(
-          _QUserConfig value, $Res Function(_QUserConfig) then) =
-      __$QUserConfigCopyWithImpl<$Res>;
+  factory _$$_QUserConfigCopyWith(
+          _$_QUserConfig value, $Res Function(_$_QUserConfig) then) =
+      __$$_QUserConfigCopyWithImpl<$Res>;
   @override
   $Res call(
       {String userId,
@@ -111,14 +90,14 @@ abstract class _$QUserConfigCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QUserConfigCopyWithImpl<$Res> extends _$QUserConfigCopyWithImpl<$Res>
-    implements _$QUserConfigCopyWith<$Res> {
-  __$QUserConfigCopyWithImpl(
-      _QUserConfig _value, $Res Function(_QUserConfig) _then)
-      : super(_value, (v) => _then(v as _QUserConfig));
+class __$$_QUserConfigCopyWithImpl<$Res> extends _$QUserConfigCopyWithImpl<$Res>
+    implements _$$_QUserConfigCopyWith<$Res> {
+  __$$_QUserConfigCopyWithImpl(
+      _$_QUserConfig _value, $Res Function(_$_QUserConfig) _then)
+      : super(_value, (v) => _then(v as _$_QUserConfig));
 
   @override
-  _QUserConfig get _value => super._value as _QUserConfig;
+  _$_QUserConfig get _value => super._value as _$_QUserConfig;
 
   @override
   $Res call({
@@ -127,7 +106,7 @@ class __$QUserConfigCopyWithImpl<$Res> extends _$QUserConfigCopyWithImpl<$Res>
     Object? avatarUrl = freezed,
     Object? userProperties = freezed,
   }) {
-    return _then(_QUserConfig(
+    return _then(_$_QUserConfig(
       userId: userId == freezed
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -141,7 +120,7 @@ class __$QUserConfigCopyWithImpl<$Res> extends _$QUserConfigCopyWithImpl<$Res>
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       userProperties: userProperties == freezed
-          ? _value.userProperties
+          ? _value._userProperties
           : userProperties // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
     ));
@@ -155,7 +134,8 @@ class _$_QUserConfig implements _QUserConfig {
       {required this.userId,
       required this.displayName,
       this.avatarUrl,
-      this.userProperties});
+      final Map<String, dynamic>? userProperties})
+      : _userProperties = userProperties;
 
   @override
   final String userId;
@@ -163,8 +143,14 @@ class _$_QUserConfig implements _QUserConfig {
   final String displayName;
   @override
   final String? avatarUrl;
+  final Map<String, dynamic>? _userProperties;
   @override
-  final Map<String, dynamic>? userProperties;
+  Map<String, dynamic>? get userProperties {
+    final value = _userProperties;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
@@ -175,13 +161,13 @@ class _$_QUserConfig implements _QUserConfig {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QUserConfig &&
+            other is _$_QUserConfig &&
             const DeepCollectionEquality().equals(other.userId, userId) &&
             const DeepCollectionEquality()
                 .equals(other.displayName, displayName) &&
             const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
             const DeepCollectionEquality()
-                .equals(other.userProperties, userProperties));
+                .equals(other._userProperties, _userProperties));
   }
 
   @override
@@ -190,31 +176,32 @@ class _$_QUserConfig implements _QUserConfig {
       const DeepCollectionEquality().hash(userId),
       const DeepCollectionEquality().hash(displayName),
       const DeepCollectionEquality().hash(avatarUrl),
-      const DeepCollectionEquality().hash(userProperties));
+      const DeepCollectionEquality().hash(_userProperties));
 
   @JsonKey(ignore: true)
   @override
-  _$QUserConfigCopyWith<_QUserConfig> get copyWith =>
-      __$QUserConfigCopyWithImpl<_QUserConfig>(this, _$identity);
+  _$$_QUserConfigCopyWith<_$_QUserConfig> get copyWith =>
+      __$$_QUserConfigCopyWithImpl<_$_QUserConfig>(this, _$identity);
 }
 
 abstract class _QUserConfig implements QUserConfig {
   const factory _QUserConfig(
-      {required String userId,
-      required String displayName,
-      String? avatarUrl,
-      Map<String, dynamic>? userProperties}) = _$_QUserConfig;
+      {required final String userId,
+      required final String displayName,
+      final String? avatarUrl,
+      final Map<String, dynamic>? userProperties}) = _$_QUserConfig;
 
   @override
-  String get userId;
+  String get userId => throw _privateConstructorUsedError;
   @override
-  String get displayName;
+  String get displayName => throw _privateConstructorUsedError;
   @override
-  String? get avatarUrl;
+  String? get avatarUrl => throw _privateConstructorUsedError;
   @override
-  Map<String, dynamic>? get userProperties;
+  Map<String, dynamic>? get userProperties =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QUserConfigCopyWith<_QUserConfig> get copyWith =>
+  _$$_QUserConfigCopyWith<_$_QUserConfig> get copyWith =>
       throw _privateConstructorUsedError;
 }

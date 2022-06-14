@@ -3,24 +3,32 @@ import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 AppBar buildAppBar({
   required BuildContext context,
+  required WidgetRef ref,
   void Function()? onBack,
 }) {
+  var r1 = appThemeConfigProvider.select((v) => v.navigationColor);
+  var r2 = appThemeConfigProvider.select((v) => v.navigationTitleColor);
+  var navBgColor = ref.watch(r1);
+  var navFgColor = ref.watch(r2);
+
   return AppBar(
     centerTitle: false,
     elevation: 2,
-    // backgroundColor: ,
-    leading: TextButton(
-      onPressed: () {
-        onBack?.call();
-      },
-      child: QMultichannelConsumer(
-        builder: (context, ref) {
-          return Icon(
-            Icons.arrow_back,
-            size: 34,
-            color: ref.theme.navigationTitleColor,
-          );
-        },
+    backgroundColor: navBgColor,
+    foregroundColor: navFgColor,
+    leadingWidth: 35,
+    // leading: IconButton(
+    //   icon: Icon(
+    //     Icons.arrow_back,
+    //     size: 34,
+    //     color: navFgColor,
+    //   ),
+    //   onPressed: () => onBack?.call(),
+    // ),
+    leading: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: BackButton(
+        onPressed: () => onBack?.call(),
       ),
     ),
     title: Row(

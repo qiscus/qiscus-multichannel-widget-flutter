@@ -10,16 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  qiscus_chat_sdk: ^2.0.0-beta.2
-  # qiscus_chat_sdk:
-  #   path: ../qiscus-chat-sdk-flutter
+  qiscus_chat_sdk: ^2.0.0-beta.3
   freezed_annotation: ^2.0.3
-  grouped_list: ^4.2.0
+  grouped_list: ^5.1.1
   http: ^0.13.4
-  flutter_riverpod: ^2.0.0-dev.4
+  flutter_riverpod: ^2.0.0-dev.9
   date_format: ^2.0.5
   open_file: ^3.2.1
   url_launcher: ^6.1.0
+  file_picker: ^4.6.1
+  json_annotation: ^4.5.0
 
 dev_dependencies:
   # flutter_test:

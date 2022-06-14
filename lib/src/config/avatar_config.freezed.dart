@@ -12,29 +12,7 @@ part of 'avatar_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$QAvatarConfigTearOff {
-  const _$QAvatarConfigTearOff();
-
-  _QAvatarDisabled disabled() {
-    return const _QAvatarDisabled();
-  }
-
-  _QAvatarEnabled enabled() {
-    return const _QAvatarEnabled();
-  }
-
-  _QAvatarEditable editable(String avatarUrl) {
-    return _QAvatarEditable(
-      avatarUrl,
-    );
-  }
-}
-
-/// @nodoc
-const $QAvatarConfig = _$QAvatarConfigTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$QAvatarConfig {
@@ -102,22 +80,22 @@ class _$QAvatarConfigCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$QAvatarDisabledCopyWith<$Res> {
-  factory _$QAvatarDisabledCopyWith(
-          _QAvatarDisabled value, $Res Function(_QAvatarDisabled) then) =
-      __$QAvatarDisabledCopyWithImpl<$Res>;
+abstract class _$$_QAvatarDisabledCopyWith<$Res> {
+  factory _$$_QAvatarDisabledCopyWith(
+          _$_QAvatarDisabled value, $Res Function(_$_QAvatarDisabled) then) =
+      __$$_QAvatarDisabledCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$QAvatarDisabledCopyWithImpl<$Res>
+class __$$_QAvatarDisabledCopyWithImpl<$Res>
     extends _$QAvatarConfigCopyWithImpl<$Res>
-    implements _$QAvatarDisabledCopyWith<$Res> {
-  __$QAvatarDisabledCopyWithImpl(
-      _QAvatarDisabled _value, $Res Function(_QAvatarDisabled) _then)
-      : super(_value, (v) => _then(v as _QAvatarDisabled));
+    implements _$$_QAvatarDisabledCopyWith<$Res> {
+  __$$_QAvatarDisabledCopyWithImpl(
+      _$_QAvatarDisabled _value, $Res Function(_$_QAvatarDisabled) _then)
+      : super(_value, (v) => _then(v as _$_QAvatarDisabled));
 
   @override
-  _QAvatarDisabled get _value => super._value as _QAvatarDisabled;
+  _$_QAvatarDisabled get _value => super._value as _$_QAvatarDisabled;
 }
 
 /// @nodoc
@@ -133,7 +111,7 @@ class _$_QAvatarDisabled implements _QAvatarDisabled {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _QAvatarDisabled);
+        (other.runtimeType == runtimeType && other is _$_QAvatarDisabled);
   }
 
   @override
@@ -213,22 +191,22 @@ abstract class _QAvatarDisabled implements QAvatarConfig {
 }
 
 /// @nodoc
-abstract class _$QAvatarEnabledCopyWith<$Res> {
-  factory _$QAvatarEnabledCopyWith(
-          _QAvatarEnabled value, $Res Function(_QAvatarEnabled) then) =
-      __$QAvatarEnabledCopyWithImpl<$Res>;
+abstract class _$$_QAvatarEnabledCopyWith<$Res> {
+  factory _$$_QAvatarEnabledCopyWith(
+          _$_QAvatarEnabled value, $Res Function(_$_QAvatarEnabled) then) =
+      __$$_QAvatarEnabledCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$QAvatarEnabledCopyWithImpl<$Res>
+class __$$_QAvatarEnabledCopyWithImpl<$Res>
     extends _$QAvatarConfigCopyWithImpl<$Res>
-    implements _$QAvatarEnabledCopyWith<$Res> {
-  __$QAvatarEnabledCopyWithImpl(
-      _QAvatarEnabled _value, $Res Function(_QAvatarEnabled) _then)
-      : super(_value, (v) => _then(v as _QAvatarEnabled));
+    implements _$$_QAvatarEnabledCopyWith<$Res> {
+  __$$_QAvatarEnabledCopyWithImpl(
+      _$_QAvatarEnabled _value, $Res Function(_$_QAvatarEnabled) _then)
+      : super(_value, (v) => _then(v as _$_QAvatarEnabled));
 
   @override
-  _QAvatarEnabled get _value => super._value as _QAvatarEnabled;
+  _$_QAvatarEnabled get _value => super._value as _$_QAvatarEnabled;
 }
 
 /// @nodoc
@@ -244,7 +222,7 @@ class _$_QAvatarEnabled implements _QAvatarEnabled {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _QAvatarEnabled);
+        (other.runtimeType == runtimeType && other is _$_QAvatarEnabled);
   }
 
   @override
@@ -324,29 +302,29 @@ abstract class _QAvatarEnabled implements QAvatarConfig {
 }
 
 /// @nodoc
-abstract class _$QAvatarEditableCopyWith<$Res> {
-  factory _$QAvatarEditableCopyWith(
-          _QAvatarEditable value, $Res Function(_QAvatarEditable) then) =
-      __$QAvatarEditableCopyWithImpl<$Res>;
+abstract class _$$_QAvatarEditableCopyWith<$Res> {
+  factory _$$_QAvatarEditableCopyWith(
+          _$_QAvatarEditable value, $Res Function(_$_QAvatarEditable) then) =
+      __$$_QAvatarEditableCopyWithImpl<$Res>;
   $Res call({String avatarUrl});
 }
 
 /// @nodoc
-class __$QAvatarEditableCopyWithImpl<$Res>
+class __$$_QAvatarEditableCopyWithImpl<$Res>
     extends _$QAvatarConfigCopyWithImpl<$Res>
-    implements _$QAvatarEditableCopyWith<$Res> {
-  __$QAvatarEditableCopyWithImpl(
-      _QAvatarEditable _value, $Res Function(_QAvatarEditable) _then)
-      : super(_value, (v) => _then(v as _QAvatarEditable));
+    implements _$$_QAvatarEditableCopyWith<$Res> {
+  __$$_QAvatarEditableCopyWithImpl(
+      _$_QAvatarEditable _value, $Res Function(_$_QAvatarEditable) _then)
+      : super(_value, (v) => _then(v as _$_QAvatarEditable));
 
   @override
-  _QAvatarEditable get _value => super._value as _QAvatarEditable;
+  _$_QAvatarEditable get _value => super._value as _$_QAvatarEditable;
 
   @override
   $Res call({
     Object? avatarUrl = freezed,
   }) {
-    return _then(_QAvatarEditable(
+    return _then(_$_QAvatarEditable(
       avatarUrl == freezed
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -372,7 +350,7 @@ class _$_QAvatarEditable implements _QAvatarEditable {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAvatarEditable &&
+            other is _$_QAvatarEditable &&
             const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl));
   }
 
@@ -382,8 +360,8 @@ class _$_QAvatarEditable implements _QAvatarEditable {
 
   @JsonKey(ignore: true)
   @override
-  _$QAvatarEditableCopyWith<_QAvatarEditable> get copyWith =>
-      __$QAvatarEditableCopyWithImpl<_QAvatarEditable>(this, _$identity);
+  _$$_QAvatarEditableCopyWith<_$_QAvatarEditable> get copyWith =>
+      __$$_QAvatarEditableCopyWithImpl<_$_QAvatarEditable>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -455,10 +433,10 @@ class _$_QAvatarEditable implements _QAvatarEditable {
 }
 
 abstract class _QAvatarEditable implements QAvatarConfig {
-  const factory _QAvatarEditable(String avatarUrl) = _$_QAvatarEditable;
+  const factory _QAvatarEditable(final String avatarUrl) = _$_QAvatarEditable;
 
-  String get avatarUrl;
+  String get avatarUrl => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  _$QAvatarEditableCopyWith<_QAvatarEditable> get copyWith =>
+  _$$_QAvatarEditableCopyWith<_$_QAvatarEditable> get copyWith =>
       throw _privateConstructorUsedError;
 }

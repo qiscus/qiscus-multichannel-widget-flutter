@@ -12,36 +12,7 @@ part of 'app_config.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$QAppConfigTearOff {
-  const _$QAppConfigTearOff();
-
-  _QAppConfig call(
-      {String baseUrl = 'https://multichannel.qiscus.com',
-      String? title,
-      QSubtitleConfig? subtitle,
-      QAvatarConfig? avatar,
-      String? channelId,
-      String? deviceId,
-      bool showSystemEvent = true,
-      bool showSenderAvatar = true}) {
-    return _QAppConfig(
-      baseUrl: baseUrl,
-      title: title,
-      subtitle: subtitle,
-      avatar: avatar,
-      channelId: channelId,
-      deviceId: deviceId,
-      showSystemEvent: showSystemEvent,
-      showSenderAvatar: showSenderAvatar,
-    );
-  }
-}
-
-/// @nodoc
-const $QAppConfig = _$QAppConfigTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$QAppConfig {
@@ -157,10 +128,11 @@ class _$QAppConfigCopyWithImpl<$Res> implements $QAppConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QAppConfigCopyWith<$Res> implements $QAppConfigCopyWith<$Res> {
-  factory _$QAppConfigCopyWith(
-          _QAppConfig value, $Res Function(_QAppConfig) then) =
-      __$QAppConfigCopyWithImpl<$Res>;
+abstract class _$$_QAppConfigCopyWith<$Res>
+    implements $QAppConfigCopyWith<$Res> {
+  factory _$$_QAppConfigCopyWith(
+          _$_QAppConfig value, $Res Function(_$_QAppConfig) then) =
+      __$$_QAppConfigCopyWithImpl<$Res>;
   @override
   $Res call(
       {String baseUrl,
@@ -179,14 +151,14 @@ abstract class _$QAppConfigCopyWith<$Res> implements $QAppConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$QAppConfigCopyWithImpl<$Res> extends _$QAppConfigCopyWithImpl<$Res>
-    implements _$QAppConfigCopyWith<$Res> {
-  __$QAppConfigCopyWithImpl(
-      _QAppConfig _value, $Res Function(_QAppConfig) _then)
-      : super(_value, (v) => _then(v as _QAppConfig));
+class __$$_QAppConfigCopyWithImpl<$Res> extends _$QAppConfigCopyWithImpl<$Res>
+    implements _$$_QAppConfigCopyWith<$Res> {
+  __$$_QAppConfigCopyWithImpl(
+      _$_QAppConfig _value, $Res Function(_$_QAppConfig) _then)
+      : super(_value, (v) => _then(v as _$_QAppConfig));
 
   @override
-  _QAppConfig get _value => super._value as _QAppConfig;
+  _$_QAppConfig get _value => super._value as _$_QAppConfig;
 
   @override
   $Res call({
@@ -199,7 +171,7 @@ class __$QAppConfigCopyWithImpl<$Res> extends _$QAppConfigCopyWithImpl<$Res>
     Object? showSystemEvent = freezed,
     Object? showSenderAvatar = freezed,
   }) {
-    return _then(_QAppConfig(
+    return _then(_$_QAppConfig(
       baseUrl: baseUrl == freezed
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
@@ -249,8 +221,8 @@ class _$_QAppConfig implements _QAppConfig {
       this.showSystemEvent = true,
       this.showSenderAvatar = true});
 
-  @JsonKey()
   @override
+  @JsonKey()
   final String baseUrl;
   @override
   final String? title;
@@ -262,11 +234,11 @@ class _$_QAppConfig implements _QAppConfig {
   final String? channelId;
   @override
   final String? deviceId;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool showSystemEvent;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool showSenderAvatar;
 
   @override
@@ -278,7 +250,7 @@ class _$_QAppConfig implements _QAppConfig {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QAppConfig &&
+            other is _$_QAppConfig &&
             const DeepCollectionEquality().equals(other.baseUrl, baseUrl) &&
             const DeepCollectionEquality().equals(other.title, title) &&
             const DeepCollectionEquality().equals(other.subtitle, subtitle) &&
@@ -305,39 +277,39 @@ class _$_QAppConfig implements _QAppConfig {
 
   @JsonKey(ignore: true)
   @override
-  _$QAppConfigCopyWith<_QAppConfig> get copyWith =>
-      __$QAppConfigCopyWithImpl<_QAppConfig>(this, _$identity);
+  _$$_QAppConfigCopyWith<_$_QAppConfig> get copyWith =>
+      __$$_QAppConfigCopyWithImpl<_$_QAppConfig>(this, _$identity);
 }
 
 abstract class _QAppConfig implements QAppConfig {
   const factory _QAppConfig(
-      {String baseUrl,
-      String? title,
-      QSubtitleConfig? subtitle,
-      QAvatarConfig? avatar,
-      String? channelId,
-      String? deviceId,
-      bool showSystemEvent,
-      bool showSenderAvatar}) = _$_QAppConfig;
+      {final String baseUrl,
+      final String? title,
+      final QSubtitleConfig? subtitle,
+      final QAvatarConfig? avatar,
+      final String? channelId,
+      final String? deviceId,
+      final bool showSystemEvent,
+      final bool showSenderAvatar}) = _$_QAppConfig;
 
   @override
-  String get baseUrl;
+  String get baseUrl => throw _privateConstructorUsedError;
   @override
-  String? get title;
+  String? get title => throw _privateConstructorUsedError;
   @override
-  QSubtitleConfig? get subtitle;
+  QSubtitleConfig? get subtitle => throw _privateConstructorUsedError;
   @override
-  QAvatarConfig? get avatar;
+  QAvatarConfig? get avatar => throw _privateConstructorUsedError;
   @override
-  String? get channelId;
+  String? get channelId => throw _privateConstructorUsedError;
   @override
-  String? get deviceId;
+  String? get deviceId => throw _privateConstructorUsedError;
   @override
-  bool get showSystemEvent;
+  bool get showSystemEvent => throw _privateConstructorUsedError;
   @override
-  bool get showSenderAvatar;
+  bool get showSenderAvatar => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$QAppConfigCopyWith<_QAppConfig> get copyWith =>
+  _$$_QAppConfigCopyWith<_$_QAppConfig> get copyWith =>
       throw _privateConstructorUsedError;
 }

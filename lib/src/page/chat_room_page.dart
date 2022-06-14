@@ -19,35 +19,13 @@ class QChatRoomPage extends Page {
   }
 }
 
-class QChatRoomScreen extends StatelessWidget {
+class QChatRoomScreen extends ConsumerWidget {
   const QChatRoomScreen({Key? key}) : super(key: key);
 
-  // final message = QMessageSystem.fromMessage(QMessage(
-  //   chatRoomId: -1,
-  //   extras: null,
-  //   id: 1,
-  //   payload: null,
-  //   previousMessageId: 1,
-  //   sender: const QUser(
-  //     id: 'user-1',
-  //     name: 'System',
-  //     avatarUrl: 'https://via.placeholder.com/150x150',
-  //   ),
-  //   status: QMessageStatus.read,
-  //   text: 'Ini contoh system message',
-  //   timestamp: DateTime.now(),
-  //   type: QMessageType.custom,
-  //   uniqueId: '',
-  // ));
-  // late final messages = <QMessage>[
-  //   message,
-  //   message,
-  // ];
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: buildAppBar(context: context),
+      appBar: buildAppBar(context: context, ref: ref),
       body: Column(
         children: [
           Expanded(
