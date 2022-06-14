@@ -69,6 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 QMultichannelConsumer(
                   builder: (_, QMultichannel ref) {
                     ref.clearUser();
+                    if (ref.account.hasValue == true) {
+                      // User already logged in
+                    }
                     if (ref.roomId == null) {
                       ref.setUser(
                         userId: 'guest-1001',

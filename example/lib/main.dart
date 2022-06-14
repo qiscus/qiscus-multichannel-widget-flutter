@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
-const appId = 'akoop-i0xwcb7spjwzhro';
+const appId = 'YOUR_APP_ID';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

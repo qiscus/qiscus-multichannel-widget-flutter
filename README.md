@@ -1,39 +1,95 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Qiscus Multichannel Widget
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages). 
+## Requirements
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages). 
--->
+- dart sdk: >=2.16.0 <3.0.0
+- flutter sdk: >=2.10.0
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Installation
 
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
-```dart
-const like = 'sample';
+```
+# Qiscus Multichannel main package
+flutter pub add qiscus_multichannel_widget
 ```
 
-## Additional information
+## How To Use
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+### Initialization
+
+In order to use `QiscusMultichannelWidget`, you need to initialize it with your AppID (`YOUR_APP_ID`). Get more information to get AppID from [Qiscus Multichannel Chat page](https://multichannel.qiscus.com/)
+
+```dart
+// Wrap your outer most component with `QMultichannelProvider`
+// for example
+import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+
+QMultichannelProvider(
+  appId: appId,
+  builder: (context) {
+    return MaterialApp(
+      home: _buildNavigator(),
+    );
+  },
+);
+```
+
+After the initialization, you can access all the widget's functions.
+
+### Set The User
+
+Set UserId before start the chat, this is mandatory.
+
+```dart
+QMultichannelConsumer(
+  builder: (_, QMultichannel ref) {
+    ref.setUser(
+      userId: 'guest-1001',
+      displayName: 'guest-1001',
+    );
+    ref.initiateChat();
+
+    return Container();
+  },
+),
+```
+
+### Get Login Status
+
+Use this function to check whether the user has already logged in.
+
+```dart
+QMultichannelConsumer(
+  builder: (_, QMultichannel ref) {
+    if (ref.account.hasValue == true) {
+      // User already logged in
+    }
+    return Container();
+  },
+),
+```
+
+### Start Chat
+
+Use this function to start a chat.
+
+```dart
+QMultichannelConsumer(
+  builder: (_, QMultichannel ref) {
+    ref.initiateChat();
+    return Container();
+  },
+),
+```
+
+### Clear User
+
+Use this function to clear the logged-in users.
+
+```dart
+QMultichannelConsumer(
+  builder: (_, QMultichannel ref) {
+    ref.clearUser();
+    return Container();
+  },
+),
+```
