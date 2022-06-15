@@ -1,3 +1,8 @@
+## 1.0.0-beta.3
+
+- Fix missing assets
+- Fix not receiving new message
+
 ## 1.0.0-beta.2
 
 - Add upload attachment functionality
