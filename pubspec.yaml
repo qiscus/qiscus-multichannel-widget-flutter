@@ -29,9 +29,9 @@ dev_dependencies:
   json_serializable: ^6.1.6
   build_runner: ^2.1.7
 
-# dependency_overrides:
-#   qiscus_chat_sdk:
-#     path: ../qiscus-chat-sdk-flutter
+dependency_overrides:
+  qiscus_chat_sdk:
+    path: ../qiscus-chat-sdk-flutter
 
 flutter:
   assets:

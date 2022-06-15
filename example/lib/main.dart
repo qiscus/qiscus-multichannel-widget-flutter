@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
-const appId = 'YOUR_APP_ID';
+import 'constants.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +21,7 @@ class _AppStateBuilder extends State<App> {
     return QMultichannelProvider(
       appId: appId,
       theme: QAppTheme(
-        // navigationTitleColor: Colors.amber,
+        navigationTitleColor: Colors.amber,
         navigationColor: Colors.blueGrey,
         fieldChatBorderColor: Colors.blueGrey,
         fieldChatTextColor: Colors.blue,
@@ -42,6 +42,7 @@ class _AppStateBuilder extends State<App> {
       builder: (context, ref) {
         var roomId = ref.roomId;
         if (roomId == null) {
+          ref.enableDebugMode(true);
           ref.setUser(userId: 'guest-1001', displayName: 'guest-1001');
           ref.initiateChat();
         }

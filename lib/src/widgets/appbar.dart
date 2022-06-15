@@ -70,10 +70,11 @@ Widget buildAvatar() {
         );
       } else {
         return Image.asset(
-          "assets/avatar.png",
+          "lib/src/assets/avatar.png",
           fit: BoxFit.cover,
           height: 44,
           width: 44,
+          package: 'qiscus_multichannel_widget',
         );
       }
     },

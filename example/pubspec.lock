@@ -232,7 +232,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   lints:
     dependency: transitive
     description:
@@ -297,19 +297,19 @@ packages:
     source: hosted
     version: "1.2.0-beta-1"
   qiscus_chat_sdk:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
       path: "../../qiscus-chat-sdk-flutter"
       relative: true
     source: path
-    version: "2.0.0-beta.2"
+    version: "2.0.0-beta.3"
   qiscus_multichannel_widget:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-beta.1"
+    version: "1.0.0-beta.2"
   riverpod:
     dependency: transitive
     description:

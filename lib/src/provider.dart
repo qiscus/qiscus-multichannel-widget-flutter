@@ -340,6 +340,11 @@ class QMultichannel {
     return room;
   }
 
+  void enableDebugMode(bool enable) async {
+    var qiscus = await ref.read(qiscusProvider.future);
+    qiscus.enableDebugMode(enable: enable, level: QLogLevel.verbose);
+  }
+
   void setRoomTitle(String title) {
     ref.read(titleConfigProvider.notifier).state = title;
   }
@@ -378,7 +383,13 @@ class QMultichannel {
   }
 
   Future<void> clearUser() async {
-    // TODO: clear user
+    ref.read(appIdProvider.notifier).state = null;
+    ref.read(userIdProvider.notifier).state = null;
+    ref.read(displayNameProvider.notifier).state = null;
+    ref.read(avatarUrlProvider.notifier).state = null;
+    ref.read(userPropertiesProvider.notifier).state = null;
+    ref.read(sdkUserExtrasProvider.notifier).state = null;
+    ref.read(appStateProvider.notifier).state = const AppState.initial();
   }
 
   Future<QMessage> sendMessage(QMessage message) async {

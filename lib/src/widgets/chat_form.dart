@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../../qiscus_multichannel_widget.dart';
+import 'icons.dart';
 
 class QChatForm extends ConsumerWidget {
   QChatForm({
@@ -53,7 +54,7 @@ class QChatForm extends ConsumerWidget {
                                 elevation: 2,
                               );
                             },
-                            child: Image.asset("assets/ic-add.png"),
+                            child: IcAdd,
                           ),
                           Expanded(
                             child: Container(
@@ -73,7 +74,7 @@ class QChatForm extends ConsumerWidget {
                           ),
                           TextButton(
                             onPressed: () => _onSubmit(mulchan),
-                            child: Image.asset("assets/ic-send.png"),
+                            child: IcSend,
                           ),
                         ],
                       ),
