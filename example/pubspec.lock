@@ -302,14 +302,14 @@ packages:
       path: "../../qiscus-chat-sdk-flutter"
       relative: true
     source: path
-    version: "2.0.0-beta.3"
+    version: "2.0.0-beta.4"
   qiscus_multichannel_widget:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "1.0.0-beta.2"
+    version: "1.0.0-beta.3"
   riverpod:
     dependency: transitive
     description:
