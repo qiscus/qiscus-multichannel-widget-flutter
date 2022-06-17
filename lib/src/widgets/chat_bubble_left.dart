@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_multichannel_widget/src/multichannel_provider.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/avatar.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_meta.dart';
 
@@ -22,10 +23,16 @@ class QChatBubbleLeft extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          QAvatar(
-            avatarUrl: message.sender.avatarUrl ??
-                'https://via.placeholder.com/150x150',
-          ),
+          QMultichannelConsumer(builder: (context, m) {
+            var avatar = m.avatarUrl;
+            if (avatar != null) {
+              return QAvatar(
+                avatarUrl: avatar,
+              );
+            } else {
+              return Container();
+            }
+          }),
           buildMessageArea(message),
           QChatMeta(
             timestamp: message.timestamp,

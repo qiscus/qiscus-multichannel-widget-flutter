@@ -33,7 +33,7 @@ final appThemeConfigProvider = StateProvider((_) => const QAppTheme());
 final appIdProvider = StateProvider<String?>((_) => null);
 final userIdProvider = StateProvider<String?>((_) => null);
 final displayNameProvider = StateProvider<String?>((_) => null);
-final avatarUrlProvider = StateProvider<String?>((_) => null);
+final userAvatarUrl = StateProvider<String?>((_) => null);
 final userPropertiesProvider =
     StateProvider<Map<String, dynamic>?>((_) => null);
 final sdkUserExtrasProvider = StateProvider<Map<String, dynamic>?>((_) => null);
@@ -46,6 +46,17 @@ final accountProvider = Provider<AsyncValue<QAccount>>((ref) {
     ready: (_, account) => AsyncValue.data(account),
   );
 });
+final avatarUrlProvider = Provider<String?>((ref) {
+  var account = ref.watch(accountProvider);
+  var avatarConfig = ref.watch(avatarConfigProvider);
+
+  return avatarConfig.when(
+    disabled: () => null,
+    editable: (avatar) => avatar,
+    enabled: () => account.valueOrNull?.avatarUrl,
+  );
+});
+
 final roomIdProvider = Provider<AsyncValue<int>>((ref) {
   var appState = ref.watch(appStateProvider);
 
@@ -75,7 +86,7 @@ final initiateChatProvider = FutureProvider((ref) async {
   var qiscus = await ref.watch(qiscusProvider.future);
   var userId = ref.watch(userIdProvider);
   var displayName = ref.watch(displayNameProvider);
-  var avatarUrl = ref.watch(avatarUrlProvider);
+  var avatarUrl = ref.watch(userAvatarUrl);
   var userProperties = ref.watch(userPropertiesProvider);
   var channelId = ref.watch(channelIdConfigProvider);
   var sdkUserExtras = ref.watch(sdkUserExtrasProvider);
@@ -235,6 +246,9 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
         message,
       ];
     });
+    ref.subscribe(messageReadProvider, (message) {
+      print('message read: $message');
+    });
   }
 
   final Ref ref;
@@ -369,7 +383,7 @@ class QMultichannel {
   }) {
     ref.read(userIdProvider.notifier).state = userId;
     ref.read(displayNameProvider.notifier).state = displayName;
-    ref.read(avatarUrlProvider.notifier).state = avatarUrl;
+    ref.read(userAvatarUrl.notifier).state = avatarUrl;
     ref.read(userPropertiesProvider.notifier).state = userProperties;
   }
 
@@ -386,7 +400,6 @@ class QMultichannel {
     ref.read(appIdProvider.notifier).state = null;
     ref.read(userIdProvider.notifier).state = null;
     ref.read(displayNameProvider.notifier).state = null;
-    ref.read(avatarUrlProvider.notifier).state = null;
     ref.read(userPropertiesProvider.notifier).state = null;
     ref.read(sdkUserExtrasProvider.notifier).state = null;
     ref.read(appStateProvider.notifier).state = const AppState.initial();

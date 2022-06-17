@@ -28,7 +28,7 @@ class QMultichannelWidget with QTheme, QConfig {
   }) {
     ref.read(userIdProvider.notifier).state = userId;
     ref.read(displayNameProvider.notifier).state = displayName;
-    ref.read(avatarUrlProvider.notifier).state = avatarUrl;
+    ref.read(userAvatarUrl.notifier).state = avatarUrl;
     ref.read(userPropertiesProvider.notifier).state = userProperties;
   }
 }

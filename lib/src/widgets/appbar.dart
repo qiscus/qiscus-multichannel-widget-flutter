@@ -17,14 +17,6 @@ AppBar buildAppBar({
     backgroundColor: navBgColor,
     foregroundColor: navFgColor,
     leadingWidth: 35,
-    // leading: IconButton(
-    //   icon: Icon(
-    //     Icons.arrow_back,
-    //     size: 34,
-    //     color: navFgColor,
-    //   ),
-    //   onPressed: () => onBack?.call(),
-    // ),
     leading: Padding(
       padding: const EdgeInsets.all(8.0),
       child: BackButton(
