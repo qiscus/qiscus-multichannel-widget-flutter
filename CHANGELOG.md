@@ -1,3 +1,8 @@
+## 1.0.0-beta.4
+
+- fix cannot change avatar
+- update to latest qiscus sdk for realtime issue
+
 ## 1.0.0-beta.3
 
 - Fix missing assets
