@@ -121,9 +121,11 @@ class QChatForm extends ConsumerWidget {
 
   void _onSubmit(QMultichannel ref) async {
     var text = _messageController.text;
-    var message = await ref.generateMessage(text: text);
-    await ref.sendMessage(message);
-    _messageController.text = '';
+    if(text.toString().trim().isNotEmpty){
+      var message = await ref.generateMessage(text: text);
+      await ref.sendMessage(message);
+      _messageController.clear();
+    }
   }
 
   Widget _modalBottomSheet(BuildContext context, WidgetRef ref) {
