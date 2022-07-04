@@ -293,7 +293,7 @@ class _$_QAppTheme implements _QAppTheme {
       this.leftBubbleColor = const Color.fromARGB(255, 244, 244, 244),
       this.leftBubbleTextColor = const Color.fromARGB(255, 102, 102, 102),
       this.timeLabelTextColor = const Color.fromARGB(255, 123, 123, 123),
-      this.timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
+      this.timeBackgroundColor = const Color.fromARGB(255, 221, 221, 221),
       this.emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
       this.emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
       this.sendContainerColor = const Color.fromARGB(255, 85, 178, 154),

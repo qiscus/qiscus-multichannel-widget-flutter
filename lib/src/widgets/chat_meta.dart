@@ -18,29 +18,28 @@ class QChatMeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return QMultichannelConsumer(
-      builder: (context, m) {
-        var theme = m.theme;
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment:
-              isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-          children: [
-            Text(
-              formatDate(timestamp, ['HH', ':', 'mm']),
-              style: TextStyle(
-                fontSize: 11,
-                color: theme.timeLabelTextColor,
-              ),
-            ),
-            Icon(
-              Icons.done_all,
-              size: 15,
-              color: theme.sendContainerColor,
-            ),
-          ],
-        );
-      },
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment:
+          isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+      children: [
+        Text(
+          formatDate(timestamp, ['HH', ':', 'mm']),
+          style: TextStyle(
+            fontSize: 11,
+            color: "#adadad".toColor(),
+          ),
+        ),
+        Icon(
+          status == QMessageStatus.delivered || status == QMessageStatus.read
+              ? Icons.done_all
+              : Icons.done,
+          size: 15,
+          color: status == QMessageStatus.read
+              ? Theme.of(context).primaryColor
+              : Colors.grey,
+        ),
+      ],
     );
   }
 }
