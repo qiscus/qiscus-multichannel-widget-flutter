@@ -4,7 +4,7 @@ import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:qiscus_multichannel_widget/src/utils/colors.dart';
 
-class QChatMeta extends StatelessWidget {
+class QChatMeta extends ConsumerWidget {
   const QChatMeta({
     Key? key,
     required this.timestamp,
@@ -17,7 +17,9 @@ class QChatMeta extends StatelessWidget {
   final QMessageStatus status;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var theme = ref.watch(appThemeConfigProvider);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment:
@@ -27,7 +29,7 @@ class QChatMeta extends StatelessWidget {
           formatDate(timestamp, ['HH', ':', 'mm']),
           style: TextStyle(
             fontSize: 11,
-            color: "#adadad".toColor(),
+            color: theme.timeLabelTextColor,
           ),
         ),
         Icon(
@@ -36,7 +38,7 @@ class QChatMeta extends StatelessWidget {
               : Icons.done,
           size: 15,
           color: status == QMessageStatus.read
-              ? Theme.of(context).primaryColor
+              ? theme.timeLabelTextColor
               : Colors.grey,
         ),
       ],
