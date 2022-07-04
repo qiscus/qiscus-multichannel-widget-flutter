@@ -30,9 +30,13 @@ class QChatMeta extends StatelessWidget {
           ),
         ),
         Icon(
-          Icons.done_all,
+          status == QMessageStatus.delivered || status == QMessageStatus.read
+              ? Icons.done_all
+              : Icons.done,
           size: 15,
-          color: Theme.of(context).primaryColor,
+          color: status == QMessageStatus.read
+              ? Theme.of(context).primaryColor
+              : Colors.grey,
         ),
       ],
     );
