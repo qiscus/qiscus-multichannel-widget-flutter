@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class QAvatar extends StatelessWidget {
@@ -11,10 +12,19 @@ class QAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(100),
-      child: Image.network(
-        avatarUrl,
+      child: CachedNetworkImage(
+        imageUrl: avatarUrl,
         height: 40,
         width: 40,
+        fit: BoxFit.cover,
+        placeholder: (c, s) => const CircularProgressIndicator(),
+        errorWidget: (c, s, e) => Image.asset(
+          "lib/src/assets/avatar.png",
+          fit: BoxFit.cover,
+          height: 40,
+          width: 40,
+          package: 'qiscus_multichannel_widget',
+        ),
       ),
     );
   }

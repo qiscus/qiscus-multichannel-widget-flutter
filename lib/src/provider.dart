@@ -3,14 +3,20 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/models.dart';
+import 'package:qiscus_multichannel_widget/src/storage_provider.dart';
 
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
+
+final encSharedPreferenceProvider = Provider((_) {
+  return const FlutterSecureStorage();
+});
 
 final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
   var appId = ref.watch(appIdProvider);
@@ -37,12 +43,13 @@ final userAvatarUrl = StateProvider<String?>((_) => null);
 final userPropertiesProvider =
     StateProvider<Map<String, dynamic>?>((_) => null);
 final sdkUserExtrasProvider = StateProvider<Map<String, dynamic>?>((_) => null);
+final isSessionalRoomProvider = StateProvider<bool>((_) => false);
 
 // ==
 final accountProvider = Provider<AsyncValue<QAccount>>((ref) {
   var state = ref.watch(appStateProvider);
-  return state.when(
-    initial: () => const AsyncValue.loading(),
+  return state.maybeWhen(
+    orElse: () => const AsyncValue.loading(),
     ready: (_, account) => AsyncValue.data(account),
   );
 });
@@ -57,11 +64,28 @@ final avatarUrlProvider = Provider<String?>((ref) {
   );
 });
 
+final sessionalProvider = FutureProvider<bool>((ref) async {
+  var baseUrl = ref.watch(baseUrlProvider);
+  var appId = ref.watch(appIdProvider);
+
+  print('[sessional] got appId: $appId');
+
+  if (appId == null) return false;
+
+  var sessional = await http.get(Uri.parse('$baseUrl/$appId/get_session'));
+  var body = jsonDecode(sessional.body) as Map<String, Object?>;
+  var data = body['data'] as Map<String, Object?>;
+  var isSessional = data['is_sessional'] as bool?;
+  isSessional ??= false;
+
+  return isSessional;
+});
+
 final roomIdProvider = Provider<AsyncValue<int>>((ref) {
   var appState = ref.watch(appStateProvider);
 
-  return appState.when(
-    initial: () => const AsyncValue.loading(),
+  return appState.maybeWhen(
+    orElse: () => const AsyncValue.loading(),
     ready: (roomId, _) => AsyncValue.data(roomId),
   );
 });
@@ -72,6 +96,8 @@ final roomProvider = FutureProvider((ref) async {
 
   return room;
 });
+final isResolvedProvider = StateProvider<bool>((_) => false);
+final isSessionalProvider = StateProvider<bool>((_) => false);
 final messagesProvider =
     StateNotifierProvider<MessagesStateNotifier, List<QMessage>>((ref) {
   return MessagesStateNotifier(ref);
@@ -95,6 +121,11 @@ final initiateChatProvider = FutureProvider((ref) async {
   var deviceIdDevelopmentMode = ref.watch(deviceIdDevelopmentModeProvider);
 
   // return -1;
+  var appState = ref.watch(appStateProvider);
+  // print('appState($appState)');
+  if (appState.maybeMap(orElse: () => false, ready: (_) => true)) {
+    return 0;
+  }
 
   var nonce = await qiscus.getJWTNonce();
   var data = <String, dynamic>{
@@ -114,8 +145,23 @@ final initiateChatProvider = FutureProvider((ref) async {
   var identityToken = json['data']['identity_token'] as String;
   // var isSessional = json['data']['is_sessional'] as bool;
   var room = json['data']['customer_room'];
+
   var roomId = int.parse(room['room_id']);
+  var isResolved = room['is_resolved'] as bool?;
+  var isSessional = room['is_sessional'] as bool?;
+
+  print('is resolved: $isResolved');
+  ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
+  ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
+
   var user = await qiscus.setUserWithIdentityToken(token: identityToken);
+
+  ref.read(localUserDataProvider.notifier).setData(QLocalUserData(
+        appId: qiscus.appId,
+        roomId: roomId,
+        token: qiscus.token,
+        account: qiscus.currentUser,
+      ));
 
   if (deviceId != null) {
     try {
@@ -142,13 +188,7 @@ final messageReceivedProvider = StreamProvider((ref) async* {
   ref.onDispose(() {
     qiscus.unsubscribeChatRoom(room);
   });
-  var stream = qiscus.onMessageReceived();
-  stream = stream.map((it) {
-    print('message received $it');
-    return it;
-  });
-
-  yield* stream;
+  yield* qiscus.onMessageReceived();
 });
 final messageReadProvider = StreamProvider((ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);
@@ -183,7 +223,7 @@ final messageDeletedProvider = StreamProvider((ref) async* {
 
   yield* qiscus.onMessageDeleted();
 });
-final userPresenceProvider = StreamProvider((ref) async* {
+final userPresenceProvider = StreamProvider.autoDispose((ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);
   var userId = ref.watch(userIdProvider);
 
@@ -240,35 +280,58 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     ref.wait(roomProvider, (QChatRoomWithMessages roomData) {
       state = roomData.messages;
     });
-    ref.subscribe(messageReceivedProvider, (QMessage message) {
-      state = [
-        ...state.where((m) => m.uniqueId != message.uniqueId),
-        message,
-      ];
-    });
-    ref.subscribe(messageReadProvider, (message) {
-      print('message read: $message');
-    });
+    ref.subscribe(messageReceivedProvider, _onMessageReceived);
+    ref.subscribe(messageReadProvider, _onMessageRead);
+    ref.subscribe(messageDeliveredProvider, _onMessageDelivered);
   }
 
   final Ref ref;
 
+  void _onMessageRead(QMessage message) {
+    state = state.map((m) {
+      if (m.timestamp.isBefore(message.timestamp)) {
+        m.status = QMessageStatus.read;
+      }
+
+      return m;
+    }).toList();
+  }
+
+  void _onMessageDelivered(QMessage message) {
+    state = state.map((m) {
+      if (m.status != QMessageStatus.read &&
+          m.timestamp.isBefore(message.timestamp)) {
+        m.status = QMessageStatus.delivered;
+      }
+      return m;
+    }).toList();
+  }
+
+  void _onMessageReceived(QMessage message) {
+    var idx = state.indexWhere((v) => v.uniqueId == message.uniqueId);
+
+    if (idx == -1) {
+      state = [...state, message];
+    } else {
+      state = state.updateAt(
+        index: idx,
+        value: message,
+      );
+    }
+  }
+
   Future<QMessage> sendMessage(QMessage message) async {
     var qiscus = await ref.read(qiscusProvider.future);
     message.status = QMessageStatus.sending;
-    state = [
-      ...state,
-      message,
-    ];
+    _onMessageReceived(message);
 
-    var m = await qiscus.sendMessage(message: message);
-    message.id = m.id;
-    message.status = m.status;
+    Future.microtask(() async {
+      var m = await qiscus.sendMessage(message: message);
+      message.id = m.id;
+      message.status = m.status;
 
-    state = [
-      ...state.where((v) => v.uniqueId != message.uniqueId),
-      message,
-    ];
+      _onMessageReceived(message);
+    });
 
     return message;
   }
@@ -278,9 +341,8 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     var messages = state.firstWhere((v) => v.uniqueId == messageUniqueId);
 
     await qiscus.deleteMessages(messageUniqueIds: [messageUniqueId]);
-    state = [
-      ...state.where((v) => v.uniqueId != messageUniqueId),
-    ];
+    state = state.where((v) => v.uniqueId != messageUniqueId).toList();
+
     return messages;
   }
 
@@ -292,6 +354,7 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
       roomId: roomId,
       messageId: lastMessageId,
     );
+
     state = [
       ...messages,
       ...state,
@@ -341,6 +404,7 @@ class QMultichannel {
   String get title => ref.watch(titleConfigProvider);
   String? get avatarUrl => ref.watch(avatarUrlProvider);
 
+  bool get isResolved => ref.watch(isResolvedProvider);
   AsyncValue<QChatRoom> get room =>
       ref.watch(roomProvider.select((it) => it.whenData((v) => v.room)));
 
@@ -403,6 +467,7 @@ class QMultichannel {
     ref.read(userPropertiesProvider.notifier).state = null;
     ref.read(sdkUserExtrasProvider.notifier).state = null;
     ref.read(appStateProvider.notifier).state = const AppState.initial();
+    ref.read(localUserDataProvider.notifier).clear();
   }
 
   Future<QMessage> sendMessage(QMessage message) async {
@@ -515,4 +580,23 @@ class QUpload {
 
   @override
   int get hashCode => Object.hash(runtimeType, file);
+}
+
+extension _ListExt<T> on List<T> {
+  List<T> updateAt({
+    required int index,
+    required T value,
+  }) {
+    return [
+      ...sublist(0, index),
+      value,
+      ...sublist(index + 1, length),
+    ];
+  }
+}
+
+extension _MapExt<K, V> on Map<K, V?> {
+  V? get(K key) {
+    return this[key];
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:qiscus_multichannel_widget/src/utils/colors.dart';
 
 class QChatMeta extends StatelessWidget {
@@ -17,24 +18,29 @@ class QChatMeta extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment:
-          isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
-      children: [
-        Text(
-          formatDate(timestamp, ['HH', ':', 'mm']),
-          style: TextStyle(
-            fontSize: 11,
-            color: "#adadad".toColor(),
-          ),
-        ),
-        Icon(
-          Icons.done_all,
-          size: 15,
-          color: Theme.of(context).primaryColor,
-        ),
-      ],
+    return QMultichannelConsumer(
+      builder: (context, m) {
+        var theme = m.theme;
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment:
+              isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+          children: [
+            Text(
+              formatDate(timestamp, ['HH', ':', 'mm']),
+              style: TextStyle(
+                fontSize: 11,
+                color: theme.timeLabelTextColor,
+              ),
+            ),
+            Icon(
+              Icons.done_all,
+              size: 15,
+              color: theme.sendContainerColor,
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -296,7 +296,7 @@ class _$_QAppTheme implements _QAppTheme {
       this.timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
       this.emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
       this.emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
-      this.sendContainerColor = const Color.fromARGB(255, 255, 255, 255),
+      this.sendContainerColor = const Color.fromARGB(255, 85, 178, 154),
       this.sendContainerBackgroundColor =
           const Color.fromARGB(255, 250, 250, 250),
       this.fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),

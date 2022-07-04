@@ -27,12 +27,46 @@ class QChatRoomScreen extends ConsumerWidget {
     return Scaffold(
       appBar: buildAppBar(context: context, ref: ref),
       body: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 1,
             child: QMultichannelConsumer(
               builder: (context, ref) {
                 var messages = ref.messages;
+                var theme = ref.theme;
+
+                if (messages.isEmpty) {
+                  print('No messages');
+                  return Container(
+                    color: theme.emptyBackgroundColor,
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 50),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'No message here yet...',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: theme.emptyTextColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          'Great discussion start from greeting each others first',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: theme.emptyTextColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
                 return GroupedListView<QMessage, DateTime>(
                   elements: messages,

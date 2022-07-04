@@ -18,7 +18,7 @@ class QAppTheme with _$QAppTheme {
     @Default(Color.fromARGB(0, 0, 0, 0)) Color timeBackgroundColor,
     @Default(Color.fromARGB(255, 153, 153, 153)) Color emptyTextColor,
     @Default(Color.fromARGB(255, 249, 249, 249)) Color emptyBackgroundColor,
-    @Default(Color.fromARGB(255, 255, 255, 255)) Color sendContainerColor,
+    @Default(Color.fromARGB(255, 85, 178, 154)) Color sendContainerColor,
     @Default(Color.fromARGB(255, 250, 250, 250))
         Color sendContainerBackgroundColor,
     @Default(Color.fromARGB(255, 227, 227, 227)) Color fieldChatBorderColor,

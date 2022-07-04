@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
@@ -54,11 +55,16 @@ Widget buildAvatar() {
       var avatarUrl = ref.avatarUrl;
 
       if (avatarUrl != null) {
-        return Image.network(
-          avatarUrl,
-          fit: BoxFit.cover,
-          height: 44,
-          width: 44,
+        return CachedNetworkImage(
+          imageUrl: avatarUrl,
+          placeholder: (_, __) => const CircularProgressIndicator(),
+          errorWidget: (ctx, _, e) => Image.asset(
+            "lib/src/assets/avatar.png",
+            fit: BoxFit.cover,
+            height: 44,
+            width: 44,
+            package: 'qiscus_multichannel_widget',
+          ),
         );
       } else {
         return Image.asset(

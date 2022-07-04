@@ -17,6 +17,11 @@ class QChatForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var files = ref.watch(uploaderProvider);
 
+    var isResolved = ref.watch(isResolvedProvider);
+    if (isResolved) {
+      return Container();
+    }
+
     return Column(
       children: [
         for (var file in files) _buildUploadIndicatorItem(file, ref),
@@ -28,17 +33,19 @@ class QChatForm extends ConsumerWidget {
             ),
           ),
           child: QMultichannelConsumer(
-            builder: (context, mulchan) {
+            builder: (context, QMultichannel mulchan) {
               var account = mulchan.account;
-              final borderColor = mulchan.theme.fieldChatBorderColor;
+              var borderColor = mulchan.theme.fieldChatBorderColor;
+              var theme = mulchan.theme;
 
               final border = OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
                 borderSide: BorderSide(color: borderColor),
               );
 
-              return Padding(
+              return Container(
                 padding: const EdgeInsets.only(top: 10, bottom: 10),
+                color: theme.sendContainerBackgroundColor,
                 child: SafeArea(
                   child: Column(
                     children: [
@@ -54,7 +61,11 @@ class QChatForm extends ConsumerWidget {
                                 elevation: 2,
                               );
                             },
-                            child: IcAdd,
+                            child: Image.asset(
+                              'lib/src/assets/ic-add.png',
+                              package: 'qiscus_multichannel_widget',
+                              color: theme.sendContainerColor,
+                            ),
                           ),
                           Expanded(
                             child: Container(
@@ -69,12 +80,19 @@ class QChatForm extends ConsumerWidget {
                                   enabledBorder: border,
                                   focusedBorder: border,
                                 ),
+                                style: TextStyle(
+                                  color: mulchan.theme.fieldChatTextColor,
+                                ),
                               ),
                             ),
                           ),
                           TextButton(
                             onPressed: () => _onSubmit(mulchan),
-                            child: IcSend,
+                            child: Image.asset(
+                              'lib/src/assets/ic-send.png',
+                              package: 'qiscus_multichannel_widget',
+                              color: theme.sendContainerColor,
+                            ),
                           ),
                         ],
                       ),
@@ -121,7 +139,7 @@ class QChatForm extends ConsumerWidget {
 
   void _onSubmit(QMultichannel ref) async {
     var text = _messageController.text;
-    if(text.toString().trim().isNotEmpty){
+    if (text.trim().isNotEmpty) {
       var message = await ref.generateMessage(text: text);
       await ref.sendMessage(message);
       _messageController.clear();

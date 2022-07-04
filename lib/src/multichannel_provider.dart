@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qiscus_multichannel_widget/src/storage_provider.dart';
 
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
@@ -61,6 +62,11 @@ class QMultichannelConsumer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return builder(context, QMultichannel(ref));
+    return FutureBuilder(
+      future: ref.read(localUserDataProvider.notifier).fetchData(),
+      builder: (context, s) {
+        return builder(context, QMultichannel(ref));
+      },
+    );
   }
 }
