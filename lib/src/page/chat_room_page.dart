@@ -115,8 +115,8 @@ class QChatRoomScreen extends ConsumerWidget {
                 child: Text(
                   formatDate(date, [DD, ', ', dd, ' ', MM, ' ', yyyy]),
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: ref.theme.timeLabelTextColor,
                     overflow: TextOverflow.clip,
                   ),
                 ),
