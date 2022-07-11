@@ -102,6 +102,15 @@ final messagesProvider =
     StateNotifierProvider<MessagesStateNotifier, List<QMessage>>((ref) {
   return MessagesStateNotifier(ref);
 });
+final sortedMessagesProvider = Provider((ref) {
+  var messages = ref.watch(messagesProvider);
+  messages.sort((a, b) => a.timestamp.compareTo(b.timestamp));
+  return messages;
+});
+final lastMessageProvider = Provider((ref) {
+  var messages = ref.watch(sortedMessagesProvider);
+  return messages.first;
+});
 
 final initiateChatUrlProvider = Provider((ref) {
   var baseUrl = ref.watch(baseUrlProvider);
@@ -346,9 +355,11 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     return messages;
   }
 
-  Future<List<QMessage>> loadMoreMessage(int lastMessageId) async {
+  Future<List<QMessage>> loadMoreMessage([int? lastMessageId]) async {
     var qiscus = await ref.read(qiscusProvider.future);
     var roomId = await ref.watch(roomIdProvider.future);
+    var lastMessage = ref.watch(lastMessageProvider);
+    lastMessageId ??= lastMessage.id;
 
     var messages = await qiscus.getPreviousMessagesById(
       roomId: roomId,
