@@ -1,3 +1,8 @@
+## 1.0.0
+
+- fix back button on appbar not working
+- fix unable to delete message
+
 ## 1.0.0-beta.5
 
 - fix sessional room feature not working
