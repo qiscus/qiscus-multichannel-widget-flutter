@@ -10,40 +10,53 @@ import '../widgets/chat_system.dart';
 import '../widgets/widgets.dart';
 
 class QChatRoomPage extends Page {
-  const QChatRoomPage() : super(key: const ValueKey("RoomPage"));
+  const QChatRoomPage([this.onBack]) : super(key: const ValueKey("RoomPage"));
+
+  final void Function(BuildContext)? onBack;
 
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
-      builder: (context) => const QChatRoomScreen(),
+      builder: (context) => QChatRoomScreen(
+        onBack: onBack,
+      ),
     );
   }
 }
 
 class QChatRoomScreen extends ConsumerWidget {
-  const QChatRoomScreen({Key? key}) : super(key: key);
+  const QChatRoomScreen({Key? key, this.onBack}) : super(key: key);
+
+  final void Function(BuildContext)? onBack;
+
+  void back(BuildContext context) {
+    var navigator = Navigator.of(context);
+    if (onBack != null) {
+      onBack!(context);
+    } else if (navigator.canPop()) {
+      navigator.pop();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final base = appThemeConfigProvider.select((v) => v.baseColor);
     final baseBgColor = ref.watch(base);
-    final listen = ref.watch(messagesProvider.notifier);
     var isLoadMore = false;
     var lastCountMessage = 0;
 
     return Scaffold(
-      appBar: buildAppBar(context: context, ref: ref),
+      appBar: buildAppBar(
+        context: context,
+        ref: ref,
+        onBack: () => back(context),
+      ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
               isLoadMore) {
-            var lastMessage = ref.read(messagesProvider);
-            //Sort message ascending
-            lastMessage.sort((a, b) => a.timestamp
-                .compareTo(b.timestamp)); // TODO MOVE SORT TO PROVIDER
-            lastCountMessage = lastMessage.length;
-            listen.loadMoreMessage(lastMessage.first.id);
+            ref.read(messagesProvider.notifier).loadMoreMessage();
             isLoadMore = false;
           }
           return false;
@@ -72,8 +85,9 @@ class QChatRoomScreen extends ConsumerWidget {
                         itemBuilder: (context, message) {
                           return InkWell(
                             child: _buildChatBubble(context, ref, message),
-                            onLongPress: () =>
-                                {_showModalBottomSheet(context, ref, message)},
+                            onLongPress: () {
+                              _showModalBottomSheet(context, ref, message);
+                            },
                           );
                         },
                         itemComparator: (item1, item2) =>
