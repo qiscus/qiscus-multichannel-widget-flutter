@@ -1,8 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
-import 'package:qiscus_multichannel_widget/src/utils/colors.dart';
 
 class QChatMeta extends ConsumerWidget {
   const QChatMeta({
@@ -26,7 +24,7 @@ class QChatMeta extends ConsumerWidget {
           isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
       children: [
         Text(
-          formatDate(timestamp, ['HH', ':', 'mm']),
+          formatDate(timestamp, [HH, ':', nn]),
           style: TextStyle(
             fontSize: 11,
             color: theme.timeLabelTextColor,
