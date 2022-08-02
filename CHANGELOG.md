@@ -1,3 +1,7 @@
+## 1.0.1
+
+- fix time info always on minutes seven
+
 ## 1.0.0
 
 - fix back button on appbar not working
