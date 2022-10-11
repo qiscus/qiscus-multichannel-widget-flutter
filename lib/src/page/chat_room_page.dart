@@ -159,31 +159,20 @@ class QChatRoomScreen extends ConsumerWidget {
       return QChatSystem(message: message);
     }
 
-    return Column(
-      children: [
-        Text(
-          message.timestamp.toIso8601String(),
-          style: const TextStyle(
-            fontSize: 10,
-            // color: theme.timeLabelTextColor,
-          ),
-        ),
-        accountId.when(
-          data: (accountId) {
-            if (message.sender.id == accountId) {
-              return QChatBubbleRight(message: message);
-            } else {
-              return QChatBubbleLeft(message: message);
-            }
-          },
-          loading: () {
-            return const CircularProgressIndicator();
-          },
-          error: (e, _) {
-            return Text(e.toString());
-          },
-        ),
-      ],
+    return accountId.when(
+      data: (accountId) {
+        if (message.sender.id == accountId) {
+          return QChatBubbleRight(message: message);
+        } else {
+          return QChatBubbleLeft(message: message);
+        }
+      },
+      loading: () {
+        return const CircularProgressIndicator();
+      },
+      error: (e, _) {
+        return Text(e.toString());
+      },
     );
   }
 
