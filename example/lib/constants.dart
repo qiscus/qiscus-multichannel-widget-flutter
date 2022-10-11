@@ -1,1 +1,1 @@
-const appId = 'YOUR_APP_ID';
+const appId = 'akoop-i0xwcb7spjwzhro';

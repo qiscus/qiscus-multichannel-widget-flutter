@@ -159,20 +159,31 @@ class QChatRoomScreen extends ConsumerWidget {
       return QChatSystem(message: message);
     }
 
-    return accountId.when(
-      data: (accountId) {
-        if (message.sender.id == accountId) {
-          return QChatBubbleRight(message: message);
-        } else {
-          return QChatBubbleLeft(message: message);
-        }
-      },
-      loading: () {
-        return const CircularProgressIndicator();
-      },
-      error: (e, _) {
-        return Text(e.toString());
-      },
+    return Column(
+      children: [
+        Text(
+          message.timestamp.toIso8601String(),
+          style: const TextStyle(
+            fontSize: 10,
+            // color: theme.timeLabelTextColor,
+          ),
+        ),
+        accountId.when(
+          data: (accountId) {
+            if (message.sender.id == accountId) {
+              return QChatBubbleRight(message: message);
+            } else {
+              return QChatBubbleLeft(message: message);
+            }
+          },
+          loading: () {
+            return const CircularProgressIndicator();
+          },
+          error: (e, _) {
+            return Text(e.toString());
+          },
+        ),
+      ],
     );
   }
 
@@ -233,20 +244,6 @@ class QChatRoomScreen extends ConsumerWidget {
                       content: Text("Message copied"),
                     ));
                     Navigator.of(context).pop();
-                  },
-                ),
-              ),
-              Visibility(
-                visible: message.sender.id == ref.account.value?.id,
-                child: ListTile(
-                  leading: const Icon(Icons.delete),
-                  title: const Text('Delete Message'),
-                  onTap: () async {
-                    await ref.deleteMessage(message.uniqueId);
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Message has been deleted"),
-                    ));
-                    // Navigator.of(context).pop();
                   },
                 ),
               ),

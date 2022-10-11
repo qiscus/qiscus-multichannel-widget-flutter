@@ -36,17 +36,15 @@ class QMultichannelProvider extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ProviderScope(
       overrides: [
-        appIdProvider.overrideWithValue(StateController(appId)),
-        appThemeConfigProvider.overrideWithValue(StateController(theme)),
-        baseUrlProvider.overrideWithValue(StateController(baseUrl)),
-        avatarConfigProvider.overrideWithValue(StateController(avatar)),
-        subtitleConfigProvider.overrideWithValue(StateController(subtitle)),
-        titleConfigProvider
-            .overrideWithValue(StateController(title ?? 'Customer Service')),
-        channelIdConfigProvider.overrideWithValue(StateController(channelId)),
-        systemEventConfigProvider
-            .overrideWithValue(StateController(!hideEventUI)),
-        baseUrlProvider.overrideWithValue(StateController(baseUrl)),
+        appIdProvider.overrideWithValue(appId),
+        appThemeConfigProvider.overrideWithValue(theme),
+        baseUrlProvider.overrideWithValue(baseUrl),
+        avatarConfigProvider.overrideWithValue(avatar),
+        subtitleConfigProvider.overrideWithValue(subtitle),
+        titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
+        channelIdConfigProvider.overrideWithValue(channelId),
+        systemEventConfigProvider.overrideWithValue(!hideEventUI),
+        baseUrlProvider.overrideWithValue(baseUrl),
         // messagesProvider.overrideWithValue(messagesProviderDummy),
       ],
       child: builder(context),
@@ -68,5 +66,11 @@ class QMultichannelConsumer extends ConsumerWidget {
         return builder(context, QMultichannel(ref));
       },
     );
+  }
+}
+
+extension StateProviderExt<T> on StateProvider<T> {
+  Override overrideWithValue(T value) {
+    return overrideWithProvider(StateProvider((_) => value));
   }
 }

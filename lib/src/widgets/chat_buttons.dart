@@ -57,7 +57,6 @@ class QChatButton extends StatelessWidget {
 
   Widget _renderButton(QButtons button) {
     return ElevatedButton(
-      child: Text(button.label),
       onPressed: () {},
       style: TextButton.styleFrom(
         textStyle: const TextStyle(
@@ -69,6 +68,7 @@ class QChatButton extends StatelessWidget {
           borderRadius: BorderRadius.zero,
         ),
       ),
+      child: Text(button.label),
     );
   }
 

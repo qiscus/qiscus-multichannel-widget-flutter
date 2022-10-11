@@ -33,6 +33,7 @@ class _AppStateBuilder extends State<App> {
     return QMultichannelConsumer(
       builder: (context, ref) {
         var roomId = ref.roomId;
+        ref.enableDebugMode(true);
 
         return Navigator(
           pages: [

@@ -91,7 +91,7 @@ final roomIdProvider = Provider<AsyncValue<int>>((ref) {
 });
 final roomProvider = FutureProvider((ref) async {
   var qiscus = await ref.watch(qiscusProvider.future);
-  var roomId = await ref.watch(roomIdProvider.future);
+  var roomId = await ref.watch(roomIdProvider).future;
   var room = await qiscus.getChatRoomWithMessages(roomId: roomId);
 
   return room;
@@ -284,8 +284,8 @@ extension AsyncValueExt<T> on AsyncValue<T> {
 }
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
-  MessagesStateNotifier(this.ref, [List<QMessage> _state = const []])
-      : super(_state) {
+  MessagesStateNotifier(this.ref, [List<QMessage> state = const []])
+      : super(state) {
     ref.wait(roomProvider, (QChatRoomWithMessages roomData) {
       state = roomData.messages;
     });
@@ -357,7 +357,7 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
 
   Future<List<QMessage>> loadMoreMessage([int? lastMessageId]) async {
     var qiscus = await ref.read(qiscusProvider.future);
-    var roomId = await ref.watch(roomIdProvider.future);
+    var roomId = await ref.watch(roomIdProvider).future;
     var lastMessage = ref.watch(lastMessageProvider);
     lastMessageId ??= lastMessage.id;
 
@@ -497,7 +497,7 @@ class QMultichannel {
     required String text,
     Map<String, dynamic>? extras,
   }) async {
-    var roomId = await ref.watch(roomIdProvider.future);
+    var roomId = await ref.watch(roomIdProvider).future;
     var q = await qiscus.future;
     return q.generateMessage(
       chatRoomId: roomId,
@@ -510,7 +510,7 @@ class QMultichannel {
     required String url,
     required String caption,
   }) async {
-    var roomId = await ref.watch(roomIdProvider.future);
+    var roomId = await ref.watch(roomIdProvider).future;
     var q = await qiscus.future;
     return q.generateFileAttachmentMessage(
         chatRoomId: roomId, caption: caption, url: url);
@@ -520,7 +520,7 @@ class QMultichannel {
     required File file,
     required String caption,
   }) async {
-    var roomId = await ref.watch(roomIdProvider.future);
+    var roomId = await ref.watch(roomIdProvider).future;
     var q = await qiscus.future;
     var stream = q.upload(file);
     var data = await stream.firstWhere((item) => item.data != null);
@@ -544,7 +544,7 @@ class UploadStateNotifier extends StateNotifier<Set<QUpload>> {
 
   void add(File file) async {
     var qiscus = await ref.read(qiscusProvider.future);
-    var roomId = await ref.read(roomIdProvider.future);
+    var roomId = await ref.read(roomIdProvider).future;
 
     var progress = QUpload(file, 0);
     state = {...state, progress};
@@ -603,11 +603,5 @@ extension _ListExt<T> on List<T> {
       value,
       ...sublist(index + 1, length),
     ];
-  }
-}
-
-extension _MapExt<K, V> on Map<K, V?> {
-  V? get(K key) {
-    return this[key];
   }
 }
