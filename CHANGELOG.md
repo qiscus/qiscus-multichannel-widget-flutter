@@ -1,3 +1,8 @@
+## 1.0.2
+
+- upgrade dependencies
+- fix wrong timestamp
+
 ## 1.0.1
 
 - fix time info always on minutes seven
