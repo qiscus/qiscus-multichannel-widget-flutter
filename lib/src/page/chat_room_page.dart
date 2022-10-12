@@ -207,40 +207,36 @@ class QChatRoomScreen extends ConsumerWidget {
 
   _showModalBottomSheet(
       BuildContext context, QMultichannel ref, QMessage message) {
-    if (message.type == QMessageType.text ||
-        (message.type == QMessageType.attachment &&
-            message.sender.id == ref.account.value?.id)) {
-      showModalBottomSheet(
-        context: context,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(25.0),
-          ),
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25.0),
         ),
-        builder: (context) {
-          return Wrap(
-            spacing: 2,
-            children: [
-              const Padding(padding: EdgeInsets.only(top: 16)),
-              Visibility(
-                visible: message.type == QMessageType.text,
-                child: ListTile(
-                  leading: const Icon(Icons.copy),
-                  title: const Text('Copy Message'),
-                  onTap: () {
-                    Clipboard.setData(ClipboardData(text: message.text));
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text("Message copied"),
-                    ));
-                    Navigator.of(context).pop();
-                  },
-                ),
+      ),
+      builder: (context) {
+        return Wrap(
+          spacing: 2,
+          children: [
+            const Padding(padding: EdgeInsets.only(top: 16)),
+            Visibility(
+              visible: message.type == QMessageType.text,
+              child: ListTile(
+                leading: const Icon(Icons.copy),
+                title: const Text('Copy Message'),
+                onTap: () {
+                  Clipboard.setData(ClipboardData(text: message.text));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Message copied"),
+                  ));
+                  Navigator.of(context).pop();
+                },
               ),
-              const Padding(padding: EdgeInsets.only(bottom: 16)),
-            ],
-          );
-        },
-      );
-    }
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 16)),
+          ],
+        );
+      },
+    );
   }
 }

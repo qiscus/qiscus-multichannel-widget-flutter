@@ -52,18 +52,13 @@ class QChatForm extends ConsumerWidget {
                         children: <Widget>[
                           TextButton(
                             onPressed: () async {
-                              // showModalBottomSheet(
-                              //   context: context,
-                              //   builder: (c) => _modalBottomSheet(c, ref),
-                              //   isDismissible: true,
-                              //   // isScrollControlled: true,
-                              //   elevation: 2,
-                              // );
-                              ref.read(qiscusProvider).future.then((q) {
-                                return q.synchronize();
-                              }).then((_) {
-                                print('done sync!');
-                              });
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (c) => _modalBottomSheet(c, ref),
+                                isDismissible: true,
+                                // isScrollControlled: true,
+                                elevation: 2,
+                              );
                             },
                             child: Image.asset(
                               'lib/src/assets/ic-add.png',
