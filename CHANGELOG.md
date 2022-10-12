@@ -1,3 +1,7 @@
+## 1.0.3
+
+- fix not opening attachment popup dialog
+
 ## 1.0.2
 
 - upgrade dependencies
