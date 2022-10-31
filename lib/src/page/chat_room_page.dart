@@ -86,7 +86,9 @@ class QChatRoomScreen extends ConsumerWidget {
                           return InkWell(
                             child: _buildChatBubble(context, ref, message),
                             onLongPress: () {
-                              _showModalBottomSheet(context, ref, message);
+                              if (message.type == QMessageType.text) {
+                                _showModalBottomSheet(context, ref, message);
+                              }
                             },
                           );
                         },
