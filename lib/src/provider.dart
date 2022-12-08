@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
@@ -355,11 +356,11 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     return messages;
   }
 
-  Future<List<QMessage>> loadMoreMessage([int? lastMessageId]) async {
+  Future<List<QMessage>> loadMoreMessage([int lastMessageId = 0]) async {
     var qiscus = await ref.read(qiscusProvider.future);
     var roomId = await ref.watch(roomIdProvider).future;
-    var lastMessage = ref.watch(lastMessageProvider);
-    lastMessageId ??= lastMessage.id;
+    // var lastMessage = ref.watch(lastMessageProvider);
+    // lastMessageId ??= lastMessage.id;
 
     var messages = await qiscus.getPreviousMessagesById(
       roomId: roomId,
@@ -605,3 +606,34 @@ extension _ListExt<T> on List<T> {
     ];
   }
 }
+
+typedef URLTapper = void Function(String);
+final onURLTappedProvider = StateProvider<URLTapper?>((ref) => null);
+
+// ==== UI
+final accountIdProvider = Provider((ref) {
+  return ref.watch(accountProvider.select((v) => v.value?.id));
+});
+
+final ProviderFamily<Color, String> bubbleTextColorProvider =
+    Provider.family((ref, String senderId) {
+  final account = ref.watch(accountIdProvider)!;
+  final theme = ref.watch(appThemeConfigProvider);
+
+  if (account == senderId) {
+    return theme.rightBubbleTextColor;
+  } else {
+    return theme.leftBubbleTextColor;
+  }
+});
+final ProviderFamily<Color, String> bubbleBgColorProvider =
+    Provider.family((ref, String senderId) {
+  final account = ref.watch(accountIdProvider)!;
+  final theme = ref.watch(appThemeConfigProvider);
+
+  if (account == senderId) {
+    return theme.rightBubbleColor;
+  } else {
+    return theme.leftBubbleColor;
+  }
+});

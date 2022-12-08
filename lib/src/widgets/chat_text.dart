@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:qiscus_multichannel_widget/src/utils/generate_link_text.dart';
 
 class QChatText extends StatelessWidget {
   const QChatText({
@@ -18,33 +19,43 @@ class QChatText extends StatelessWidget {
         final bgColor = _getBgColor(ref);
         final fgColor = _getFgColor(ref);
 
-        return Padding(
-          padding: const EdgeInsets.only(left: 10, right: 5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: size.width * 0.6,
-              decoration: BoxDecoration(
-                color: bgColor,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 15,
-                  horizontal: 10,
-                ),
-                child: Text(
-                  message.text,
-                  style: TextStyle(
-                    color: fgColor,
-                    // color: Colors.white,
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-              ),
-            ),
+        return _buildContainer(
+          size: size,
+          bgColor: bgColor,
+          fgColor: fgColor,
+          child: RichLinkText(
+            text: message.text,
+            sender: message.sender,
           ),
         );
       },
+    );
+  }
+
+  Widget _buildContainer({
+    required Size size,
+    required Color bgColor,
+    required Color fgColor,
+    required Widget child,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 5),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          width: size.width * 0.6,
+          decoration: BoxDecoration(
+            color: bgColor,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 15,
+              horizontal: 10,
+            ),
+            child: child,
+          ),
+        ),
+      ),
     );
   }
 

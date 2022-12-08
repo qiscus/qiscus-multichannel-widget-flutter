@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:qiscus_multichannel_widget/src/utils/generate_link_text.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 part 'chat_image.freezed.dart';
@@ -81,9 +82,9 @@ class QChatImage extends StatelessWidget {
                     if (payload.caption?.isNotEmpty == true)
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          payload.caption!,
-                          textAlign: TextAlign.left,
+                        child: RichLinkText(
+                          text: payload.caption!,
+                          sender: message.sender,
                         ),
                       ),
                   ],

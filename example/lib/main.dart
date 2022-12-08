@@ -21,6 +21,9 @@ class _AppStateBuilder extends State<App> {
   Widget build(BuildContext context) {
     return QMultichannelProvider(
       appId: appId,
+      onURLTapped: (url) {
+        print('url tapped: $url');
+      },
       builder: (context) {
         return MaterialApp(
           home: _buildNavigator(),
@@ -38,7 +41,10 @@ class _AppStateBuilder extends State<App> {
         return Navigator(
           pages: [
             LoginPage(),
-            if (roomId != null) QChatRoomPage(),
+            if (roomId != null)
+              QChatRoomPage((e) {
+                ref.clearUser();
+              }),
           ],
           onPopPage: (route, result) {
             if (!route.didPop(result)) {

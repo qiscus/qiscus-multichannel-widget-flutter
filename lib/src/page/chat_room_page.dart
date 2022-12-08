@@ -202,6 +202,25 @@ class QChatRoomScreen extends ConsumerWidget {
               fontSize: 13,
             ),
           ),
+          // const Spacer(),
+          // SafeArea(
+          //   child: ElevatedButton(
+          //     style: ElevatedButton.styleFrom(
+          //       backgroundColor: ref.theme.navigationColor,
+          //     ),
+          //     onPressed: () {
+          //       print('re-initiate chat');
+          //       ref.initiateChat().then((r) {
+          //         print('success initiate chat');
+          //         print(r);
+          //       }).catchError((ee) {
+          //         print('got error');
+          //         print(ee);
+          //       });
+          //     },
+          //     child: const Text('Initiate chat'),
+          //   ),
+          // ),
         ],
       ),
     );

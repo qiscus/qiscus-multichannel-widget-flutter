@@ -77,7 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
     var username = usernameController.text;
     var displayName = displayNameController.text;
 
-    mulchan.setUser(userId: username, displayName: displayName);
+    try {
+      print('set user! $username');
+      mulchan.setUser(userId: username, displayName: displayName);
+    } catch (e) {
+      print('got error');
+      print(e);
+    }
     // var deviceId = await FirebaseMessaging.instance.getToken();
     // mulchan.setDeviceId(deviceId!);
 

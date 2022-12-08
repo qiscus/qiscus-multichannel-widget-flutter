@@ -12,6 +12,7 @@ class QMultichannelProvider extends ConsumerWidget {
     Key? key,
     required this.appId,
     required this.builder,
+    this.onURLTapped,
     this.avatar = const QAvatarConfig.enabled(),
     this.subtitle = const QSubtitleConfig.enabled(),
     this.title,
@@ -31,6 +32,7 @@ class QMultichannelProvider extends ConsumerWidget {
   final String? channelId;
   final bool hideEventUI;
   final String baseUrl;
+  final void Function(String url)? onURLTapped;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,6 +47,7 @@ class QMultichannelProvider extends ConsumerWidget {
         channelIdConfigProvider.overrideWithValue(channelId),
         systemEventConfigProvider.overrideWithValue(!hideEventUI),
         baseUrlProvider.overrideWithValue(baseUrl),
+        onURLTappedProvider.overrideWithValue(onURLTapped),
         // messagesProvider.overrideWithValue(messagesProviderDummy),
       ],
       child: builder(context),

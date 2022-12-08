@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:qiscus_multichannel_widget/src/utils/generate_link_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../models.dart';
@@ -23,6 +24,7 @@ class QChatFile extends StatelessWidget {
     return QMultichannelConsumer(
       builder: (context, ref) {
         final bgColor = _getBgColor(ref);
+        final fgColor = _getFgColor(ref);
 
         var url = Uri.tryParse(message.url)!;
         var name = url.pathSegments.last;
@@ -76,9 +78,9 @@ class QChatFile extends StatelessWidget {
                     if (payload?.caption?.isNotEmpty == true)
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          payload!.caption!,
-                          textAlign: TextAlign.left,
+                        child: RichLinkText(
+                          sender: message.sender,
+                          text: payload!.caption!,
                         ),
                       ),
                   ],
@@ -97,6 +99,15 @@ class QChatFile extends StatelessWidget {
       return ref.theme.rightBubbleColor;
     } else {
       return ref.theme.leftBubbleColor;
+    }
+  }
+
+  Color _getFgColor(QMultichannel ref) {
+    final account = ref.account.value!;
+    if (account.id == message.sender.id) {
+      return ref.theme.rightBubbleTextColor;
+    } else {
+      return ref.theme.leftBubbleTextColor;
     }
   }
 }
