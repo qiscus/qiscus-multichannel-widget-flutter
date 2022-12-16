@@ -1,3 +1,9 @@
+## 1.0.4
+
+- fix message status now default to read
+- fix not getting initial messages
+- implemented url rendering
+
 ## 1.0.3
 
 - fix not opening attachment popup dialog
