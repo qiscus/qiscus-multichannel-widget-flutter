@@ -178,8 +178,10 @@ class QMessageSystem extends QMessage {
         );
 
   static QMessageSystem? tryParse(QMessage message) {
-    if (message.type == QMessageType.custom &&
-        message.sender.name.toLowerCase() == 'system') {
+    var type = message.type;
+    var senderName = message.sender.name;
+
+    if (type == QMessageType.custom && senderName.toLowerCase() == 'system') {
       return QMessageSystem.fromMessage(message);
     }
     return null;

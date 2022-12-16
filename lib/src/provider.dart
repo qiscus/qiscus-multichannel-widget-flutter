@@ -95,6 +95,10 @@ final roomProvider = FutureProvider((ref) async {
   var roomId = await ref.watch(roomIdProvider).future;
   var room = await qiscus.getChatRoomWithMessages(roomId: roomId);
 
+  for (var m in room.messages) {
+    ref.read(messagesProvider.notifier).receive(m);
+  }
+
   return room;
 });
 final isResolvedProvider = StateProvider<bool>((_) => false);
@@ -160,7 +164,6 @@ final initiateChatProvider = FutureProvider((ref) async {
   var isResolved = room['is_resolved'] as bool?;
   var isSessional = room['is_sessional'] as bool?;
 
-  print('is resolved: $isResolved');
   ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
   ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
 
@@ -317,7 +320,10 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     }).toList();
   }
 
+  void Function(QMessage) get receive => _onMessageReceived;
+
   void _onMessageReceived(QMessage message) {
+    message.status = QMessageStatus.read;
     var idx = state.indexWhere((v) => v.uniqueId == message.uniqueId);
 
     if (idx == -1) {
@@ -338,9 +344,10 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     Future.microtask(() async {
       var m = await qiscus.sendMessage(message: message);
       message.id = m.id;
-      message.status = m.status;
+      message.status = QMessageStatus.read;
 
       _onMessageReceived(message);
+      _onMessageRead(message);
     });
 
     return message;
@@ -382,13 +389,13 @@ final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
   return messages.map((it) {
     QMessage? message;
 
+    message ??= QMessageSystem.tryParse(it);
     message ??= QMessageImage.tryParse(it);
     message ??= QMessageVideo.tryParse(it);
     message ??= QMessageFile.tryParse(it);
     // Not yet mature
     // message ??= QMessageButton.tryParse(it);
     message ??= QMessageReply.tryParse(it);
-    message ??= QMessageSystem.tryParse(it);
     message ??= it;
 
     // if (it.type == QMessageType.custom) {
@@ -473,7 +480,6 @@ class QMultichannel {
   }
 
   Future<void> clearUser() async {
-    ref.read(appIdProvider.notifier).state = null;
     ref.read(userIdProvider.notifier).state = null;
     ref.read(displayNameProvider.notifier).state = null;
     ref.read(userPropertiesProvider.notifier).state = null;

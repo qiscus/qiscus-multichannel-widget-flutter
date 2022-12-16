@@ -36,7 +36,7 @@ class QChatMeta extends ConsumerWidget {
               : Icons.done,
           size: 15,
           color: status == QMessageStatus.read
-              ? theme.timeLabelTextColor
+              ? theme.rightBubbleColor
               : Colors.grey,
         ),
       ],
