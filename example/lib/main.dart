@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'constants.dart';
 import 'pages/login.dart';
@@ -22,7 +23,11 @@ class _AppStateBuilder extends State<App> {
     return QMultichannelProvider(
       appId: appId,
       onURLTapped: (url) {
-        print('url tapped: $url');
+        var uri = Uri.tryParse(url);
+        print('url tapped: $url $uri');
+        if (uri != null) {
+          launchUrl(uri, mode: LaunchMode.platformDefault);
+        }
       },
       builder: (context) {
         return MaterialApp(
