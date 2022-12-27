@@ -151,8 +151,12 @@ final initiateChatProvider = FutureProvider((ref) async {
   if (displayName != null) data['name'] = displayName;
   if (avatarUrl != null) data['avatar'] = avatarUrl;
   if (sdkUserExtras != null) data['sdk_user_extras'] = sdkUserExtras;
-  if (userProperties != null) data['user_properties'] = userProperties;
+  if (userProperties != null) {
+    data['user_properties'] = jsonEncode(userProperties);
+  }
   if (channelId != null) data['channel_id'] = channelId;
+
+  print('data: $data');
 
   var resp = await http.post(url, body: data);
   var json = jsonDecode(resp.body);

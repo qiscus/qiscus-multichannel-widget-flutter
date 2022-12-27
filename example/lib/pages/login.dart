@@ -79,7 +79,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       print('set user! $username');
-      mulchan.setUser(userId: username, displayName: displayName);
+      mulchan.setUser(
+        userId: username,
+        displayName: displayName,
+        userProperties: {
+          'name': 'something',
+        },
+      );
     } catch (e) {
       print('got error');
       print(e);
