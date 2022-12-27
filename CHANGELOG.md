@@ -1,3 +1,7 @@
+## 1.0.5
+
+- fix could not set `userProperties` when initiating
+
 ## 1.0.4
 
 - fix message status now default to read
