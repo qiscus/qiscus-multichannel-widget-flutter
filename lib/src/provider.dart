@@ -6,10 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-import 'package:qiscus_multichannel_widget/src/models.dart';
-import 'package:qiscus_multichannel_widget/src/storage_provider.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
 
+import 'models.dart';
+import 'account.dart';
+import 'storage_provider.dart';
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'states/app_state.dart';
@@ -68,8 +69,6 @@ final avatarUrlProvider = Provider<String?>((ref) {
 final sessionalProvider = FutureProvider<bool>((ref) async {
   var baseUrl = ref.watch(baseUrlProvider);
   var appId = ref.watch(appIdProvider);
-
-  print('[sessional] got appId: $appId');
 
   if (appId == null) return false;
 
@@ -156,8 +155,6 @@ final initiateChatProvider = FutureProvider((ref) async {
   }
   if (channelId != null) data['channel_id'] = channelId;
 
-  print('data: $data');
-
   var resp = await http.post(url, body: data);
   var json = jsonDecode(resp.body);
   var identityToken = json['data']['identity_token'] as String;
@@ -168,16 +165,32 @@ final initiateChatProvider = FutureProvider((ref) async {
   var isResolved = room['is_resolved'] as bool?;
   var isSessional = room['is_sessional'] as bool?;
 
+  Map<String, Object?>? properties;
+  try {
+    var prop = (room['extras']['user_properties'] as List)
+        .cast<Map<String, Object?>>();
+
+    if (prop.isNotEmpty) properties ??= {};
+    for (var item in prop) {
+      if (item['key'] != null) {
+        properties?['${item['key']}'] = item['value'];
+      }
+    }
+  } catch (_) {}
+
   ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
   ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
 
-  var user = await qiscus.setUserWithIdentityToken(token: identityToken);
+  var user = QAccount.merge(
+    await qiscus.setUserWithIdentityToken(token: identityToken),
+    properties,
+  );
 
   ref.read(localUserDataProvider.notifier).setData(QLocalUserData(
         appId: qiscus.appId,
         roomId: roomId,
         token: qiscus.token,
-        account: qiscus.currentUser,
+        account: user,
       ));
 
   if (deviceId != null) {
@@ -433,10 +446,8 @@ class QMultichannel {
 
   Future<QChatRoom> initiateChat() async {
     await ref.read(initiateChatProvider.future);
-    var room = await ref.watch(roomProvider.future.select((it) async {
-      var data = await it;
-      return data.room;
-    }));
+
+    var room = await ref.watch(roomProvider.selectAsync((r) => r.room));
 
     return room;
   }

@@ -71,8 +71,6 @@ class QLocalUserDataStateNotifier
     var account = await this.account;
     var token = await this.token;
     var roomId = await this.roomId;
-    print(
-        'fetching data! appId($appId) account($account) token($token) roomId($roomId)');
 
     var currentAppId = ref.read(appIdProvider);
     if (appId == currentAppId &&
@@ -94,8 +92,6 @@ class QLocalUserDataStateNotifier
       var isResolved = data.room.extras?['is_resolved'] as bool?;
       ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
       ref.read(isSessionalProvider.notifier).state = isSessional;
-
-      print('[storage] isSessional($isSessional) isResolved($isResolved)');
 
       if (isSessional == false || isResolved == false) {
         ref.read(appStateProvider.notifier).state =
@@ -137,6 +133,7 @@ Map<String, Object?> accountToJson(QAccount account) {
     'last_comment_id': account.lastMessageId,
     'last_sync_event_id': account.lastEventId,
     'extras': account.extras,
+    'properties': account.properties,
   };
 }
 
@@ -144,6 +141,10 @@ QAccount accountFromJson(Map<String, Object?> json) {
   Map<String, Object?>? extras;
   if (json['extras'] != null) {
     extras = decodeJson(json['extras']);
+  }
+  Map<String, Object?>? properties;
+  if (json['properties'] != null) {
+    properties = decodeJson(json['properties']);
   }
 
   return QAccount(
@@ -153,6 +154,7 @@ QAccount accountFromJson(Map<String, Object?> json) {
     lastMessageId: (json['last_comment_id'] as int),
     lastEventId: (json['last_sync_event_id'] as int),
     extras: extras,
+    properties: properties,
   );
 }
 

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+
+import '../account.dart';
 
 part 'app_state.freezed.dart';
 

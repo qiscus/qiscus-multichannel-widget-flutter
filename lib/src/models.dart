@@ -1,4 +1,4 @@
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
 
 class QMessageText extends QMessage {
   QMessageText({
