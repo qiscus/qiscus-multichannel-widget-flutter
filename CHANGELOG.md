@@ -1,3 +1,7 @@
+## 1.0.6
+
+- add `account.properties`
+
 ## 1.0.5
 
 - fix could not set `userProperties` when initiating
