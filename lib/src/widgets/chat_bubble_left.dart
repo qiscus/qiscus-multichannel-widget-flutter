@@ -36,7 +36,6 @@ class QChatBubbleLeft extends StatelessWidget {
           buildMessageArea(message),
           QChatMeta(
             timestamp: message.timestamp,
-            status: message.status,
           ),
         ],
       ),

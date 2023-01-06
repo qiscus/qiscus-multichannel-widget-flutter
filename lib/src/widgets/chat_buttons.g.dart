@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: argument_type_not_assignable, implicit_dynamic_parameter, unused_element
+
 part of 'chat_buttons.dart';
 
 // **************************************************************************
@@ -26,7 +28,7 @@ Map<String, dynamic> _$$_QMessageButtonPayloadToJson(
 
 _$_QButtons _$$_QButtonsFromJson(Map<String, dynamic> json) => _$_QButtons(
       label: json['label'] as String,
-      postbackText: json['postback_text'] as String,
+      postbackText: json['postback_text'] as String?,
       type: json['type'] as String,
       payload: QButtonsPostbackPayload.fromJson(
           json['payload'] as Map<String, dynamic>),

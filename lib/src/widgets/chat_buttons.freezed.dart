@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'chat_buttons.dart';
 
@@ -13,6 +13,159 @@ T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
+/// @nodoc
+mixin _$QMessagePostbackResponse {
+  int get roomId => throw _privateConstructorUsedError;
+  QButtons get button => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $QMessagePostbackResponseCopyWith<QMessagePostbackResponse> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QMessagePostbackResponseCopyWith<$Res> {
+  factory $QMessagePostbackResponseCopyWith(QMessagePostbackResponse value,
+          $Res Function(QMessagePostbackResponse) then) =
+      _$QMessagePostbackResponseCopyWithImpl<$Res, QMessagePostbackResponse>;
+  @useResult
+  $Res call({int roomId, QButtons button});
+
+  $QButtonsCopyWith<$Res> get button;
+}
+
+/// @nodoc
+class _$QMessagePostbackResponseCopyWithImpl<$Res,
+        $Val extends QMessagePostbackResponse>
+    implements $QMessagePostbackResponseCopyWith<$Res> {
+  _$QMessagePostbackResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? roomId = null,
+    Object? button = null,
+  }) {
+    return _then(_value.copyWith(
+      roomId: null == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as int,
+      button: null == button
+          ? _value.button
+          : button // ignore: cast_nullable_to_non_nullable
+              as QButtons,
+    ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $QButtonsCopyWith<$Res> get button {
+    return $QButtonsCopyWith<$Res>(_value.button, (value) {
+      return _then(_value.copyWith(button: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$_QMessagePostbackResponseCopyWith<$Res>
+    implements $QMessagePostbackResponseCopyWith<$Res> {
+  factory _$$_QMessagePostbackResponseCopyWith(
+          _$_QMessagePostbackResponse value,
+          $Res Function(_$_QMessagePostbackResponse) then) =
+      __$$_QMessagePostbackResponseCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({int roomId, QButtons button});
+
+  @override
+  $QButtonsCopyWith<$Res> get button;
+}
+
+/// @nodoc
+class __$$_QMessagePostbackResponseCopyWithImpl<$Res>
+    extends _$QMessagePostbackResponseCopyWithImpl<$Res,
+        _$_QMessagePostbackResponse>
+    implements _$$_QMessagePostbackResponseCopyWith<$Res> {
+  __$$_QMessagePostbackResponseCopyWithImpl(_$_QMessagePostbackResponse _value,
+      $Res Function(_$_QMessagePostbackResponse) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? roomId = null,
+    Object? button = null,
+  }) {
+    return _then(_$_QMessagePostbackResponse(
+      roomId: null == roomId
+          ? _value.roomId
+          : roomId // ignore: cast_nullable_to_non_nullable
+              as int,
+      button: null == button
+          ? _value.button
+          : button // ignore: cast_nullable_to_non_nullable
+              as QButtons,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_QMessagePostbackResponse implements _QMessagePostbackResponse {
+  const _$_QMessagePostbackResponse(
+      {required this.roomId, required this.button});
+
+  @override
+  final int roomId;
+  @override
+  final QButtons button;
+
+  @override
+  String toString() {
+    return 'QMessagePostbackResponse(roomId: $roomId, button: $button)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_QMessagePostbackResponse &&
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
+            (identical(other.button, button) || other.button == button));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, roomId, button);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_QMessagePostbackResponseCopyWith<_$_QMessagePostbackResponse>
+      get copyWith => __$$_QMessagePostbackResponseCopyWithImpl<
+          _$_QMessagePostbackResponse>(this, _$identity);
+}
+
+abstract class _QMessagePostbackResponse implements QMessagePostbackResponse {
+  const factory _QMessagePostbackResponse(
+      {required final int roomId,
+      required final QButtons button}) = _$_QMessagePostbackResponse;
+
+  @override
+  int get roomId;
+  @override
+  QButtons get button;
+  @override
+  @JsonKey(ignore: true)
+  _$$_QMessagePostbackResponseCopyWith<_$_QMessagePostbackResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
 
 QMessageButtonPayload _$QMessageButtonPayloadFromJson(
     Map<String, dynamic> json) {
@@ -35,39 +188,43 @@ mixin _$QMessageButtonPayload {
 abstract class $QMessageButtonPayloadCopyWith<$Res> {
   factory $QMessageButtonPayloadCopyWith(QMessageButtonPayload value,
           $Res Function(QMessageButtonPayload) then) =
-      _$QMessageButtonPayloadCopyWithImpl<$Res>;
+      _$QMessageButtonPayloadCopyWithImpl<$Res, QMessageButtonPayload>;
+  @useResult
   $Res call({String text, List<QButtons> buttons, String type});
 }
 
 /// @nodoc
-class _$QMessageButtonPayloadCopyWithImpl<$Res>
+class _$QMessageButtonPayloadCopyWithImpl<$Res,
+        $Val extends QMessageButtonPayload>
     implements $QMessageButtonPayloadCopyWith<$Res> {
   _$QMessageButtonPayloadCopyWithImpl(this._value, this._then);
 
-  final QMessageButtonPayload _value;
   // ignore: unused_field
-  final $Res Function(QMessageButtonPayload) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = freezed,
-    Object? buttons = freezed,
-    Object? type = freezed,
+    Object? text = null,
+    Object? buttons = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      buttons: buttons == freezed
+      buttons: null == buttons
           ? _value.buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as List<QButtons>,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -78,37 +235,35 @@ abstract class _$$_QMessageButtonPayloadCopyWith<$Res>
           $Res Function(_$_QMessageButtonPayload) then) =
       __$$_QMessageButtonPayloadCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String text, List<QButtons> buttons, String type});
 }
 
 /// @nodoc
 class __$$_QMessageButtonPayloadCopyWithImpl<$Res>
-    extends _$QMessageButtonPayloadCopyWithImpl<$Res>
+    extends _$QMessageButtonPayloadCopyWithImpl<$Res, _$_QMessageButtonPayload>
     implements _$$_QMessageButtonPayloadCopyWith<$Res> {
   __$$_QMessageButtonPayloadCopyWithImpl(_$_QMessageButtonPayload _value,
       $Res Function(_$_QMessageButtonPayload) _then)
-      : super(_value, (v) => _then(v as _$_QMessageButtonPayload));
+      : super(_value, _then);
 
-  @override
-  _$_QMessageButtonPayload get _value =>
-      super._value as _$_QMessageButtonPayload;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? text = freezed,
-    Object? buttons = freezed,
-    Object? type = freezed,
+    Object? text = null,
+    Object? buttons = null,
+    Object? type = null,
   }) {
     return _then(_$_QMessageButtonPayload(
-      text: text == freezed
+      text: null == text
           ? _value.text
           : text // ignore: cast_nullable_to_non_nullable
               as String,
-      buttons: buttons == freezed
+      buttons: null == buttons
           ? _value._buttons
           : buttons // ignore: cast_nullable_to_non_nullable
               as List<QButtons>,
-      type: type == freezed
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
@@ -133,6 +288,7 @@ class _$_QMessageButtonPayload implements _QMessageButtonPayload {
   final List<QButtons> _buttons;
   @override
   List<QButtons> get buttons {
+    if (_buttons is EqualUnmodifiableListView) return _buttons;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_buttons);
   }
@@ -150,28 +306,28 @@ class _$_QMessageButtonPayload implements _QMessageButtonPayload {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QMessageButtonPayload &&
-            const DeepCollectionEquality().equals(other.text, text) &&
+            (identical(other.text, text) || other.text == text) &&
             const DeepCollectionEquality().equals(other._buttons, _buttons) &&
-            const DeepCollectionEquality().equals(other.type, type));
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(text),
-      const DeepCollectionEquality().hash(_buttons),
-      const DeepCollectionEquality().hash(type));
+      runtimeType, text, const DeepCollectionEquality().hash(_buttons), type);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QMessageButtonPayloadCopyWith<_$_QMessageButtonPayload> get copyWith =>
       __$$_QMessageButtonPayloadCopyWithImpl<_$_QMessageButtonPayload>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QMessageButtonPayloadToJson(this);
+    return _$$_QMessageButtonPayloadToJson(
+      this,
+    );
   }
 }
 
@@ -185,11 +341,11 @@ abstract class _QMessageButtonPayload implements QMessageButtonPayload {
       _$_QMessageButtonPayload.fromJson;
 
   @override
-  String get text => throw _privateConstructorUsedError;
+  String get text;
   @override
-  List<QButtons> get buttons => throw _privateConstructorUsedError;
+  List<QButtons> get buttons;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get type;
   @override
   @JsonKey(ignore: true)
   _$$_QMessageButtonPayloadCopyWith<_$_QMessageButtonPayload> get copyWith =>
@@ -204,7 +360,7 @@ QButtons _$QButtonsFromJson(Map<String, dynamic> json) {
 mixin _$QButtons {
   String get label => throw _privateConstructorUsedError;
   @JsonKey(name: 'postback_text')
-  String get postbackText => throw _privateConstructorUsedError;
+  String? get postbackText => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
   QButtonsPostbackPayload get payload => throw _privateConstructorUsedError;
 
@@ -217,10 +373,11 @@ mixin _$QButtons {
 /// @nodoc
 abstract class $QButtonsCopyWith<$Res> {
   factory $QButtonsCopyWith(QButtons value, $Res Function(QButtons) then) =
-      _$QButtonsCopyWithImpl<$Res>;
+      _$QButtonsCopyWithImpl<$Res, QButtons>;
+  @useResult
   $Res call(
       {String label,
-      @JsonKey(name: 'postback_text') String postbackText,
+      @JsonKey(name: 'postback_text') String? postbackText,
       String type,
       QButtonsPostbackPayload payload});
 
@@ -228,44 +385,48 @@ abstract class $QButtonsCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QButtonsCopyWithImpl<$Res> implements $QButtonsCopyWith<$Res> {
+class _$QButtonsCopyWithImpl<$Res, $Val extends QButtons>
+    implements $QButtonsCopyWith<$Res> {
   _$QButtonsCopyWithImpl(this._value, this._then);
 
-  final QButtons _value;
   // ignore: unused_field
-  final $Res Function(QButtons) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? postbackText = freezed,
-    Object? type = freezed,
-    Object? payload = freezed,
+    Object? type = null,
+    Object? payload = null,
   }) {
     return _then(_value.copyWith(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      postbackText: postbackText == freezed
+      postbackText: freezed == postbackText
           ? _value.postbackText
           : postbackText // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: type == freezed
+              as String?,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      payload: payload == freezed
+      payload: null == payload
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
               as QButtonsPostbackPayload,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QButtonsPostbackPayloadCopyWith<$Res> get payload {
     return $QButtonsPostbackPayloadCopyWith<$Res>(_value.payload, (value) {
-      return _then(_value.copyWith(payload: value));
+      return _then(_value.copyWith(payload: value) as $Val);
     });
   }
 }
@@ -276,9 +437,10 @@ abstract class _$$_QButtonsCopyWith<$Res> implements $QButtonsCopyWith<$Res> {
           _$_QButtons value, $Res Function(_$_QButtons) then) =
       __$$_QButtonsCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String label,
-      @JsonKey(name: 'postback_text') String postbackText,
+      @JsonKey(name: 'postback_text') String? postbackText,
       String type,
       QButtonsPostbackPayload payload});
 
@@ -287,36 +449,35 @@ abstract class _$$_QButtonsCopyWith<$Res> implements $QButtonsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_QButtonsCopyWithImpl<$Res> extends _$QButtonsCopyWithImpl<$Res>
+class __$$_QButtonsCopyWithImpl<$Res>
+    extends _$QButtonsCopyWithImpl<$Res, _$_QButtons>
     implements _$$_QButtonsCopyWith<$Res> {
   __$$_QButtonsCopyWithImpl(
       _$_QButtons _value, $Res Function(_$_QButtons) _then)
-      : super(_value, (v) => _then(v as _$_QButtons));
+      : super(_value, _then);
 
-  @override
-  _$_QButtons get _value => super._value as _$_QButtons;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? label = freezed,
+    Object? label = null,
     Object? postbackText = freezed,
-    Object? type = freezed,
-    Object? payload = freezed,
+    Object? type = null,
+    Object? payload = null,
   }) {
     return _then(_$_QButtons(
-      label: label == freezed
+      label: null == label
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      postbackText: postbackText == freezed
+      postbackText: freezed == postbackText
           ? _value.postbackText
           : postbackText // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: type == freezed
+              as String?,
+      type: null == type
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      payload: payload == freezed
+      payload: null == payload
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
               as QButtonsPostbackPayload,
@@ -329,7 +490,7 @@ class __$$_QButtonsCopyWithImpl<$Res> extends _$QButtonsCopyWithImpl<$Res>
 class _$_QButtons implements _QButtons {
   const _$_QButtons(
       {required this.label,
-      @JsonKey(name: 'postback_text') required this.postbackText,
+      @JsonKey(name: 'postback_text') this.postbackText,
       required this.type,
       required this.payload});
 
@@ -340,7 +501,7 @@ class _$_QButtons implements _QButtons {
   final String label;
   @override
   @JsonKey(name: 'postback_text')
-  final String postbackText;
+  final String? postbackText;
   @override
   final String type;
   @override
@@ -356,51 +517,50 @@ class _$_QButtons implements _QButtons {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QButtons &&
-            const DeepCollectionEquality().equals(other.label, label) &&
-            const DeepCollectionEquality()
-                .equals(other.postbackText, postbackText) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.payload, payload));
+            (identical(other.label, label) || other.label == label) &&
+            (identical(other.postbackText, postbackText) ||
+                other.postbackText == postbackText) &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.payload, payload) || other.payload == payload));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(label),
-      const DeepCollectionEquality().hash(postbackText),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(payload));
+  int get hashCode =>
+      Object.hash(runtimeType, label, postbackText, type, payload);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QButtonsCopyWith<_$_QButtons> get copyWith =>
       __$$_QButtonsCopyWithImpl<_$_QButtons>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QButtonsToJson(this);
+    return _$$_QButtonsToJson(
+      this,
+    );
   }
 }
 
 abstract class _QButtons implements QButtons {
   const factory _QButtons(
       {required final String label,
-      @JsonKey(name: 'postback_text') required final String postbackText,
+      @JsonKey(name: 'postback_text') final String? postbackText,
       required final String type,
       required final QButtonsPostbackPayload payload}) = _$_QButtons;
 
   factory _QButtons.fromJson(Map<String, dynamic> json) = _$_QButtons.fromJson;
 
   @override
-  String get label => throw _privateConstructorUsedError;
+  String get label;
   @override
   @JsonKey(name: 'postback_text')
-  String get postbackText => throw _privateConstructorUsedError;
+  String? get postbackText;
   @override
-  String get type => throw _privateConstructorUsedError;
+  String get type;
   @override
-  QButtonsPostbackPayload get payload => throw _privateConstructorUsedError;
+  QButtonsPostbackPayload get payload;
   @override
   @JsonKey(ignore: true)
   _$$_QButtonsCopyWith<_$_QButtons> get copyWith =>
@@ -428,39 +588,43 @@ mixin _$QButtonsPostbackPayload {
 abstract class $QButtonsPostbackPayloadCopyWith<$Res> {
   factory $QButtonsPostbackPayloadCopyWith(QButtonsPostbackPayload value,
           $Res Function(QButtonsPostbackPayload) then) =
-      _$QButtonsPostbackPayloadCopyWithImpl<$Res>;
+      _$QButtonsPostbackPayloadCopyWithImpl<$Res, QButtonsPostbackPayload>;
+  @useResult
   $Res call({String url, String method, Map<String, Object?>? payload});
 }
 
 /// @nodoc
-class _$QButtonsPostbackPayloadCopyWithImpl<$Res>
+class _$QButtonsPostbackPayloadCopyWithImpl<$Res,
+        $Val extends QButtonsPostbackPayload>
     implements $QButtonsPostbackPayloadCopyWith<$Res> {
   _$QButtonsPostbackPayloadCopyWithImpl(this._value, this._then);
 
-  final QButtonsPostbackPayload _value;
   // ignore: unused_field
-  final $Res Function(QButtonsPostbackPayload) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
-    Object? method = freezed,
+    Object? url = null,
+    Object? method = null,
     Object? payload = freezed,
   }) {
     return _then(_value.copyWith(
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      method: method == freezed
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
               as String,
-      payload: payload == freezed
+      payload: freezed == payload
           ? _value.payload
           : payload // ignore: cast_nullable_to_non_nullable
               as Map<String, Object?>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -471,36 +635,35 @@ abstract class _$$_QButtonsPayloadCopyWith<$Res>
           _$_QButtonsPayload value, $Res Function(_$_QButtonsPayload) then) =
       __$$_QButtonsPayloadCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String url, String method, Map<String, Object?>? payload});
 }
 
 /// @nodoc
 class __$$_QButtonsPayloadCopyWithImpl<$Res>
-    extends _$QButtonsPostbackPayloadCopyWithImpl<$Res>
+    extends _$QButtonsPostbackPayloadCopyWithImpl<$Res, _$_QButtonsPayload>
     implements _$$_QButtonsPayloadCopyWith<$Res> {
   __$$_QButtonsPayloadCopyWithImpl(
       _$_QButtonsPayload _value, $Res Function(_$_QButtonsPayload) _then)
-      : super(_value, (v) => _then(v as _$_QButtonsPayload));
+      : super(_value, _then);
 
-  @override
-  _$_QButtonsPayload get _value => super._value as _$_QButtonsPayload;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
-    Object? method = freezed,
+    Object? url = null,
+    Object? method = null,
     Object? payload = freezed,
   }) {
     return _then(_$_QButtonsPayload(
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      method: method == freezed
+      method: null == method
           ? _value.method
           : method // ignore: cast_nullable_to_non_nullable
               as String,
-      payload: payload == freezed
+      payload: freezed == payload
           ? _value._payload
           : payload // ignore: cast_nullable_to_non_nullable
               as Map<String, Object?>?,
@@ -529,6 +692,7 @@ class _$_QButtonsPayload implements _QButtonsPayload {
   Map<String, Object?>? get payload {
     final value = _payload;
     if (value == null) return null;
+    if (_payload is EqualUnmodifiableMapView) return _payload;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -543,27 +707,27 @@ class _$_QButtonsPayload implements _QButtonsPayload {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QButtonsPayload &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.method, method) &&
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.method, method) || other.method == method) &&
             const DeepCollectionEquality().equals(other._payload, _payload));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(method),
-      const DeepCollectionEquality().hash(_payload));
+      runtimeType, url, method, const DeepCollectionEquality().hash(_payload));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QButtonsPayloadCopyWith<_$_QButtonsPayload> get copyWith =>
       __$$_QButtonsPayloadCopyWithImpl<_$_QButtonsPayload>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QButtonsPayloadToJson(this);
+    return _$$_QButtonsPayloadToJson(
+      this,
+    );
   }
 }
 
@@ -577,11 +741,11 @@ abstract class _QButtonsPayload implements QButtonsPostbackPayload {
       _$_QButtonsPayload.fromJson;
 
   @override
-  String get url => throw _privateConstructorUsedError;
+  String get url;
   @override
-  String get method => throw _privateConstructorUsedError;
+  String get method;
   @override
-  Map<String, Object?>? get payload => throw _privateConstructorUsedError;
+  Map<String, Object?>? get payload;
   @override
   @JsonKey(ignore: true)
   _$$_QButtonsPayloadCopyWith<_$_QButtonsPayload> get copyWith =>

@@ -15,6 +15,7 @@ import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
+import 'widgets/chat_buttons.dart';
 
 final encSharedPreferenceProvider = Provider((_) {
   return const FlutterSecureStorage();
@@ -411,7 +412,7 @@ final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
     message ??= QMessageVideo.tryParse(it);
     message ??= QMessageFile.tryParse(it);
     // Not yet mature
-    // message ??= QMessageButton.tryParse(it);
+    message ??= QMessageButton.tryParse(it);
     message ??= QMessageReply.tryParse(it);
     message ??= it;
 
@@ -423,6 +424,28 @@ final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
 
     return message;
   }).toList();
+});
+
+final chatBubbleFgColorProvider =
+    Provider.autoDispose.family((ref, QUser sender) {
+  var accountId = ref.watch(accountIdProvider);
+  var theme = ref.watch(appThemeConfigProvider);
+  if (accountId == sender.id) {
+    return theme.rightBubbleTextColor;
+  } else {
+    return theme.leftBubbleTextColor;
+  }
+});
+final chatBubbleBgColorProvider =
+    Provider.autoDispose.family((ref, QUser sender) {
+  var accountId = ref.watch(accountIdProvider);
+  var theme = ref.watch(appThemeConfigProvider);
+
+  if (accountId == sender.id) {
+    return theme.rightBubbleColor;
+  } else {
+    return theme.leftBubbleColor;
+  }
 });
 
 class QMultichannel {
@@ -629,7 +652,14 @@ extension _ListExt<T> on List<T> {
 }
 
 typedef URLTapper = void Function(String);
-final onURLTappedProvider = StateProvider<URLTapper?>((ref) => null);
+typedef QButtonTapper = void Function(QMultichannel, QMessage, QButtons);
+final onURLTappedProvider = StateProvider<URLTapper?>((_) => null);
+final onButtonTappedProvider = StateProvider<QButtonTapper>((ref) {
+  return (ref, message, button) async {
+    print('is this called?');
+    await button.next(ref);
+  };
+});
 
 // ==== UI
 final accountIdProvider = Provider((ref) {
