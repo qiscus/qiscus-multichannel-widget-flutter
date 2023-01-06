@@ -1,3 +1,8 @@
+## 1.1.0
+
+- add message buttons type support
+- add message carousel type support
+
 ## 1.0.6
 
 - add `account.properties`
