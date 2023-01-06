@@ -17,3 +17,12 @@ export './src/widgets/chat_buttons.dart'
         QMessageButtonPayload,
         QChatButton,
         QButtonsPostbackPayload;
+export './src/widgets/chat_carousel.dart'
+    show
+        QChatCarousel,
+        QCarouselCard,
+        QCarouselCardFragment,
+        QCarouselAction,
+        QCarouselActionPayload,
+        QMessageCarousel,
+        QMessageCarouselPayload;

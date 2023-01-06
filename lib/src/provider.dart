@@ -8,14 +8,15 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
 
-import 'models.dart';
 import 'account.dart';
-import 'storage_provider.dart';
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
+import 'models.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
+import 'storage_provider.dart';
 import 'widgets/chat_buttons.dart';
+import 'widgets/chat_carousel.dart';
 
 final encSharedPreferenceProvider = Provider((_) {
   return const FlutterSecureStorage();
@@ -413,6 +414,7 @@ final mappedMessagesProvider = Provider<List<QMessage>>((ref) {
     message ??= QMessageFile.tryParse(it);
     // Not yet mature
     message ??= QMessageButton.tryParse(it);
+    message ??= QMessageCarousel.tryParse(it);
     message ??= QMessageReply.tryParse(it);
     message ??= it;
 

@@ -8,6 +8,7 @@ import '../widgets/chat_image.dart';
 import '../widgets/chat_system.dart';
 import '../widgets/chat_text.dart';
 import '../widgets/chat_video.dart';
+import '../widgets/chat_carousel.dart';
 
 final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');
 
@@ -26,6 +27,8 @@ Widget buildMessageArea(QMessage message) {
       return QChatVideo(message: message as QMessageVideo);
     case QMessageButton:
       return QChatButton(message: message as QMessageButton);
+    case QMessageCarousel:
+      return QChatCarousel(message: message as QMessageCarousel);
     default:
       return QChatText(message: message);
   }
