@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_multichannel_widget/src/storage_provider.dart';
 
-import 'config/avatar_config.dart';
-import 'config/subtitle_config.dart';
-import 'provider.dart';
-import 'states/app_theme.dart';
+import '../qiscus_multichannel_widget.dart';
+import 'storage_provider.dart';
 
 class QMultichannelProvider extends ConsumerWidget {
   const QMultichannelProvider({
@@ -36,20 +32,21 @@ class QMultichannelProvider extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var overrides = [
+      appIdProvider.overrideWithValue(appId),
+      appThemeConfigProvider.overrideWithValue(theme),
+      baseUrlProvider.overrideWithValue(baseUrl),
+      avatarConfigProvider.overrideWithValue(avatar),
+      subtitleConfigProvider.overrideWithValue(subtitle),
+      titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
+      channelIdConfigProvider.overrideWithValue(channelId),
+      systemEventConfigProvider.overrideWithValue(!hideEventUI),
+      baseUrlProvider.overrideWithValue(baseUrl),
+      onURLTappedProvider.overrideWithValue(onURLTapped),
+    ];
+
     return ProviderScope(
-      overrides: [
-        appIdProvider.overrideWithValue(appId),
-        appThemeConfigProvider.overrideWithValue(theme),
-        baseUrlProvider.overrideWithValue(baseUrl),
-        avatarConfigProvider.overrideWithValue(avatar),
-        subtitleConfigProvider.overrideWithValue(subtitle),
-        titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
-        channelIdConfigProvider.overrideWithValue(channelId),
-        systemEventConfigProvider.overrideWithValue(!hideEventUI),
-        baseUrlProvider.overrideWithValue(baseUrl),
-        onURLTappedProvider.overrideWithValue(onURLTapped),
-        // messagesProvider.overrideWithValue(messagesProviderDummy),
-      ],
+      overrides: overrides,
       child: builder(context),
     );
   }

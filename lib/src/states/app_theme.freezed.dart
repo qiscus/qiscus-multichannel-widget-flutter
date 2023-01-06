@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_theme.dart';
 
@@ -41,7 +41,8 @@ mixin _$QAppTheme {
 /// @nodoc
 abstract class $QAppThemeCopyWith<$Res> {
   factory $QAppThemeCopyWith(QAppTheme value, $Res Function(QAppTheme) then) =
-      _$QAppThemeCopyWithImpl<$Res>;
+      _$QAppThemeCopyWithImpl<$Res, QAppTheme>;
+  @useResult
   $Res call(
       {Color baseColor,
       Color navigationColor,
@@ -62,98 +63,101 @@ abstract class $QAppThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QAppThemeCopyWithImpl<$Res> implements $QAppThemeCopyWith<$Res> {
+class _$QAppThemeCopyWithImpl<$Res, $Val extends QAppTheme>
+    implements $QAppThemeCopyWith<$Res> {
   _$QAppThemeCopyWithImpl(this._value, this._then);
 
-  final QAppTheme _value;
   // ignore: unused_field
-  final $Res Function(QAppTheme) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? baseColor = freezed,
-    Object? navigationColor = freezed,
-    Object? navigationTitleColor = freezed,
-    Object? systemEventTextColor = freezed,
-    Object? rightBubbleColor = freezed,
-    Object? rightBubbleTextColor = freezed,
-    Object? leftBubbleColor = freezed,
-    Object? leftBubbleTextColor = freezed,
-    Object? timeLabelTextColor = freezed,
-    Object? timeBackgroundColor = freezed,
-    Object? emptyTextColor = freezed,
-    Object? emptyBackgroundColor = freezed,
-    Object? sendContainerColor = freezed,
-    Object? sendContainerBackgroundColor = freezed,
-    Object? fieldChatBorderColor = freezed,
-    Object? fieldChatTextColor = freezed,
+    Object? baseColor = null,
+    Object? navigationColor = null,
+    Object? navigationTitleColor = null,
+    Object? systemEventTextColor = null,
+    Object? rightBubbleColor = null,
+    Object? rightBubbleTextColor = null,
+    Object? leftBubbleColor = null,
+    Object? leftBubbleTextColor = null,
+    Object? timeLabelTextColor = null,
+    Object? timeBackgroundColor = null,
+    Object? emptyTextColor = null,
+    Object? emptyBackgroundColor = null,
+    Object? sendContainerColor = null,
+    Object? sendContainerBackgroundColor = null,
+    Object? fieldChatBorderColor = null,
+    Object? fieldChatTextColor = null,
   }) {
     return _then(_value.copyWith(
-      baseColor: baseColor == freezed
+      baseColor: null == baseColor
           ? _value.baseColor
           : baseColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      navigationColor: navigationColor == freezed
+      navigationColor: null == navigationColor
           ? _value.navigationColor
           : navigationColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      navigationTitleColor: navigationTitleColor == freezed
+      navigationTitleColor: null == navigationTitleColor
           ? _value.navigationTitleColor
           : navigationTitleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      systemEventTextColor: systemEventTextColor == freezed
+      systemEventTextColor: null == systemEventTextColor
           ? _value.systemEventTextColor
           : systemEventTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      rightBubbleColor: rightBubbleColor == freezed
+      rightBubbleColor: null == rightBubbleColor
           ? _value.rightBubbleColor
           : rightBubbleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      rightBubbleTextColor: rightBubbleTextColor == freezed
+      rightBubbleTextColor: null == rightBubbleTextColor
           ? _value.rightBubbleTextColor
           : rightBubbleTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      leftBubbleColor: leftBubbleColor == freezed
+      leftBubbleColor: null == leftBubbleColor
           ? _value.leftBubbleColor
           : leftBubbleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      leftBubbleTextColor: leftBubbleTextColor == freezed
+      leftBubbleTextColor: null == leftBubbleTextColor
           ? _value.leftBubbleTextColor
           : leftBubbleTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      timeLabelTextColor: timeLabelTextColor == freezed
+      timeLabelTextColor: null == timeLabelTextColor
           ? _value.timeLabelTextColor
           : timeLabelTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      timeBackgroundColor: timeBackgroundColor == freezed
+      timeBackgroundColor: null == timeBackgroundColor
           ? _value.timeBackgroundColor
           : timeBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      emptyTextColor: emptyTextColor == freezed
+      emptyTextColor: null == emptyTextColor
           ? _value.emptyTextColor
           : emptyTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      emptyBackgroundColor: emptyBackgroundColor == freezed
+      emptyBackgroundColor: null == emptyBackgroundColor
           ? _value.emptyBackgroundColor
           : emptyBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      sendContainerColor: sendContainerColor == freezed
+      sendContainerColor: null == sendContainerColor
           ? _value.sendContainerColor
           : sendContainerColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      sendContainerBackgroundColor: sendContainerBackgroundColor == freezed
+      sendContainerBackgroundColor: null == sendContainerBackgroundColor
           ? _value.sendContainerBackgroundColor
           : sendContainerBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      fieldChatBorderColor: fieldChatBorderColor == freezed
+      fieldChatBorderColor: null == fieldChatBorderColor
           ? _value.fieldChatBorderColor
           : fieldChatBorderColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      fieldChatTextColor: fieldChatTextColor == freezed
+      fieldChatTextColor: null == fieldChatTextColor
           ? _value.fieldChatTextColor
           : fieldChatTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-    ));
+    ) as $Val);
   }
 }
 
@@ -163,6 +167,7 @@ abstract class _$$_QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
           _$_QAppTheme value, $Res Function(_$_QAppTheme) then) =
       __$$_QAppThemeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {Color baseColor,
       Color navigationColor,
@@ -183,96 +188,95 @@ abstract class _$$_QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_QAppThemeCopyWithImpl<$Res> extends _$QAppThemeCopyWithImpl<$Res>
+class __$$_QAppThemeCopyWithImpl<$Res>
+    extends _$QAppThemeCopyWithImpl<$Res, _$_QAppTheme>
     implements _$$_QAppThemeCopyWith<$Res> {
   __$$_QAppThemeCopyWithImpl(
       _$_QAppTheme _value, $Res Function(_$_QAppTheme) _then)
-      : super(_value, (v) => _then(v as _$_QAppTheme));
+      : super(_value, _then);
 
-  @override
-  _$_QAppTheme get _value => super._value as _$_QAppTheme;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? baseColor = freezed,
-    Object? navigationColor = freezed,
-    Object? navigationTitleColor = freezed,
-    Object? systemEventTextColor = freezed,
-    Object? rightBubbleColor = freezed,
-    Object? rightBubbleTextColor = freezed,
-    Object? leftBubbleColor = freezed,
-    Object? leftBubbleTextColor = freezed,
-    Object? timeLabelTextColor = freezed,
-    Object? timeBackgroundColor = freezed,
-    Object? emptyTextColor = freezed,
-    Object? emptyBackgroundColor = freezed,
-    Object? sendContainerColor = freezed,
-    Object? sendContainerBackgroundColor = freezed,
-    Object? fieldChatBorderColor = freezed,
-    Object? fieldChatTextColor = freezed,
+    Object? baseColor = null,
+    Object? navigationColor = null,
+    Object? navigationTitleColor = null,
+    Object? systemEventTextColor = null,
+    Object? rightBubbleColor = null,
+    Object? rightBubbleTextColor = null,
+    Object? leftBubbleColor = null,
+    Object? leftBubbleTextColor = null,
+    Object? timeLabelTextColor = null,
+    Object? timeBackgroundColor = null,
+    Object? emptyTextColor = null,
+    Object? emptyBackgroundColor = null,
+    Object? sendContainerColor = null,
+    Object? sendContainerBackgroundColor = null,
+    Object? fieldChatBorderColor = null,
+    Object? fieldChatTextColor = null,
   }) {
     return _then(_$_QAppTheme(
-      baseColor: baseColor == freezed
+      baseColor: null == baseColor
           ? _value.baseColor
           : baseColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      navigationColor: navigationColor == freezed
+      navigationColor: null == navigationColor
           ? _value.navigationColor
           : navigationColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      navigationTitleColor: navigationTitleColor == freezed
+      navigationTitleColor: null == navigationTitleColor
           ? _value.navigationTitleColor
           : navigationTitleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      systemEventTextColor: systemEventTextColor == freezed
+      systemEventTextColor: null == systemEventTextColor
           ? _value.systemEventTextColor
           : systemEventTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      rightBubbleColor: rightBubbleColor == freezed
+      rightBubbleColor: null == rightBubbleColor
           ? _value.rightBubbleColor
           : rightBubbleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      rightBubbleTextColor: rightBubbleTextColor == freezed
+      rightBubbleTextColor: null == rightBubbleTextColor
           ? _value.rightBubbleTextColor
           : rightBubbleTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      leftBubbleColor: leftBubbleColor == freezed
+      leftBubbleColor: null == leftBubbleColor
           ? _value.leftBubbleColor
           : leftBubbleColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      leftBubbleTextColor: leftBubbleTextColor == freezed
+      leftBubbleTextColor: null == leftBubbleTextColor
           ? _value.leftBubbleTextColor
           : leftBubbleTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      timeLabelTextColor: timeLabelTextColor == freezed
+      timeLabelTextColor: null == timeLabelTextColor
           ? _value.timeLabelTextColor
           : timeLabelTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      timeBackgroundColor: timeBackgroundColor == freezed
+      timeBackgroundColor: null == timeBackgroundColor
           ? _value.timeBackgroundColor
           : timeBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      emptyTextColor: emptyTextColor == freezed
+      emptyTextColor: null == emptyTextColor
           ? _value.emptyTextColor
           : emptyTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      emptyBackgroundColor: emptyBackgroundColor == freezed
+      emptyBackgroundColor: null == emptyBackgroundColor
           ? _value.emptyBackgroundColor
           : emptyBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      sendContainerColor: sendContainerColor == freezed
+      sendContainerColor: null == sendContainerColor
           ? _value.sendContainerColor
           : sendContainerColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      sendContainerBackgroundColor: sendContainerBackgroundColor == freezed
+      sendContainerBackgroundColor: null == sendContainerBackgroundColor
           ? _value.sendContainerBackgroundColor
           : sendContainerBackgroundColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      fieldChatBorderColor: fieldChatBorderColor == freezed
+      fieldChatBorderColor: null == fieldChatBorderColor
           ? _value.fieldChatBorderColor
           : fieldChatBorderColor // ignore: cast_nullable_to_non_nullable
               as Color,
-      fieldChatTextColor: fieldChatTextColor == freezed
+      fieldChatTextColor: null == fieldChatTextColor
           ? _value.fieldChatTextColor
           : fieldChatTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
@@ -293,7 +297,7 @@ class _$_QAppTheme implements _QAppTheme {
       this.leftBubbleColor = const Color.fromARGB(255, 244, 244, 244),
       this.leftBubbleTextColor = const Color.fromARGB(255, 102, 102, 102),
       this.timeLabelTextColor = const Color.fromARGB(255, 123, 123, 123),
-      this.timeBackgroundColor = const Color.fromARGB(255, 221, 221, 221),
+      this.timeBackgroundColor = const Color.fromARGB(0, 0, 0, 0),
       this.emptyTextColor = const Color.fromARGB(255, 153, 153, 153),
       this.emptyBackgroundColor = const Color.fromARGB(255, 249, 249, 249),
       this.sendContainerColor = const Color.fromARGB(255, 85, 178, 154),
@@ -361,62 +365,65 @@ class _$_QAppTheme implements _QAppTheme {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QAppTheme &&
-            const DeepCollectionEquality().equals(other.baseColor, baseColor) &&
-            const DeepCollectionEquality()
-                .equals(other.navigationColor, navigationColor) &&
-            const DeepCollectionEquality()
-                .equals(other.navigationTitleColor, navigationTitleColor) &&
-            const DeepCollectionEquality()
-                .equals(other.systemEventTextColor, systemEventTextColor) &&
-            const DeepCollectionEquality()
-                .equals(other.rightBubbleColor, rightBubbleColor) &&
-            const DeepCollectionEquality()
-                .equals(other.rightBubbleTextColor, rightBubbleTextColor) &&
-            const DeepCollectionEquality()
-                .equals(other.leftBubbleColor, leftBubbleColor) &&
-            const DeepCollectionEquality()
-                .equals(other.leftBubbleTextColor, leftBubbleTextColor) &&
-            const DeepCollectionEquality()
-                .equals(other.timeLabelTextColor, timeLabelTextColor) &&
-            const DeepCollectionEquality()
-                .equals(other.timeBackgroundColor, timeBackgroundColor) &&
-            const DeepCollectionEquality()
-                .equals(other.emptyTextColor, emptyTextColor) &&
-            const DeepCollectionEquality()
-                .equals(other.emptyBackgroundColor, emptyBackgroundColor) &&
-            const DeepCollectionEquality()
-                .equals(other.sendContainerColor, sendContainerColor) &&
-            const DeepCollectionEquality().equals(
-                other.sendContainerBackgroundColor,
-                sendContainerBackgroundColor) &&
-            const DeepCollectionEquality()
-                .equals(other.fieldChatBorderColor, fieldChatBorderColor) &&
-            const DeepCollectionEquality()
-                .equals(other.fieldChatTextColor, fieldChatTextColor));
+            (identical(other.baseColor, baseColor) ||
+                other.baseColor == baseColor) &&
+            (identical(other.navigationColor, navigationColor) ||
+                other.navigationColor == navigationColor) &&
+            (identical(other.navigationTitleColor, navigationTitleColor) ||
+                other.navigationTitleColor == navigationTitleColor) &&
+            (identical(other.systemEventTextColor, systemEventTextColor) ||
+                other.systemEventTextColor == systemEventTextColor) &&
+            (identical(other.rightBubbleColor, rightBubbleColor) ||
+                other.rightBubbleColor == rightBubbleColor) &&
+            (identical(other.rightBubbleTextColor, rightBubbleTextColor) ||
+                other.rightBubbleTextColor == rightBubbleTextColor) &&
+            (identical(other.leftBubbleColor, leftBubbleColor) ||
+                other.leftBubbleColor == leftBubbleColor) &&
+            (identical(other.leftBubbleTextColor, leftBubbleTextColor) ||
+                other.leftBubbleTextColor == leftBubbleTextColor) &&
+            (identical(other.timeLabelTextColor, timeLabelTextColor) ||
+                other.timeLabelTextColor == timeLabelTextColor) &&
+            (identical(other.timeBackgroundColor, timeBackgroundColor) ||
+                other.timeBackgroundColor == timeBackgroundColor) &&
+            (identical(other.emptyTextColor, emptyTextColor) ||
+                other.emptyTextColor == emptyTextColor) &&
+            (identical(other.emptyBackgroundColor, emptyBackgroundColor) ||
+                other.emptyBackgroundColor == emptyBackgroundColor) &&
+            (identical(other.sendContainerColor, sendContainerColor) ||
+                other.sendContainerColor == sendContainerColor) &&
+            (identical(other.sendContainerBackgroundColor,
+                    sendContainerBackgroundColor) ||
+                other.sendContainerBackgroundColor ==
+                    sendContainerBackgroundColor) &&
+            (identical(other.fieldChatBorderColor, fieldChatBorderColor) ||
+                other.fieldChatBorderColor == fieldChatBorderColor) &&
+            (identical(other.fieldChatTextColor, fieldChatTextColor) ||
+                other.fieldChatTextColor == fieldChatTextColor));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(baseColor),
-      const DeepCollectionEquality().hash(navigationColor),
-      const DeepCollectionEquality().hash(navigationTitleColor),
-      const DeepCollectionEquality().hash(systemEventTextColor),
-      const DeepCollectionEquality().hash(rightBubbleColor),
-      const DeepCollectionEquality().hash(rightBubbleTextColor),
-      const DeepCollectionEquality().hash(leftBubbleColor),
-      const DeepCollectionEquality().hash(leftBubbleTextColor),
-      const DeepCollectionEquality().hash(timeLabelTextColor),
-      const DeepCollectionEquality().hash(timeBackgroundColor),
-      const DeepCollectionEquality().hash(emptyTextColor),
-      const DeepCollectionEquality().hash(emptyBackgroundColor),
-      const DeepCollectionEquality().hash(sendContainerColor),
-      const DeepCollectionEquality().hash(sendContainerBackgroundColor),
-      const DeepCollectionEquality().hash(fieldChatBorderColor),
-      const DeepCollectionEquality().hash(fieldChatTextColor));
+      baseColor,
+      navigationColor,
+      navigationTitleColor,
+      systemEventTextColor,
+      rightBubbleColor,
+      rightBubbleTextColor,
+      leftBubbleColor,
+      leftBubbleTextColor,
+      timeLabelTextColor,
+      timeBackgroundColor,
+      emptyTextColor,
+      emptyBackgroundColor,
+      sendContainerColor,
+      sendContainerBackgroundColor,
+      fieldChatBorderColor,
+      fieldChatTextColor);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>
       __$$_QAppThemeCopyWithImpl<_$_QAppTheme>(this, _$identity);
 }
@@ -441,37 +448,37 @@ abstract class _QAppTheme implements QAppTheme {
       final Color fieldChatTextColor}) = _$_QAppTheme;
 
   @override
-  Color get baseColor => throw _privateConstructorUsedError;
+  Color get baseColor;
   @override
-  Color get navigationColor => throw _privateConstructorUsedError;
+  Color get navigationColor;
   @override
-  Color get navigationTitleColor => throw _privateConstructorUsedError;
+  Color get navigationTitleColor;
   @override
-  Color get systemEventTextColor => throw _privateConstructorUsedError;
+  Color get systemEventTextColor;
   @override
-  Color get rightBubbleColor => throw _privateConstructorUsedError;
+  Color get rightBubbleColor;
   @override
-  Color get rightBubbleTextColor => throw _privateConstructorUsedError;
+  Color get rightBubbleTextColor;
   @override
-  Color get leftBubbleColor => throw _privateConstructorUsedError;
+  Color get leftBubbleColor;
   @override
-  Color get leftBubbleTextColor => throw _privateConstructorUsedError;
+  Color get leftBubbleTextColor;
   @override
-  Color get timeLabelTextColor => throw _privateConstructorUsedError;
+  Color get timeLabelTextColor;
   @override
-  Color get timeBackgroundColor => throw _privateConstructorUsedError;
+  Color get timeBackgroundColor;
   @override
-  Color get emptyTextColor => throw _privateConstructorUsedError;
+  Color get emptyTextColor;
   @override
-  Color get emptyBackgroundColor => throw _privateConstructorUsedError;
+  Color get emptyBackgroundColor;
   @override
-  Color get sendContainerColor => throw _privateConstructorUsedError;
+  Color get sendContainerColor;
   @override
-  Color get sendContainerBackgroundColor => throw _privateConstructorUsedError;
+  Color get sendContainerBackgroundColor;
   @override
-  Color get fieldChatBorderColor => throw _privateConstructorUsedError;
+  Color get fieldChatBorderColor;
   @override
-  Color get fieldChatTextColor => throw _privateConstructorUsedError;
+  Color get fieldChatTextColor;
   @override
   @JsonKey(ignore: true)
   _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>

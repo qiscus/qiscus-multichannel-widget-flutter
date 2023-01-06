@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_config.dart';
 
@@ -34,7 +34,8 @@ mixin _$QAppConfig {
 abstract class $QAppConfigCopyWith<$Res> {
   factory $QAppConfigCopyWith(
           QAppConfig value, $Res Function(QAppConfig) then) =
-      _$QAppConfigCopyWithImpl<$Res>;
+      _$QAppConfigCopyWithImpl<$Res, QAppConfig>;
+  @useResult
   $Res call(
       {String baseUrl,
       String? title,
@@ -50,79 +51,84 @@ abstract class $QAppConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QAppConfigCopyWithImpl<$Res> implements $QAppConfigCopyWith<$Res> {
+class _$QAppConfigCopyWithImpl<$Res, $Val extends QAppConfig>
+    implements $QAppConfigCopyWith<$Res> {
   _$QAppConfigCopyWithImpl(this._value, this._then);
 
-  final QAppConfig _value;
   // ignore: unused_field
-  final $Res Function(QAppConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? baseUrl = freezed,
+    Object? baseUrl = null,
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? avatar = freezed,
     Object? channelId = freezed,
     Object? deviceId = freezed,
-    Object? showSystemEvent = freezed,
-    Object? showSenderAvatar = freezed,
+    Object? showSystemEvent = null,
+    Object? showSenderAvatar = null,
   }) {
     return _then(_value.copyWith(
-      baseUrl: baseUrl == freezed
+      baseUrl: null == baseUrl
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      subtitle: subtitle == freezed
+      subtitle: freezed == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as QSubtitleConfig?,
-      avatar: avatar == freezed
+      avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as QAvatarConfig?,
-      channelId: channelId == freezed
+      channelId: freezed == channelId
           ? _value.channelId
           : channelId // ignore: cast_nullable_to_non_nullable
               as String?,
-      deviceId: deviceId == freezed
+      deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String?,
-      showSystemEvent: showSystemEvent == freezed
+      showSystemEvent: null == showSystemEvent
           ? _value.showSystemEvent
           : showSystemEvent // ignore: cast_nullable_to_non_nullable
               as bool,
-      showSenderAvatar: showSenderAvatar == freezed
+      showSenderAvatar: null == showSenderAvatar
           ? _value.showSenderAvatar
           : showSenderAvatar // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QSubtitleConfigCopyWith<$Res>? get subtitle {
     if (_value.subtitle == null) {
       return null;
     }
 
     return $QSubtitleConfigCopyWith<$Res>(_value.subtitle!, (value) {
-      return _then(_value.copyWith(subtitle: value));
+      return _then(_value.copyWith(subtitle: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QAvatarConfigCopyWith<$Res>? get avatar {
     if (_value.avatar == null) {
       return null;
     }
 
     return $QAvatarConfigCopyWith<$Res>(_value.avatar!, (value) {
-      return _then(_value.copyWith(avatar: value));
+      return _then(_value.copyWith(avatar: value) as $Val);
     });
   }
 }
@@ -134,6 +140,7 @@ abstract class _$$_QAppConfigCopyWith<$Res>
           _$_QAppConfig value, $Res Function(_$_QAppConfig) then) =
       __$$_QAppConfigCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String baseUrl,
       String? title,
@@ -151,56 +158,55 @@ abstract class _$$_QAppConfigCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_QAppConfigCopyWithImpl<$Res> extends _$QAppConfigCopyWithImpl<$Res>
+class __$$_QAppConfigCopyWithImpl<$Res>
+    extends _$QAppConfigCopyWithImpl<$Res, _$_QAppConfig>
     implements _$$_QAppConfigCopyWith<$Res> {
   __$$_QAppConfigCopyWithImpl(
       _$_QAppConfig _value, $Res Function(_$_QAppConfig) _then)
-      : super(_value, (v) => _then(v as _$_QAppConfig));
+      : super(_value, _then);
 
-  @override
-  _$_QAppConfig get _value => super._value as _$_QAppConfig;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? baseUrl = freezed,
+    Object? baseUrl = null,
     Object? title = freezed,
     Object? subtitle = freezed,
     Object? avatar = freezed,
     Object? channelId = freezed,
     Object? deviceId = freezed,
-    Object? showSystemEvent = freezed,
-    Object? showSenderAvatar = freezed,
+    Object? showSystemEvent = null,
+    Object? showSenderAvatar = null,
   }) {
     return _then(_$_QAppConfig(
-      baseUrl: baseUrl == freezed
+      baseUrl: null == baseUrl
           ? _value.baseUrl
           : baseUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      title: title == freezed
+      title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String?,
-      subtitle: subtitle == freezed
+      subtitle: freezed == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as QSubtitleConfig?,
-      avatar: avatar == freezed
+      avatar: freezed == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as QAvatarConfig?,
-      channelId: channelId == freezed
+      channelId: freezed == channelId
           ? _value.channelId
           : channelId // ignore: cast_nullable_to_non_nullable
               as String?,
-      deviceId: deviceId == freezed
+      deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
               as String?,
-      showSystemEvent: showSystemEvent == freezed
+      showSystemEvent: null == showSystemEvent
           ? _value.showSystemEvent
           : showSystemEvent // ignore: cast_nullable_to_non_nullable
               as bool,
-      showSenderAvatar: showSenderAvatar == freezed
+      showSenderAvatar: null == showSenderAvatar
           ? _value.showSenderAvatar
           : showSenderAvatar // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -251,32 +257,28 @@ class _$_QAppConfig implements _QAppConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QAppConfig &&
-            const DeepCollectionEquality().equals(other.baseUrl, baseUrl) &&
-            const DeepCollectionEquality().equals(other.title, title) &&
-            const DeepCollectionEquality().equals(other.subtitle, subtitle) &&
-            const DeepCollectionEquality().equals(other.avatar, avatar) &&
-            const DeepCollectionEquality().equals(other.channelId, channelId) &&
-            const DeepCollectionEquality().equals(other.deviceId, deviceId) &&
-            const DeepCollectionEquality()
-                .equals(other.showSystemEvent, showSystemEvent) &&
-            const DeepCollectionEquality()
-                .equals(other.showSenderAvatar, showSenderAvatar));
+            (identical(other.baseUrl, baseUrl) || other.baseUrl == baseUrl) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.subtitle, subtitle) ||
+                other.subtitle == subtitle) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.channelId, channelId) ||
+                other.channelId == channelId) &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
+            (identical(other.showSystemEvent, showSystemEvent) ||
+                other.showSystemEvent == showSystemEvent) &&
+            (identical(other.showSenderAvatar, showSenderAvatar) ||
+                other.showSenderAvatar == showSenderAvatar));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(baseUrl),
-      const DeepCollectionEquality().hash(title),
-      const DeepCollectionEquality().hash(subtitle),
-      const DeepCollectionEquality().hash(avatar),
-      const DeepCollectionEquality().hash(channelId),
-      const DeepCollectionEquality().hash(deviceId),
-      const DeepCollectionEquality().hash(showSystemEvent),
-      const DeepCollectionEquality().hash(showSenderAvatar));
+  int get hashCode => Object.hash(runtimeType, baseUrl, title, subtitle, avatar,
+      channelId, deviceId, showSystemEvent, showSenderAvatar);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QAppConfigCopyWith<_$_QAppConfig> get copyWith =>
       __$$_QAppConfigCopyWithImpl<_$_QAppConfig>(this, _$identity);
 }
@@ -293,21 +295,21 @@ abstract class _QAppConfig implements QAppConfig {
       final bool showSenderAvatar}) = _$_QAppConfig;
 
   @override
-  String get baseUrl => throw _privateConstructorUsedError;
+  String get baseUrl;
   @override
-  String? get title => throw _privateConstructorUsedError;
+  String? get title;
   @override
-  QSubtitleConfig? get subtitle => throw _privateConstructorUsedError;
+  QSubtitleConfig? get subtitle;
   @override
-  QAvatarConfig? get avatar => throw _privateConstructorUsedError;
+  QAvatarConfig? get avatar;
   @override
-  String? get channelId => throw _privateConstructorUsedError;
+  String? get channelId;
   @override
-  String? get deviceId => throw _privateConstructorUsedError;
+  String? get deviceId;
   @override
-  bool get showSystemEvent => throw _privateConstructorUsedError;
+  bool get showSystemEvent;
   @override
-  bool get showSenderAvatar => throw _privateConstructorUsedError;
+  bool get showSenderAvatar;
   @override
   @JsonKey(ignore: true)
   _$$_QAppConfigCopyWith<_$_QAppConfig> get copyWith =>

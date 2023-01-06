@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'avatar_config.dart';
 
@@ -25,9 +25,9 @@ mixin _$QAvatarConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String avatarUrl)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String avatarUrl)? editable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$QAvatarConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QAvatarDisabled value)? disabled,
-    TResult Function(_QAvatarEnabled value)? enabled,
-    TResult Function(_QAvatarEditable value)? editable,
+    TResult? Function(_QAvatarDisabled value)? disabled,
+    TResult? Function(_QAvatarEnabled value)? enabled,
+    TResult? Function(_QAvatarEditable value)? editable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,17 +66,18 @@ mixin _$QAvatarConfig {
 abstract class $QAvatarConfigCopyWith<$Res> {
   factory $QAvatarConfigCopyWith(
           QAvatarConfig value, $Res Function(QAvatarConfig) then) =
-      _$QAvatarConfigCopyWithImpl<$Res>;
+      _$QAvatarConfigCopyWithImpl<$Res, QAvatarConfig>;
 }
 
 /// @nodoc
-class _$QAvatarConfigCopyWithImpl<$Res>
+class _$QAvatarConfigCopyWithImpl<$Res, $Val extends QAvatarConfig>
     implements $QAvatarConfigCopyWith<$Res> {
   _$QAvatarConfigCopyWithImpl(this._value, this._then);
 
-  final QAvatarConfig _value;
   // ignore: unused_field
-  final $Res Function(QAvatarConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -88,14 +89,11 @@ abstract class _$$_QAvatarDisabledCopyWith<$Res> {
 
 /// @nodoc
 class __$$_QAvatarDisabledCopyWithImpl<$Res>
-    extends _$QAvatarConfigCopyWithImpl<$Res>
+    extends _$QAvatarConfigCopyWithImpl<$Res, _$_QAvatarDisabled>
     implements _$$_QAvatarDisabledCopyWith<$Res> {
   __$$_QAvatarDisabledCopyWithImpl(
       _$_QAvatarDisabled _value, $Res Function(_$_QAvatarDisabled) _then)
-      : super(_value, (v) => _then(v as _$_QAvatarDisabled));
-
-  @override
-  _$_QAvatarDisabled get _value => super._value as _$_QAvatarDisabled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -130,9 +128,9 @@ class _$_QAvatarDisabled implements _QAvatarDisabled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String avatarUrl)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String avatarUrl)? editable,
   }) {
     return disabled?.call();
   }
@@ -164,9 +162,9 @@ class _$_QAvatarDisabled implements _QAvatarDisabled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QAvatarDisabled value)? disabled,
-    TResult Function(_QAvatarEnabled value)? enabled,
-    TResult Function(_QAvatarEditable value)? editable,
+    TResult? Function(_QAvatarDisabled value)? disabled,
+    TResult? Function(_QAvatarEnabled value)? enabled,
+    TResult? Function(_QAvatarEditable value)? editable,
   }) {
     return disabled?.call(this);
   }
@@ -199,14 +197,11 @@ abstract class _$$_QAvatarEnabledCopyWith<$Res> {
 
 /// @nodoc
 class __$$_QAvatarEnabledCopyWithImpl<$Res>
-    extends _$QAvatarConfigCopyWithImpl<$Res>
+    extends _$QAvatarConfigCopyWithImpl<$Res, _$_QAvatarEnabled>
     implements _$$_QAvatarEnabledCopyWith<$Res> {
   __$$_QAvatarEnabledCopyWithImpl(
       _$_QAvatarEnabled _value, $Res Function(_$_QAvatarEnabled) _then)
-      : super(_value, (v) => _then(v as _$_QAvatarEnabled));
-
-  @override
-  _$_QAvatarEnabled get _value => super._value as _$_QAvatarEnabled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -241,9 +236,9 @@ class _$_QAvatarEnabled implements _QAvatarEnabled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String avatarUrl)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String avatarUrl)? editable,
   }) {
     return enabled?.call();
   }
@@ -275,9 +270,9 @@ class _$_QAvatarEnabled implements _QAvatarEnabled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QAvatarDisabled value)? disabled,
-    TResult Function(_QAvatarEnabled value)? enabled,
-    TResult Function(_QAvatarEditable value)? editable,
+    TResult? Function(_QAvatarDisabled value)? disabled,
+    TResult? Function(_QAvatarEnabled value)? enabled,
+    TResult? Function(_QAvatarEditable value)? editable,
   }) {
     return enabled?.call(this);
   }
@@ -306,26 +301,25 @@ abstract class _$$_QAvatarEditableCopyWith<$Res> {
   factory _$$_QAvatarEditableCopyWith(
           _$_QAvatarEditable value, $Res Function(_$_QAvatarEditable) then) =
       __$$_QAvatarEditableCopyWithImpl<$Res>;
+  @useResult
   $Res call({String avatarUrl});
 }
 
 /// @nodoc
 class __$$_QAvatarEditableCopyWithImpl<$Res>
-    extends _$QAvatarConfigCopyWithImpl<$Res>
+    extends _$QAvatarConfigCopyWithImpl<$Res, _$_QAvatarEditable>
     implements _$$_QAvatarEditableCopyWith<$Res> {
   __$$_QAvatarEditableCopyWithImpl(
       _$_QAvatarEditable _value, $Res Function(_$_QAvatarEditable) _then)
-      : super(_value, (v) => _then(v as _$_QAvatarEditable));
+      : super(_value, _then);
 
-  @override
-  _$_QAvatarEditable get _value => super._value as _$_QAvatarEditable;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? avatarUrl = freezed,
+    Object? avatarUrl = null,
   }) {
     return _then(_$_QAvatarEditable(
-      avatarUrl == freezed
+      null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String,
@@ -351,15 +345,16 @@ class _$_QAvatarEditable implements _QAvatarEditable {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QAvatarEditable &&
-            const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl));
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(avatarUrl));
+  int get hashCode => Object.hash(runtimeType, avatarUrl);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QAvatarEditableCopyWith<_$_QAvatarEditable> get copyWith =>
       __$$_QAvatarEditableCopyWithImpl<_$_QAvatarEditable>(this, _$identity);
 
@@ -376,9 +371,9 @@ class _$_QAvatarEditable implements _QAvatarEditable {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String avatarUrl)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String avatarUrl)? editable,
   }) {
     return editable?.call(avatarUrl);
   }
@@ -410,9 +405,9 @@ class _$_QAvatarEditable implements _QAvatarEditable {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QAvatarDisabled value)? disabled,
-    TResult Function(_QAvatarEnabled value)? enabled,
-    TResult Function(_QAvatarEditable value)? editable,
+    TResult? Function(_QAvatarDisabled value)? disabled,
+    TResult? Function(_QAvatarEnabled value)? enabled,
+    TResult? Function(_QAvatarEditable value)? editable,
   }) {
     return editable?.call(this);
   }
@@ -435,7 +430,7 @@ class _$_QAvatarEditable implements _QAvatarEditable {
 abstract class _QAvatarEditable implements QAvatarConfig {
   const factory _QAvatarEditable(final String avatarUrl) = _$_QAvatarEditable;
 
-  String get avatarUrl => throw _privateConstructorUsedError;
+  String get avatarUrl;
   @JsonKey(ignore: true)
   _$$_QAvatarEditableCopyWith<_$_QAvatarEditable> get copyWith =>
       throw _privateConstructorUsedError;

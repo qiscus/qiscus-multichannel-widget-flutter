@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'either.dart';
 
@@ -24,8 +24,8 @@ mixin _$Either<L, R> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(L left)? left,
-    TResult Function(R right)? right,
+    TResult? Function(L left)? left,
+    TResult? Function(R right)? right,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -43,8 +43,8 @@ mixin _$Either<L, R> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Left<L, R> value)? left,
-    TResult Function(_Right<L, R> value)? right,
+    TResult? Function(_Left<L, R> value)? left,
+    TResult? Function(_Right<L, R> value)? right,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,16 +60,18 @@ mixin _$Either<L, R> {
 abstract class $EitherCopyWith<L, R, $Res> {
   factory $EitherCopyWith(
           Either<L, R> value, $Res Function(Either<L, R>) then) =
-      _$EitherCopyWithImpl<L, R, $Res>;
+      _$EitherCopyWithImpl<L, R, $Res, Either<L, R>>;
 }
 
 /// @nodoc
-class _$EitherCopyWithImpl<L, R, $Res> implements $EitherCopyWith<L, R, $Res> {
+class _$EitherCopyWithImpl<L, R, $Res, $Val extends Either<L, R>>
+    implements $EitherCopyWith<L, R, $Res> {
   _$EitherCopyWithImpl(this._value, this._then);
 
-  final Either<L, R> _value;
   // ignore: unused_field
-  final $Res Function(Either<L, R>) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -77,25 +79,25 @@ abstract class _$$_LeftCopyWith<L, R, $Res> {
   factory _$$_LeftCopyWith(
           _$_Left<L, R> value, $Res Function(_$_Left<L, R>) then) =
       __$$_LeftCopyWithImpl<L, R, $Res>;
+  @useResult
   $Res call({L left});
 }
 
 /// @nodoc
-class __$$_LeftCopyWithImpl<L, R, $Res> extends _$EitherCopyWithImpl<L, R, $Res>
+class __$$_LeftCopyWithImpl<L, R, $Res>
+    extends _$EitherCopyWithImpl<L, R, $Res, _$_Left<L, R>>
     implements _$$_LeftCopyWith<L, R, $Res> {
   __$$_LeftCopyWithImpl(
       _$_Left<L, R> _value, $Res Function(_$_Left<L, R>) _then)
-      : super(_value, (v) => _then(v as _$_Left<L, R>));
+      : super(_value, _then);
 
-  @override
-  _$_Left<L, R> get _value => super._value as _$_Left<L, R>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? left = freezed,
   }) {
     return _then(_$_Left<L, R>(
-      left == freezed
+      freezed == left
           ? _value.left
           : left // ignore: cast_nullable_to_non_nullable
               as L,
@@ -130,6 +132,7 @@ class _$_Left<L, R> implements _Left<L, R> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LeftCopyWith<L, R, _$_Left<L, R>> get copyWith =>
       __$$_LeftCopyWithImpl<L, R, _$_Left<L, R>>(this, _$identity);
 
@@ -145,8 +148,8 @@ class _$_Left<L, R> implements _Left<L, R> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(L left)? left,
-    TResult Function(R right)? right,
+    TResult? Function(L left)? left,
+    TResult? Function(R right)? right,
   }) {
     return left?.call(this.left);
   }
@@ -176,8 +179,8 @@ class _$_Left<L, R> implements _Left<L, R> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Left<L, R> value)? left,
-    TResult Function(_Right<L, R> value)? right,
+    TResult? Function(_Left<L, R> value)? left,
+    TResult? Function(_Right<L, R> value)? right,
   }) {
     return left?.call(this);
   }
@@ -199,7 +202,7 @@ class _$_Left<L, R> implements _Left<L, R> {
 abstract class _Left<L, R> implements Either<L, R> {
   factory _Left(final L left) = _$_Left<L, R>;
 
-  L get left => throw _privateConstructorUsedError;
+  L get left;
   @JsonKey(ignore: true)
   _$$_LeftCopyWith<L, R, _$_Left<L, R>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -210,26 +213,25 @@ abstract class _$$_RightCopyWith<L, R, $Res> {
   factory _$$_RightCopyWith(
           _$_Right<L, R> value, $Res Function(_$_Right<L, R>) then) =
       __$$_RightCopyWithImpl<L, R, $Res>;
+  @useResult
   $Res call({R right});
 }
 
 /// @nodoc
 class __$$_RightCopyWithImpl<L, R, $Res>
-    extends _$EitherCopyWithImpl<L, R, $Res>
+    extends _$EitherCopyWithImpl<L, R, $Res, _$_Right<L, R>>
     implements _$$_RightCopyWith<L, R, $Res> {
   __$$_RightCopyWithImpl(
       _$_Right<L, R> _value, $Res Function(_$_Right<L, R>) _then)
-      : super(_value, (v) => _then(v as _$_Right<L, R>));
+      : super(_value, _then);
 
-  @override
-  _$_Right<L, R> get _value => super._value as _$_Right<L, R>;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? right = freezed,
   }) {
     return _then(_$_Right<L, R>(
-      right == freezed
+      freezed == right
           ? _value.right
           : right // ignore: cast_nullable_to_non_nullable
               as R,
@@ -264,6 +266,7 @@ class _$_Right<L, R> implements _Right<L, R> {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RightCopyWith<L, R, _$_Right<L, R>> get copyWith =>
       __$$_RightCopyWithImpl<L, R, _$_Right<L, R>>(this, _$identity);
 
@@ -279,8 +282,8 @@ class _$_Right<L, R> implements _Right<L, R> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(L left)? left,
-    TResult Function(R right)? right,
+    TResult? Function(L left)? left,
+    TResult? Function(R right)? right,
   }) {
     return right?.call(this.right);
   }
@@ -310,8 +313,8 @@ class _$_Right<L, R> implements _Right<L, R> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_Left<L, R> value)? left,
-    TResult Function(_Right<L, R> value)? right,
+    TResult? Function(_Left<L, R> value)? left,
+    TResult? Function(_Right<L, R> value)? right,
   }) {
     return right?.call(this);
   }
@@ -333,7 +336,7 @@ class _$_Right<L, R> implements _Right<L, R> {
 abstract class _Right<L, R> implements Either<L, R> {
   factory _Right(final R right) = _$_Right<L, R>;
 
-  R get right => throw _privateConstructorUsedError;
+  R get right;
   @JsonKey(ignore: true)
   _$$_RightCopyWith<L, R, _$_Right<L, R>> get copyWith =>
       throw _privateConstructorUsedError;

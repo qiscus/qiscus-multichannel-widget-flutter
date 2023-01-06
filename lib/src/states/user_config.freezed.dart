@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'user_config.dart';
 
@@ -31,7 +31,8 @@ mixin _$QUserConfig {
 abstract class $QUserConfigCopyWith<$Res> {
   factory $QUserConfigCopyWith(
           QUserConfig value, $Res Function(QUserConfig) then) =
-      _$QUserConfigCopyWithImpl<$Res>;
+      _$QUserConfigCopyWithImpl<$Res, QUserConfig>;
+  @useResult
   $Res call(
       {String userId,
       String displayName,
@@ -40,38 +41,41 @@ abstract class $QUserConfigCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QUserConfigCopyWithImpl<$Res> implements $QUserConfigCopyWith<$Res> {
+class _$QUserConfigCopyWithImpl<$Res, $Val extends QUserConfig>
+    implements $QUserConfigCopyWith<$Res> {
   _$QUserConfigCopyWithImpl(this._value, this._then);
 
-  final QUserConfig _value;
   // ignore: unused_field
-  final $Res Function(QUserConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? displayName = freezed,
+    Object? userId = null,
+    Object? displayName = null,
     Object? avatarUrl = freezed,
     Object? userProperties = freezed,
   }) {
     return _then(_value.copyWith(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      userProperties: userProperties == freezed
+      userProperties: freezed == userProperties
           ? _value.userProperties
           : userProperties // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -82,6 +86,7 @@ abstract class _$$_QUserConfigCopyWith<$Res>
           _$_QUserConfig value, $Res Function(_$_QUserConfig) then) =
       __$$_QUserConfigCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String userId,
       String displayName,
@@ -90,36 +95,35 @@ abstract class _$$_QUserConfigCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_QUserConfigCopyWithImpl<$Res> extends _$QUserConfigCopyWithImpl<$Res>
+class __$$_QUserConfigCopyWithImpl<$Res>
+    extends _$QUserConfigCopyWithImpl<$Res, _$_QUserConfig>
     implements _$$_QUserConfigCopyWith<$Res> {
   __$$_QUserConfigCopyWithImpl(
       _$_QUserConfig _value, $Res Function(_$_QUserConfig) _then)
-      : super(_value, (v) => _then(v as _$_QUserConfig));
+      : super(_value, _then);
 
-  @override
-  _$_QUserConfig get _value => super._value as _$_QUserConfig;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = freezed,
-    Object? displayName = freezed,
+    Object? userId = null,
+    Object? displayName = null,
     Object? avatarUrl = freezed,
     Object? userProperties = freezed,
   }) {
     return _then(_$_QUserConfig(
-      userId: userId == freezed
+      userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: displayName == freezed
+      displayName: null == displayName
           ? _value.displayName
           : displayName // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: avatarUrl == freezed
+      avatarUrl: freezed == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      userProperties: userProperties == freezed
+      userProperties: freezed == userProperties
           ? _value._userProperties
           : userProperties // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>?,
@@ -148,6 +152,7 @@ class _$_QUserConfig implements _QUserConfig {
   Map<String, dynamic>? get userProperties {
     final value = _userProperties;
     if (value == null) return null;
+    if (_userProperties is EqualUnmodifiableMapView) return _userProperties;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(value);
   }
@@ -162,24 +167,22 @@ class _$_QUserConfig implements _QUserConfig {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QUserConfig &&
-            const DeepCollectionEquality().equals(other.userId, userId) &&
-            const DeepCollectionEquality()
-                .equals(other.displayName, displayName) &&
-            const DeepCollectionEquality().equals(other.avatarUrl, avatarUrl) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.displayName, displayName) ||
+                other.displayName == displayName) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                other.avatarUrl == avatarUrl) &&
             const DeepCollectionEquality()
                 .equals(other._userProperties, _userProperties));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(userId),
-      const DeepCollectionEquality().hash(displayName),
-      const DeepCollectionEquality().hash(avatarUrl),
+  int get hashCode => Object.hash(runtimeType, userId, displayName, avatarUrl,
       const DeepCollectionEquality().hash(_userProperties));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QUserConfigCopyWith<_$_QUserConfig> get copyWith =>
       __$$_QUserConfigCopyWithImpl<_$_QUserConfig>(this, _$identity);
 }
@@ -192,14 +195,13 @@ abstract class _QUserConfig implements QUserConfig {
       final Map<String, dynamic>? userProperties}) = _$_QUserConfig;
 
   @override
-  String get userId => throw _privateConstructorUsedError;
+  String get userId;
   @override
-  String get displayName => throw _privateConstructorUsedError;
+  String get displayName;
   @override
-  String? get avatarUrl => throw _privateConstructorUsedError;
+  String? get avatarUrl;
   @override
-  Map<String, dynamic>? get userProperties =>
-      throw _privateConstructorUsedError;
+  Map<String, dynamic>? get userProperties;
   @override
   @JsonKey(ignore: true)
   _$$_QUserConfigCopyWith<_$_QUserConfig> get copyWith =>

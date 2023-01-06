@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'storage_provider.dart';
 
@@ -30,19 +30,22 @@ mixin _$QLocalUserData {
 abstract class $QLocalUserDataCopyWith<$Res> {
   factory $QLocalUserDataCopyWith(
           QLocalUserData value, $Res Function(QLocalUserData) then) =
-      _$QLocalUserDataCopyWithImpl<$Res>;
+      _$QLocalUserDataCopyWithImpl<$Res, QLocalUserData>;
+  @useResult
   $Res call({String? appId, int? roomId, String? token, QAccount? account});
 }
 
 /// @nodoc
-class _$QLocalUserDataCopyWithImpl<$Res>
+class _$QLocalUserDataCopyWithImpl<$Res, $Val extends QLocalUserData>
     implements $QLocalUserDataCopyWith<$Res> {
   _$QLocalUserDataCopyWithImpl(this._value, this._then);
 
-  final QLocalUserData _value;
   // ignore: unused_field
-  final $Res Function(QLocalUserData) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? appId = freezed,
@@ -51,23 +54,23 @@ class _$QLocalUserDataCopyWithImpl<$Res>
     Object? account = freezed,
   }) {
     return _then(_value.copyWith(
-      appId: appId == freezed
+      appId: freezed == appId
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
               as String?,
-      roomId: roomId == freezed
+      roomId: freezed == roomId
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as int?,
-      token: token == freezed
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      account: account == freezed
+      account: freezed == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as QAccount?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -78,20 +81,19 @@ abstract class _$$_QLocalUserDataCopyWith<$Res>
           _$_QLocalUserData value, $Res Function(_$_QLocalUserData) then) =
       __$$_QLocalUserDataCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String? appId, int? roomId, String? token, QAccount? account});
 }
 
 /// @nodoc
 class __$$_QLocalUserDataCopyWithImpl<$Res>
-    extends _$QLocalUserDataCopyWithImpl<$Res>
+    extends _$QLocalUserDataCopyWithImpl<$Res, _$_QLocalUserData>
     implements _$$_QLocalUserDataCopyWith<$Res> {
   __$$_QLocalUserDataCopyWithImpl(
       _$_QLocalUserData _value, $Res Function(_$_QLocalUserData) _then)
-      : super(_value, (v) => _then(v as _$_QLocalUserData));
+      : super(_value, _then);
 
-  @override
-  _$_QLocalUserData get _value => super._value as _$_QLocalUserData;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? appId = freezed,
@@ -100,19 +102,19 @@ class __$$_QLocalUserDataCopyWithImpl<$Res>
     Object? account = freezed,
   }) {
     return _then(_$_QLocalUserData(
-      appId: appId == freezed
+      appId: freezed == appId
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
               as String?,
-      roomId: roomId == freezed
+      roomId: freezed == roomId
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as int?,
-      token: token == freezed
+      token: freezed == token
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
-      account: account == freezed
+      account: freezed == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as QAccount?,
@@ -148,22 +150,18 @@ class _$_QLocalUserData implements _QLocalUserData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QLocalUserData &&
-            const DeepCollectionEquality().equals(other.appId, appId) &&
-            const DeepCollectionEquality().equals(other.roomId, roomId) &&
-            const DeepCollectionEquality().equals(other.token, token) &&
-            const DeepCollectionEquality().equals(other.account, account));
+            (identical(other.appId, appId) || other.appId == appId) &&
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.account, account) || other.account == account));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(appId),
-      const DeepCollectionEquality().hash(roomId),
-      const DeepCollectionEquality().hash(token),
-      const DeepCollectionEquality().hash(account));
+  int get hashCode => Object.hash(runtimeType, appId, roomId, token, account);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QLocalUserDataCopyWith<_$_QLocalUserData> get copyWith =>
       __$$_QLocalUserDataCopyWithImpl<_$_QLocalUserData>(this, _$identity);
 }
@@ -176,13 +174,13 @@ abstract class _QLocalUserData implements QLocalUserData {
       required final QAccount? account}) = _$_QLocalUserData;
 
   @override
-  String? get appId => throw _privateConstructorUsedError;
+  String? get appId;
   @override
-  int? get roomId => throw _privateConstructorUsedError;
+  int? get roomId;
   @override
-  String? get token => throw _privateConstructorUsedError;
+  String? get token;
   @override
-  QAccount? get account => throw _privateConstructorUsedError;
+  QAccount? get account;
   @override
   @JsonKey(ignore: true)
   _$$_QLocalUserDataCopyWith<_$_QLocalUserData> get copyWith =>

@@ -6,13 +6,13 @@ class QChatMeta extends ConsumerWidget {
   const QChatMeta({
     Key? key,
     required this.timestamp,
-    required this.status,
+    this.status,
     this.isLeft = true,
   }) : super(key: key);
 
   final bool isLeft;
   final DateTime timestamp;
-  final QMessageStatus status;
+  final QMessageStatus? status;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,15 +30,16 @@ class QChatMeta extends ConsumerWidget {
             color: theme.timeLabelTextColor,
           ),
         ),
-        Icon(
-          status == QMessageStatus.delivered || status == QMessageStatus.read
-              ? Icons.done_all
-              : Icons.done,
-          size: 15,
-          color: status == QMessageStatus.read
-              ? theme.rightBubbleColor
-              : Colors.grey,
-        ),
+        if (status != null)
+          Icon(
+            status == QMessageStatus.delivered || status == QMessageStatus.read
+                ? Icons.done_all
+                : Icons.done,
+            size: 15,
+            color: status == QMessageStatus.read
+                ? theme.rightBubbleColor
+                : Colors.grey,
+          ),
       ],
     );
   }

@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'chat_image.dart';
 
@@ -39,7 +39,8 @@ mixin _$QImagePayload {
 abstract class $QImagePayloadCopyWith<$Res> {
   factory $QImagePayloadCopyWith(
           QImagePayload value, $Res Function(QImagePayload) then) =
-      _$QImagePayloadCopyWithImpl<$Res>;
+      _$QImagePayloadCopyWithImpl<$Res, QImagePayload>;
+  @useResult
   $Res call(
       {String url,
       String? caption,
@@ -50,17 +51,19 @@ abstract class $QImagePayloadCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QImagePayloadCopyWithImpl<$Res>
+class _$QImagePayloadCopyWithImpl<$Res, $Val extends QImagePayload>
     implements $QImagePayloadCopyWith<$Res> {
   _$QImagePayloadCopyWithImpl(this._value, this._then);
 
-  final QImagePayload _value;
   // ignore: unused_field
-  final $Res Function(QImagePayload) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
+    Object? url = null,
     Object? caption = freezed,
     Object? fileName = freezed,
     Object? size = freezed,
@@ -68,31 +71,31 @@ class _$QImagePayloadCopyWithImpl<$Res>
     Object? encryptionKey = freezed,
   }) {
     return _then(_value.copyWith(
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      caption: caption == freezed
+      caption: freezed == caption
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
-      fileName: fileName == freezed
+      fileName: freezed == fileName
           ? _value.fileName
           : fileName // ignore: cast_nullable_to_non_nullable
               as String?,
-      size: size == freezed
+      size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as int?,
-      pages: pages == freezed
+      pages: freezed == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
               as int?,
-      encryptionKey: encryptionKey == freezed
+      encryptionKey: freezed == encryptionKey
           ? _value.encryptionKey
           : encryptionKey // ignore: cast_nullable_to_non_nullable
               as String?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -103,6 +106,7 @@ abstract class _$$_QImagePayloadCopyWith<$Res>
           _$_QImagePayload value, $Res Function(_$_QImagePayload) then) =
       __$$_QImagePayloadCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {String url,
       String? caption,
@@ -114,18 +118,16 @@ abstract class _$$_QImagePayloadCopyWith<$Res>
 
 /// @nodoc
 class __$$_QImagePayloadCopyWithImpl<$Res>
-    extends _$QImagePayloadCopyWithImpl<$Res>
+    extends _$QImagePayloadCopyWithImpl<$Res, _$_QImagePayload>
     implements _$$_QImagePayloadCopyWith<$Res> {
   __$$_QImagePayloadCopyWithImpl(
       _$_QImagePayload _value, $Res Function(_$_QImagePayload) _then)
-      : super(_value, (v) => _then(v as _$_QImagePayload));
+      : super(_value, _then);
 
-  @override
-  _$_QImagePayload get _value => super._value as _$_QImagePayload;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? url = freezed,
+    Object? url = null,
     Object? caption = freezed,
     Object? fileName = freezed,
     Object? size = freezed,
@@ -133,27 +135,27 @@ class __$$_QImagePayloadCopyWithImpl<$Res>
     Object? encryptionKey = freezed,
   }) {
     return _then(_$_QImagePayload(
-      url: url == freezed
+      url: null == url
           ? _value.url
           : url // ignore: cast_nullable_to_non_nullable
               as String,
-      caption: caption == freezed
+      caption: freezed == caption
           ? _value.caption
           : caption // ignore: cast_nullable_to_non_nullable
               as String?,
-      fileName: fileName == freezed
+      fileName: freezed == fileName
           ? _value.fileName
           : fileName // ignore: cast_nullable_to_non_nullable
               as String?,
-      size: size == freezed
+      size: freezed == size
           ? _value.size
           : size // ignore: cast_nullable_to_non_nullable
               as int?,
-      pages: pages == freezed
+      pages: freezed == pages
           ? _value.pages
           : pages // ignore: cast_nullable_to_non_nullable
               as int?,
-      encryptionKey: encryptionKey == freezed
+      encryptionKey: freezed == encryptionKey
           ? _value.encryptionKey
           : encryptionKey // ignore: cast_nullable_to_non_nullable
               as String?,
@@ -200,34 +202,32 @@ class _$_QImagePayload implements _QImagePayload {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QImagePayload &&
-            const DeepCollectionEquality().equals(other.url, url) &&
-            const DeepCollectionEquality().equals(other.caption, caption) &&
-            const DeepCollectionEquality().equals(other.fileName, fileName) &&
-            const DeepCollectionEquality().equals(other.size, size) &&
-            const DeepCollectionEquality().equals(other.pages, pages) &&
-            const DeepCollectionEquality()
-                .equals(other.encryptionKey, encryptionKey));
+            (identical(other.url, url) || other.url == url) &&
+            (identical(other.caption, caption) || other.caption == caption) &&
+            (identical(other.fileName, fileName) ||
+                other.fileName == fileName) &&
+            (identical(other.size, size) || other.size == size) &&
+            (identical(other.pages, pages) || other.pages == pages) &&
+            (identical(other.encryptionKey, encryptionKey) ||
+                other.encryptionKey == encryptionKey));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(url),
-      const DeepCollectionEquality().hash(caption),
-      const DeepCollectionEquality().hash(fileName),
-      const DeepCollectionEquality().hash(size),
-      const DeepCollectionEquality().hash(pages),
-      const DeepCollectionEquality().hash(encryptionKey));
+      runtimeType, url, caption, fileName, size, pages, encryptionKey);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QImagePayloadCopyWith<_$_QImagePayload> get copyWith =>
       __$$_QImagePayloadCopyWithImpl<_$_QImagePayload>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_QImagePayloadToJson(this);
+    return _$$_QImagePayloadToJson(
+      this,
+    );
   }
 }
 
@@ -246,19 +246,19 @@ abstract class _QImagePayload implements QImagePayload {
       _$_QImagePayload.fromJson;
 
   @override
-  String get url => throw _privateConstructorUsedError;
+  String get url;
   @override
-  String? get caption => throw _privateConstructorUsedError;
+  String? get caption;
   @override
   @JsonKey(name: 'file_name')
-  String? get fileName => throw _privateConstructorUsedError;
+  String? get fileName;
   @override
-  int? get size => throw _privateConstructorUsedError;
+  int? get size;
   @override
-  int? get pages => throw _privateConstructorUsedError;
+  int? get pages;
   @override
   @JsonKey(name: 'encryption_key')
-  String? get encryptionKey => throw _privateConstructorUsedError;
+  String? get encryptionKey;
   @override
   @JsonKey(ignore: true)
   _$$_QImagePayloadCopyWith<_$_QImagePayload> get copyWith =>

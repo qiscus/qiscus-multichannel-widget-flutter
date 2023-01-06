@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'subtitle_config.dart';
 
@@ -25,9 +25,9 @@ mixin _$QSubtitleConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String subtitle)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String subtitle)? editable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$QSubtitleConfig {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QSubtitleDisabled value)? disabled,
-    TResult Function(_QSubtitleEnabled value)? enabled,
-    TResult Function(_QSubtitleEditable value)? editable,
+    TResult? Function(_QSubtitleDisabled value)? disabled,
+    TResult? Function(_QSubtitleEnabled value)? enabled,
+    TResult? Function(_QSubtitleEditable value)? editable,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -66,17 +66,18 @@ mixin _$QSubtitleConfig {
 abstract class $QSubtitleConfigCopyWith<$Res> {
   factory $QSubtitleConfigCopyWith(
           QSubtitleConfig value, $Res Function(QSubtitleConfig) then) =
-      _$QSubtitleConfigCopyWithImpl<$Res>;
+      _$QSubtitleConfigCopyWithImpl<$Res, QSubtitleConfig>;
 }
 
 /// @nodoc
-class _$QSubtitleConfigCopyWithImpl<$Res>
+class _$QSubtitleConfigCopyWithImpl<$Res, $Val extends QSubtitleConfig>
     implements $QSubtitleConfigCopyWith<$Res> {
   _$QSubtitleConfigCopyWithImpl(this._value, this._then);
 
-  final QSubtitleConfig _value;
   // ignore: unused_field
-  final $Res Function(QSubtitleConfig) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -88,14 +89,11 @@ abstract class _$$_QSubtitleDisabledCopyWith<$Res> {
 
 /// @nodoc
 class __$$_QSubtitleDisabledCopyWithImpl<$Res>
-    extends _$QSubtitleConfigCopyWithImpl<$Res>
+    extends _$QSubtitleConfigCopyWithImpl<$Res, _$_QSubtitleDisabled>
     implements _$$_QSubtitleDisabledCopyWith<$Res> {
   __$$_QSubtitleDisabledCopyWithImpl(
       _$_QSubtitleDisabled _value, $Res Function(_$_QSubtitleDisabled) _then)
-      : super(_value, (v) => _then(v as _$_QSubtitleDisabled));
-
-  @override
-  _$_QSubtitleDisabled get _value => super._value as _$_QSubtitleDisabled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -130,9 +128,9 @@ class _$_QSubtitleDisabled implements _QSubtitleDisabled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String subtitle)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String subtitle)? editable,
   }) {
     return disabled?.call();
   }
@@ -164,9 +162,9 @@ class _$_QSubtitleDisabled implements _QSubtitleDisabled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QSubtitleDisabled value)? disabled,
-    TResult Function(_QSubtitleEnabled value)? enabled,
-    TResult Function(_QSubtitleEditable value)? editable,
+    TResult? Function(_QSubtitleDisabled value)? disabled,
+    TResult? Function(_QSubtitleEnabled value)? enabled,
+    TResult? Function(_QSubtitleEditable value)? editable,
   }) {
     return disabled?.call(this);
   }
@@ -199,14 +197,11 @@ abstract class _$$_QSubtitleEnabledCopyWith<$Res> {
 
 /// @nodoc
 class __$$_QSubtitleEnabledCopyWithImpl<$Res>
-    extends _$QSubtitleConfigCopyWithImpl<$Res>
+    extends _$QSubtitleConfigCopyWithImpl<$Res, _$_QSubtitleEnabled>
     implements _$$_QSubtitleEnabledCopyWith<$Res> {
   __$$_QSubtitleEnabledCopyWithImpl(
       _$_QSubtitleEnabled _value, $Res Function(_$_QSubtitleEnabled) _then)
-      : super(_value, (v) => _then(v as _$_QSubtitleEnabled));
-
-  @override
-  _$_QSubtitleEnabled get _value => super._value as _$_QSubtitleEnabled;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -241,9 +236,9 @@ class _$_QSubtitleEnabled implements _QSubtitleEnabled {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String subtitle)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String subtitle)? editable,
   }) {
     return enabled?.call();
   }
@@ -275,9 +270,9 @@ class _$_QSubtitleEnabled implements _QSubtitleEnabled {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QSubtitleDisabled value)? disabled,
-    TResult Function(_QSubtitleEnabled value)? enabled,
-    TResult Function(_QSubtitleEditable value)? editable,
+    TResult? Function(_QSubtitleDisabled value)? disabled,
+    TResult? Function(_QSubtitleEnabled value)? enabled,
+    TResult? Function(_QSubtitleEditable value)? editable,
   }) {
     return enabled?.call(this);
   }
@@ -306,26 +301,25 @@ abstract class _$$_QSubtitleEditableCopyWith<$Res> {
   factory _$$_QSubtitleEditableCopyWith(_$_QSubtitleEditable value,
           $Res Function(_$_QSubtitleEditable) then) =
       __$$_QSubtitleEditableCopyWithImpl<$Res>;
+  @useResult
   $Res call({String subtitle});
 }
 
 /// @nodoc
 class __$$_QSubtitleEditableCopyWithImpl<$Res>
-    extends _$QSubtitleConfigCopyWithImpl<$Res>
+    extends _$QSubtitleConfigCopyWithImpl<$Res, _$_QSubtitleEditable>
     implements _$$_QSubtitleEditableCopyWith<$Res> {
   __$$_QSubtitleEditableCopyWithImpl(
       _$_QSubtitleEditable _value, $Res Function(_$_QSubtitleEditable) _then)
-      : super(_value, (v) => _then(v as _$_QSubtitleEditable));
+      : super(_value, _then);
 
-  @override
-  _$_QSubtitleEditable get _value => super._value as _$_QSubtitleEditable;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subtitle = freezed,
+    Object? subtitle = null,
   }) {
     return _then(_$_QSubtitleEditable(
-      subtitle == freezed
+      null == subtitle
           ? _value.subtitle
           : subtitle // ignore: cast_nullable_to_non_nullable
               as String,
@@ -351,15 +345,16 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QSubtitleEditable &&
-            const DeepCollectionEquality().equals(other.subtitle, subtitle));
+            (identical(other.subtitle, subtitle) ||
+                other.subtitle == subtitle));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(subtitle));
+  int get hashCode => Object.hash(runtimeType, subtitle);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QSubtitleEditableCopyWith<_$_QSubtitleEditable> get copyWith =>
       __$$_QSubtitleEditableCopyWithImpl<_$_QSubtitleEditable>(
           this, _$identity);
@@ -377,9 +372,9 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? disabled,
-    TResult Function()? enabled,
-    TResult Function(String subtitle)? editable,
+    TResult? Function()? disabled,
+    TResult? Function()? enabled,
+    TResult? Function(String subtitle)? editable,
   }) {
     return editable?.call(subtitle);
   }
@@ -411,9 +406,9 @@ class _$_QSubtitleEditable implements _QSubtitleEditable {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_QSubtitleDisabled value)? disabled,
-    TResult Function(_QSubtitleEnabled value)? enabled,
-    TResult Function(_QSubtitleEditable value)? editable,
+    TResult? Function(_QSubtitleDisabled value)? disabled,
+    TResult? Function(_QSubtitleEnabled value)? enabled,
+    TResult? Function(_QSubtitleEditable value)? editable,
   }) {
     return editable?.call(this);
   }
@@ -437,7 +432,7 @@ abstract class _QSubtitleEditable implements QSubtitleConfig {
   const factory _QSubtitleEditable(final String subtitle) =
       _$_QSubtitleEditable;
 
-  String get subtitle => throw _privateConstructorUsedError;
+  String get subtitle;
   @JsonKey(ignore: true)
   _$$_QSubtitleEditableCopyWith<_$_QSubtitleEditable> get copyWith =>
       throw _privateConstructorUsedError;

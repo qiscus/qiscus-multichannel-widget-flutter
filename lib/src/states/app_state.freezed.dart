@@ -1,7 +1,7 @@
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'app_state.dart';
 
@@ -25,9 +25,9 @@ mixin _$AppState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String appId)? loading,
-    TResult Function(int roomId, QAccount account)? ready,
+    TResult? Function()? initial,
+    TResult? Function(String appId)? loading,
+    TResult? Function(int roomId, QAccount account)? ready,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,9 +47,9 @@ mixin _$AppState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStateInitial value)? initial,
-    TResult Function(_AppStateLoading value)? loading,
-    TResult Function(_AppStateReady value)? ready,
+    TResult? Function(_AppStateInitial value)? initial,
+    TResult? Function(_AppStateLoading value)? loading,
+    TResult? Function(_AppStateReady value)? ready,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -65,16 +65,18 @@ mixin _$AppState {
 /// @nodoc
 abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
-      _$AppStateCopyWithImpl<$Res>;
+      _$AppStateCopyWithImpl<$Res, AppState>;
 }
 
 /// @nodoc
-class _$AppStateCopyWithImpl<$Res> implements $AppStateCopyWith<$Res> {
+class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
+    implements $AppStateCopyWith<$Res> {
   _$AppStateCopyWithImpl(this._value, this._then);
 
-  final AppState _value;
   // ignore: unused_field
-  final $Res Function(AppState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 }
 
 /// @nodoc
@@ -86,14 +88,11 @@ abstract class _$$_AppStateInitialCopyWith<$Res> {
 
 /// @nodoc
 class __$$_AppStateInitialCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$_AppStateInitial>
     implements _$$_AppStateInitialCopyWith<$Res> {
   __$$_AppStateInitialCopyWithImpl(
       _$_AppStateInitial _value, $Res Function(_$_AppStateInitial) _then)
-      : super(_value, (v) => _then(v as _$_AppStateInitial));
-
-  @override
-  _$_AppStateInitial get _value => super._value as _$_AppStateInitial;
+      : super(_value, _then);
 }
 
 /// @nodoc
@@ -128,9 +127,9 @@ class _$_AppStateInitial implements _AppStateInitial {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String appId)? loading,
-    TResult Function(int roomId, QAccount account)? ready,
+    TResult? Function()? initial,
+    TResult? Function(String appId)? loading,
+    TResult? Function(int roomId, QAccount account)? ready,
   }) {
     return initial?.call();
   }
@@ -162,9 +161,9 @@ class _$_AppStateInitial implements _AppStateInitial {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStateInitial value)? initial,
-    TResult Function(_AppStateLoading value)? loading,
-    TResult Function(_AppStateReady value)? ready,
+    TResult? Function(_AppStateInitial value)? initial,
+    TResult? Function(_AppStateLoading value)? loading,
+    TResult? Function(_AppStateReady value)? ready,
   }) {
     return initial?.call(this);
   }
@@ -193,26 +192,25 @@ abstract class _$$_AppStateLoadingCopyWith<$Res> {
   factory _$$_AppStateLoadingCopyWith(
           _$_AppStateLoading value, $Res Function(_$_AppStateLoading) then) =
       __$$_AppStateLoadingCopyWithImpl<$Res>;
+  @useResult
   $Res call({String appId});
 }
 
 /// @nodoc
 class __$$_AppStateLoadingCopyWithImpl<$Res>
-    extends _$AppStateCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$_AppStateLoading>
     implements _$$_AppStateLoadingCopyWith<$Res> {
   __$$_AppStateLoadingCopyWithImpl(
       _$_AppStateLoading _value, $Res Function(_$_AppStateLoading) _then)
-      : super(_value, (v) => _then(v as _$_AppStateLoading));
+      : super(_value, _then);
 
-  @override
-  _$_AppStateLoading get _value => super._value as _$_AppStateLoading;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? appId = freezed,
+    Object? appId = null,
   }) {
     return _then(_$_AppStateLoading(
-      appId: appId == freezed
+      appId: null == appId
           ? _value.appId
           : appId // ignore: cast_nullable_to_non_nullable
               as String,
@@ -238,15 +236,15 @@ class _$_AppStateLoading implements _AppStateLoading {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppStateLoading &&
-            const DeepCollectionEquality().equals(other.appId, appId));
+            (identical(other.appId, appId) || other.appId == appId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(appId));
+  int get hashCode => Object.hash(runtimeType, appId);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppStateLoadingCopyWith<_$_AppStateLoading> get copyWith =>
       __$$_AppStateLoadingCopyWithImpl<_$_AppStateLoading>(this, _$identity);
 
@@ -263,9 +261,9 @@ class _$_AppStateLoading implements _AppStateLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String appId)? loading,
-    TResult Function(int roomId, QAccount account)? ready,
+    TResult? Function()? initial,
+    TResult? Function(String appId)? loading,
+    TResult? Function(int roomId, QAccount account)? ready,
   }) {
     return loading?.call(appId);
   }
@@ -297,9 +295,9 @@ class _$_AppStateLoading implements _AppStateLoading {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStateInitial value)? initial,
-    TResult Function(_AppStateLoading value)? loading,
-    TResult Function(_AppStateReady value)? ready,
+    TResult? Function(_AppStateInitial value)? initial,
+    TResult? Function(_AppStateLoading value)? loading,
+    TResult? Function(_AppStateReady value)? ready,
   }) {
     return loading?.call(this);
   }
@@ -323,7 +321,7 @@ abstract class _AppStateLoading implements AppState {
   const factory _AppStateLoading({required final String appId}) =
       _$_AppStateLoading;
 
-  String get appId => throw _privateConstructorUsedError;
+  String get appId;
   @JsonKey(ignore: true)
   _$$_AppStateLoadingCopyWith<_$_AppStateLoading> get copyWith =>
       throw _privateConstructorUsedError;
@@ -334,30 +332,30 @@ abstract class _$$_AppStateReadyCopyWith<$Res> {
   factory _$$_AppStateReadyCopyWith(
           _$_AppStateReady value, $Res Function(_$_AppStateReady) then) =
       __$$_AppStateReadyCopyWithImpl<$Res>;
+  @useResult
   $Res call({int roomId, QAccount account});
 }
 
 /// @nodoc
-class __$$_AppStateReadyCopyWithImpl<$Res> extends _$AppStateCopyWithImpl<$Res>
+class __$$_AppStateReadyCopyWithImpl<$Res>
+    extends _$AppStateCopyWithImpl<$Res, _$_AppStateReady>
     implements _$$_AppStateReadyCopyWith<$Res> {
   __$$_AppStateReadyCopyWithImpl(
       _$_AppStateReady _value, $Res Function(_$_AppStateReady) _then)
-      : super(_value, (v) => _then(v as _$_AppStateReady));
+      : super(_value, _then);
 
-  @override
-  _$_AppStateReady get _value => super._value as _$_AppStateReady;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? roomId = freezed,
-    Object? account = freezed,
+    Object? roomId = null,
+    Object? account = null,
   }) {
     return _then(_$_AppStateReady(
-      roomId: roomId == freezed
+      roomId: null == roomId
           ? _value.roomId
           : roomId // ignore: cast_nullable_to_non_nullable
               as int,
-      account: account == freezed
+      account: null == account
           ? _value.account
           : account // ignore: cast_nullable_to_non_nullable
               as QAccount,
@@ -385,18 +383,16 @@ class _$_AppStateReady implements _AppStateReady {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_AppStateReady &&
-            const DeepCollectionEquality().equals(other.roomId, roomId) &&
-            const DeepCollectionEquality().equals(other.account, account));
+            (identical(other.roomId, roomId) || other.roomId == roomId) &&
+            (identical(other.account, account) || other.account == account));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(roomId),
-      const DeepCollectionEquality().hash(account));
+  int get hashCode => Object.hash(runtimeType, roomId, account);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_AppStateReadyCopyWith<_$_AppStateReady> get copyWith =>
       __$$_AppStateReadyCopyWithImpl<_$_AppStateReady>(this, _$identity);
 
@@ -413,9 +409,9 @@ class _$_AppStateReady implements _AppStateReady {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(String appId)? loading,
-    TResult Function(int roomId, QAccount account)? ready,
+    TResult? Function()? initial,
+    TResult? Function(String appId)? loading,
+    TResult? Function(int roomId, QAccount account)? ready,
   }) {
     return ready?.call(roomId, account);
   }
@@ -447,9 +443,9 @@ class _$_AppStateReady implements _AppStateReady {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_AppStateInitial value)? initial,
-    TResult Function(_AppStateLoading value)? loading,
-    TResult Function(_AppStateReady value)? ready,
+    TResult? Function(_AppStateInitial value)? initial,
+    TResult? Function(_AppStateLoading value)? loading,
+    TResult? Function(_AppStateReady value)? ready,
   }) {
     return ready?.call(this);
   }
@@ -474,8 +470,8 @@ abstract class _AppStateReady implements AppState {
       {required final int roomId,
       required final QAccount account}) = _$_AppStateReady;
 
-  int get roomId => throw _privateConstructorUsedError;
-  QAccount get account => throw _privateConstructorUsedError;
+  int get roomId;
+  QAccount get account;
   @JsonKey(ignore: true)
   _$$_AppStateReadyCopyWith<_$_AppStateReady> get copyWith =>
       throw _privateConstructorUsedError;
