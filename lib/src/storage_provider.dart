@@ -121,7 +121,12 @@ class QLocalUserDataStateNotifier
   }
 
   Future<void> clear() async {
-    await enc.deleteAll();
+    await Future.wait([
+      enc.delete(key: _appId$),
+      enc.delete(key: _token$),
+      enc.delete(key: _roomId$),
+      enc.delete(key: _account$),
+    ]);
   }
 }
 
