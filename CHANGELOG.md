@@ -1,3 +1,7 @@
+## 1.1.1
+
+- fix flutter_secure_storage from removing all non sdk items
+
 ## 1.1.0
 
 - add message buttons type support
