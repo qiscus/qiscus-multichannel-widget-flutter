@@ -1,3 +1,7 @@
+## 1.1.2
+
+- upgrade flutter_secure_storage to latest version
+
 ## 1.1.1
 
 - fix flutter_secure_storage from removing all non sdk items
