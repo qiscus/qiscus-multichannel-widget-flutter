@@ -18,7 +18,7 @@ dependencies:
   date_format: ^2.0.5
   url_launcher: ^6.1.6
   json_annotation: ^4.5.0
-  flutter_secure_storage: ^6.0.0
+  flutter_secure_storage: ^7.0.1
   cached_network_image: ^3.2.1
   open_filex: ^4.1.1
   file_picker: ^5.2.3

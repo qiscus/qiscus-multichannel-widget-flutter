@@ -9,7 +9,7 @@ import '../models.dart';
 part 'chat_file.freezed.dart';
 part 'chat_file.g.dart';
 
-class QChatFile extends StatelessWidget {
+class QChatFile extends ConsumerWidget {
   const QChatFile({
     Key? key,
     required this.message,
@@ -18,14 +18,12 @@ class QChatFile extends StatelessWidget {
   final QMessageFile message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     var size = MediaQuery.of(context).size;
+    final bgColor = ref.watch(chatBubbleBgColorProvider(message.sender));
 
     return QMultichannelConsumer(
       builder: (context, ref) {
-        final bgColor = _getBgColor(ref);
-        final fgColor = _getFgColor(ref);
-
         var url = Uri.tryParse(message.url)!;
         var name = url.pathSegments.last;
 
@@ -91,24 +89,6 @@ class QChatFile extends StatelessWidget {
         );
       },
     );
-  }
-
-  Color _getBgColor(QMultichannel ref) {
-    final account = ref.account.value!;
-    if (account.id == message.sender.id) {
-      return ref.theme.rightBubbleColor;
-    } else {
-      return ref.theme.leftBubbleColor;
-    }
-  }
-
-  Color _getFgColor(QMultichannel ref) {
-    final account = ref.account.value!;
-    if (account.id == message.sender.id) {
-      return ref.theme.rightBubbleTextColor;
-    } else {
-      return ref.theme.leftBubbleTextColor;
-    }
   }
 }
 

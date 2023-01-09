@@ -1,3 +1,4 @@
+// ignore: library_prefixes
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' as Q;
 
 class QAccount extends Q.QAccount {

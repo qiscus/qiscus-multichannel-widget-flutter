@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class RichLinkText extends ConsumerWidget {

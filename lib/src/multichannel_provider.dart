@@ -32,7 +32,7 @@ class QMultichannelProvider extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var overrides = [
+    var overrides = <Override>[
       appIdProvider.overrideWithValue(appId),
       appThemeConfigProvider.overrideWithValue(theme),
       baseUrlProvider.overrideWithValue(baseUrl),
@@ -71,6 +71,8 @@ class QMultichannelConsumer extends ConsumerWidget {
 
 extension StateProviderExt<T> on StateProvider<T> {
   Override overrideWithValue(T value) {
-    return overrideWithProvider(StateProvider((_) => value));
+    return overrideWith((_) {
+      return value;
+    });
   }
 }
