@@ -1,6 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../multichannel_provider.dart';
+import '../providers/states_provider.dart';
 
 AppBar buildAppBar({
   required BuildContext context,

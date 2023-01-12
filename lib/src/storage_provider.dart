@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:qiscus_multichannel_widget/src/states/app_state.dart';
+
+import 'account.dart';
+import 'provider.dart';
 
 part 'storage_provider.freezed.dart';
 

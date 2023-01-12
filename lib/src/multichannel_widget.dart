@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
-import 'provider.dart';
+import 'providers/initiate_chat_provider.dart';
+import 'providers/states_provider.dart';
 
 final multichannelWidgetProvider = Provider((ref) {
   return QMultichannelWidget(ref);

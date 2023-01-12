@@ -1,6 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+
+import '../multichannel_provider.dart';
+import '../providers/states_provider.dart';
 
 class RichLinkText extends ConsumerWidget {
   final String text;

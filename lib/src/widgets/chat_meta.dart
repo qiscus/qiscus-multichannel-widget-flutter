@@ -1,6 +1,9 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+
+import '../provider.dart';
 
 class QChatMeta extends ConsumerWidget {
   const QChatMeta({

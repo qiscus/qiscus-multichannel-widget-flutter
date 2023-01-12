@@ -1,10 +1,13 @@
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/models.dart';
 
-import '../../qiscus_multichannel_widget.dart';
+import '../multichannel_provider.dart';
+import '../provider.dart';
 import '../widgets/chat_form.dart';
 import '../widgets/chat_system.dart';
 import '../widgets/widgets.dart';

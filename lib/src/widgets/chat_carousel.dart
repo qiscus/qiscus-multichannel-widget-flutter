@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_buttons.dart';
 
-import '../../qiscus_multichannel_widget.dart';
+import '../providers/chat_bubble_color_provider.dart';
 
 part 'chat_carousel.freezed.dart';
 part 'chat_carousel.g.dart';

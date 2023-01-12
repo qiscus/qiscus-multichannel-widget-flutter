@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+
+import '../utils/colors.dart';
 
 class QChatSystem extends StatelessWidget {
   const QChatSystem({

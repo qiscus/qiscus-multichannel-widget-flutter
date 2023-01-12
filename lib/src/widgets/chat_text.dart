@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
-import 'package:qiscus_multichannel_widget/src/utils/generate_link_text.dart';
+import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import '../multichannel_provider.dart';
+import '../utils/generate_link_text.dart';
 
 class QChatText extends StatelessWidget {
   const QChatText({
