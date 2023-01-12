@@ -1,3 +1,9 @@
+## 1.1.3
+
+- upgrade qiscus sdk and flutter riverpod to latest version
+- fix not unsubscribe to some qiscus event
+- organize providers to it's own files
+
 ## 1.1.2
 
 - upgrade flutter_secure_storage to latest version
