@@ -1,1 +1,2 @@
 const appId = '';
+const channelId = '';

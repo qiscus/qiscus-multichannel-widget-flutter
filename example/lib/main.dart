@@ -22,6 +22,7 @@ class _AppStateBuilder extends State<App> {
   Widget build(BuildContext context) {
     return QMultichannelProvider(
       appId: appId,
+      channelId: channelId,
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);
         print('url tapped: $url $uri');
