@@ -1,3 +1,7 @@
+## 1.1.4
+
+- improve handling android navigation back button
+
 ## 1.1.3
 
 - upgrade qiscus sdk and flutter riverpod to latest version
