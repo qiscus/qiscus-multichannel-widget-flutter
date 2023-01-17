@@ -17,7 +17,23 @@ class App extends StatefulWidget {
   State<App> createState() => _AppStateBuilder();
 }
 
+class NavObserver extends NavigatorObserver {
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    print('[NavObserver] didPop(name: {${route.settings.name}})');
+    super.didPop(route, previousRoute);
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    print('[NavObserver] didPush(name: {${route.settings.name}})!');
+    super.didPush(route, previousRoute);
+  }
+}
+
 class _AppStateBuilder extends State<App> {
+  final navKey = GlobalKey<NavigatorState>(debugLabel: 'NavKey');
+
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
@@ -32,33 +48,35 @@ class _AppStateBuilder extends State<App> {
       },
       builder: (context) {
         return MaterialApp(
-          home: _buildNavigator(),
-        );
-      },
-    );
-  }
+          home: WillPopScope(
+            onWillPop: () async {
+              print('will pop!!');
+              return !(await navKey.currentState!.maybePop());
+            },
+            child: QMultichannelConsumer(
+              builder: (context, ref) {
+                var roomId = ref.roomId;
+                ref.enableDebugMode(false);
 
-  Widget _buildNavigator() {
-    return QMultichannelConsumer(
-      builder: (context, ref) {
-        var roomId = ref.roomId;
-        ref.enableDebugMode(true);
-
-        return Navigator(
-          pages: [
-            LoginPage(),
-            if (roomId != null)
-              QChatRoomPage((e) {
-                ref.clearUser();
-              }),
-          ],
-          onPopPage: (route, result) {
-            if (!route.didPop(result)) {
-              return false;
-            }
-
-            return true;
-          },
+                return Navigator(
+                  key: navKey,
+                  onGenerateRoute: (_) => null,
+                  pages: [
+                    LoginPage(),
+                    if (roomId != null) //
+                      QChatRoomPage((e) {
+                        print('[main.dart] onBack called');
+                        ref.clearUser();
+                      }),
+                  ],
+                  observers: [
+                    NavObserver(),
+                  ],
+                  onPopPage: (route, result) => route.didPop(result),
+                );
+              },
+            ),
+          ),
         );
       },
     );

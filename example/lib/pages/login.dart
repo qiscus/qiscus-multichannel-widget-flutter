@@ -5,6 +5,9 @@ class LoginPage extends Page {
   const LoginPage() : super(key: const ValueKey("LoginPageKey"));
 
   @override
+  String? get name => 'LoginPage';
+
+  @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
