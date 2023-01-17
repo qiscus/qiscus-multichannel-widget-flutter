@@ -8,11 +8,7 @@ extension QRefExt1 on AutoDisposeStateNotifierProviderRef {
     void Function(R) onData,
   ) {
     var subs = watch(provider.stream).listen(onData);
-    onDispose(() {
-      var name = provider.name;
-      print('[autoDisposeRef] {$name}.dipose');
-      subs.cancel();
-    });
+    onDispose(() => subs.cancel());
   }
 }
 
