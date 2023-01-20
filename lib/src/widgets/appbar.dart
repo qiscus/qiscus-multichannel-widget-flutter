@@ -20,13 +20,14 @@ AppBar buildAppBar({
     elevation: 2,
     backgroundColor: navBgColor,
     foregroundColor: navFgColor,
-    leadingWidth: 35,
+    leadingWidth: 55,
     leading: Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(1.0),
       child: BackButton(
         onPressed: () => onBack?.call(),
       ),
     ),
+    titleSpacing: 0,
     title: Row(
       children: [
         SizedBox.square(
