@@ -1,3 +1,7 @@
+## 1.1.5
+
+- fix not loading room data properly when using imperative flutter navigator
+
 ## 1.1.4
 
 - improve handling android navigation back button
