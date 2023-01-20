@@ -43,3 +43,50 @@ class QChatBubbleRight extends ConsumerWidget {
     );
   }
 }
+
+class QChatBubbleRightEmpty extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var size = MediaQuery.of(context).size;
+    var bgColor = Colors.black.withOpacity(0.2);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 10, right: 5),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                width: size.width * 0.6,
+                decoration: BoxDecoration(
+                  color: bgColor,
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 10,
+                  ),
+                  child: SizedBox(
+                    height: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100),
+            child: Container(
+              color: bgColor,
+              width: 40,
+              height: 40,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
