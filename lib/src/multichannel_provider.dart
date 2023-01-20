@@ -68,6 +68,21 @@ class QMultichannelProvider extends ConsumerWidget {
   }
 }
 
+class ProvObserver extends ProviderObserver {
+  @override
+  void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
+    print('@did-dispose-provider ${provider.name}');
+    super.didDisposeProvider(provider, container);
+  }
+
+  @override
+  void didUpdateProvider(ProviderBase provider, Object? previousValue,
+      Object? newValue, ProviderContainer container) {
+    print('@did-update-provider ${provider.name}');
+    super.didUpdateProvider(provider, previousValue, newValue, container);
+  }
+}
+
 class QMultichannelConsumer extends ConsumerWidget {
   const QMultichannelConsumer({Key? key, required this.builder})
       : super(key: key);
@@ -113,7 +128,15 @@ class QMultichannel {
       ref.watch(roomProvider.select((it) => it.whenData((v) => v.room)));
 
   Future<QChatRoom> initiateChat() async {
-    await ref.read(initiateChatProvider.future);
+    var roomId = ref.read(roomIdProvider);
+    var account = ref.read(accountProvider);
+
+    if (roomId.valueOrNull != null && account.valueOrNull != null) {
+      ref.invalidate(initiateChatProvider);
+      await ref.read(initiateChatProvider.future);
+    } else {
+      await ref.read(initiateChatProvider.future);
+    }
 
     var room = await ref.watch(roomProvider.selectAsync((r) => r.room));
 
@@ -221,5 +244,23 @@ class QMultichannel {
       caption: caption,
       url: data.data!,
     );
+  }
+}
+
+class QNavObserver extends NavigatorObserver {
+  QNavObserver();
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    var context = navigator?.context;
+    if (context != null) {
+      var ref = ProviderScope.containerOf(context);
+      // _clearUser(ref);
+      try {
+        ref.read(onBackBtnTappedProvider).call(context);
+      } catch (_) {}
+    }
+
+    super.didPop(route, previousRoute);
   }
 }

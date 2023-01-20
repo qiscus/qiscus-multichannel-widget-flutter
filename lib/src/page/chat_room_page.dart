@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,120 +24,133 @@ class QChatRoomPage extends Page {
 
   @override
   Route createRoute(BuildContext context) {
-    void onBack(BuildContext context) {
-      this.onBack?.call(context);
-    }
-
-    var route = QChatRoomMaterialPage(
-      settings: this,
-      onBack: () => onBack(context),
-      builder: (_) => QChatRoomScreen(onBack: onBack),
-    );
-
-    return route;
+    return QChatRoomPageRoute(onBack, settings: this);
   }
 }
 
-class QChatRoomMaterialPage extends MaterialPageRoute {
-  QChatRoomMaterialPage({
-    required super.builder,
-    required super.settings,
+class QChatRoomPageRoute extends MaterialPageRoute {
+  QChatRoomPageRoute(
+    this.onBack, {
+    super.settings,
     super.fullscreenDialog,
     super.maintainState,
-    this.onBack,
-  });
+  }) : super(builder: _builder(onBack));
 
-  final void Function()? onBack;
+  final OnBackBtnFn? onBack;
 
   @override
   bool didPop(result) {
-    print('[didPop] isCurrent($isCurrent)');
-    if (isCurrent) onBack?.call();
+    var context = subtreeContext!;
+
+    if (isCurrent || !isFirst) onBack?.call(context);
 
     return super.didPop(result);
   }
+
+  static Widget Function(BuildContext) _builder(OnBackBtnFn? onBack) =>
+      (context) => QChatRoomScreen(onBack: onBack);
 }
 
-class QChatRoomScreen extends ConsumerWidget {
-  const QChatRoomScreen({Key? key, this.onBack}) : super(key: key);
-
-  final void Function(BuildContext)? onBack;
+class QChatRoomScreen extends ConsumerStatefulWidget {
+  const QChatRoomScreen({super.key, this.onBack});
+  final OnBackBtnFn? onBack;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<QChatRoomScreen> createState() => QChatRoomScreenState();
+}
+
+class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
+  QChatRoomScreenState();
+
+  late final void Function(BuildContext)? onBack = widget.onBack;
+
+  @override
+  void initState() {
+    super.initState();
+
+    scheduleMicrotask(() {
+      if (onBack != null) {
+        ref.read(onBackBtnTappedProvider.notifier).state = onBack!;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final base = appThemeConfigProvider.select((v) => v.baseColor);
     final baseBgColor = ref.watch(base);
     var isLoadMore = false;
     var lastCountMessage = 0;
 
-    return WillPopScope(
-      onWillPop: () async => true,
-      child: Scaffold(
-        appBar: buildAppBar(
-          context: context,
-          ref: ref,
-          onBack: () {
-            onBack?.call(context);
-          },
-        ),
-        body: NotificationListener<ScrollNotification>(
-          onNotification: (ScrollNotification scrollInfo) {
-            if (scrollInfo.metrics.pixels ==
-                    scrollInfo.metrics.maxScrollExtent &&
-                isLoadMore) {
-              ref.read(messagesProvider.notifier).loadMoreMessage();
-              isLoadMore = false;
-            }
-            return false;
-          },
-          child: Column(
-            children: [
-              Expanded(
-                flex: 1,
-                child: Container(
-                  color: baseBgColor,
-                  child: QMultichannelConsumer(
-                    builder: (context, ref) {
-                      var messages = ref.messages;
-                      isLoadMore = lastCountMessage < messages.length;
+    var roomId = ref.watch(roomIdProvider);
+    roomId.when(
+      loading: () => debugPrint('Loading roomId...'),
+      error: (e, _) => debugPrint('Error loading roomId...'),
+      data: (roomId) => debugPrint('Data roomId($roomId)'),
+    );
 
-                      if (messages.isEmpty && ref.room.value == null) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (messages.isEmpty && ref.room.value != null) {
-                        return _buildChatEmpty(context, ref);
-                      } else {
-                        return GroupedListView<QMessage, DateTime>(
-                          reverse: true,
-                          elements: messages,
-                          groupBy: (message) => DateTime.parse(formatDate(
-                              message.timestamp, [yyyy, '-', mm, '-', dd])),
-                          itemBuilder: (context, message) {
-                            return InkWell(
-                              child: _buildChatBubble(context, ref, message),
-                              onLongPress: () {
-                                if (message.type == QMessageType.text) {
-                                  _showModalBottomSheet(context, ref, message);
-                                }
-                              },
-                            );
-                          },
-                          itemComparator: (item1, item2) =>
-                              item1.timestamp.compareTo(item2.timestamp),
-                          floatingHeader: true,
-                          useStickyGroupSeparators: true,
-                          groupSeparatorBuilder: (DateTime date) {
-                            return _buildSeparator(date, ref);
-                          },
-                          order: GroupedListOrder.DESC,
-                        );
-                      }
-                    },
-                  ),
+    return Scaffold(
+      appBar: buildAppBar(
+        context: context,
+        ref: ref,
+        onBack: () => ref.read(onBackBtnTappedProvider).call(context),
+      ),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (ScrollNotification scrollInfo) {
+          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
+              isLoadMore) {
+            ref.read(messagesProvider.notifier).loadMoreMessage();
+            isLoadMore = false;
+          }
+          return false;
+        },
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                color: baseBgColor,
+                child: QMultichannelConsumer(
+                  builder: (context, ref) {
+                    var messages = ref.messages;
+                    isLoadMore = lastCountMessage < messages.length;
+
+                    if (messages.isEmpty && ref.room.value == null) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (messages.isEmpty && ref.room.value != null) {
+                      return _buildChatEmpty(context, ref);
+                    } else {
+                      return GroupedListView<QMessage, DateTime>(
+                        reverse: true,
+                        elements: messages,
+                        groupBy: (message) => DateTime.parse(formatDate(
+                            message.timestamp, [yyyy, '-', mm, '-', dd])),
+                        itemBuilder: (context, message) {
+                          return InkWell(
+                            child: _buildChatBubble(context, ref, message),
+                            onLongPress: () {
+                              if (message.type == QMessageType.text) {
+                                _showModalBottomSheet(context, ref, message);
+                              }
+                            },
+                          );
+                        },
+                        itemComparator: (item1, item2) =>
+                            item1.timestamp.compareTo(item2.timestamp),
+                        floatingHeader: true,
+                        useStickyGroupSeparators: true,
+                        groupSeparatorBuilder: (DateTime date) {
+                          return _buildSeparator(date, ref);
+                        },
+                        order: GroupedListOrder.DESC,
+                      );
+                    }
+                  },
                 ),
               ),
-              QChatForm(),
-            ],
-          ),
+            ),
+            QChatForm(),
+          ],
         ),
       ),
     );
@@ -198,7 +213,7 @@ class QChatRoomScreen extends ConsumerWidget {
         }
       },
       loading: () {
-        return const CircularProgressIndicator();
+        return QChatBubbleRightEmpty();
       },
       error: (e, _) {
         return Text(e.toString());
@@ -230,25 +245,6 @@ class QChatRoomScreen extends ConsumerWidget {
               fontSize: 13,
             ),
           ),
-          // const Spacer(),
-          // SafeArea(
-          //   child: ElevatedButton(
-          //     style: ElevatedButton.styleFrom(
-          //       backgroundColor: ref.theme.navigationColor,
-          //     ),
-          //     onPressed: () {
-          //       print('re-initiate chat');
-          //       ref.initiateChat().then((r) {
-          //         print('success initiate chat');
-          //         print(r);
-          //       }).catchError((ee) {
-          //         print('got error');
-          //         print(ee);
-          //       });
-          //     },
-          //     child: const Text('Initiate chat'),
-          //   ),
-          // ),
         ],
       ),
     );

@@ -8,11 +8,14 @@ import 'room_id_provider.dart';
 final roomProvider = FutureProvider((ref) async {
   var qiscus = await ref.watch(qiscusProvider.future);
   var roomId = await ref.watch(roomIdProvider).future;
-  var room = await qiscus.getChatRoomWithMessages(roomId: roomId);
+  var roomData = await qiscus.getChatRoomWithMessages(roomId: roomId);
 
-  for (var m in room.messages) {
+  for (var m in roomData.messages) {
     ref.read(messagesProvider.notifier).receive(m);
   }
 
-  return room;
-});
+  qiscus.subscribeChatRoom(roomData.room);
+  ref.onDispose(() => qiscus.unsubscribeChatRoom(roomData.room));
+
+  return roomData;
+}, name: 'roomProvider');

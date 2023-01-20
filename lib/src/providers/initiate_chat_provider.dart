@@ -13,7 +13,7 @@ final initiateChatUrlProvider = Provider((ref) {
   var baseUrl = ref.watch(baseUrlProvider);
 
   return Uri.parse('$baseUrl/api/v2/qiscus/initiate_chat');
-});
+}, name: 'initiateChatUrlProvider');
 
 final initiateChatProvider = FutureProvider((ref) async {
   var qiscus = await ref.watch(qiscusProvider.future);
@@ -102,4 +102,4 @@ final initiateChatProvider = FutureProvider((ref) async {
   );
 
   return 0;
-});
+}, name: 'initiateChatProvider');

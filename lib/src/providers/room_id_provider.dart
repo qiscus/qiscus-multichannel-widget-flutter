@@ -9,4 +9,4 @@ final roomIdProvider = Provider<AsyncValue<int>>((ref) {
     orElse: () => const AsyncValue.loading(),
     ready: (roomId, _) => AsyncValue.data(roomId),
   );
-});
+}, name: 'roomIdProvider');
