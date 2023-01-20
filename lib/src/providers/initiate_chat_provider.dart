@@ -27,9 +27,7 @@ final initiateChatProvider = FutureProvider((ref) async {
   var deviceId = ref.watch(deviceIdConfigProvider);
   var deviceIdDevelopmentMode = ref.watch(deviceIdDevelopmentModeProvider);
 
-  // return -1;
   var appState = ref.watch(appStateProvider);
-  // print('appState($appState)');
   if (appState.maybeMap(orElse: () => false, ready: (_) => true)) {
     return 0;
   }

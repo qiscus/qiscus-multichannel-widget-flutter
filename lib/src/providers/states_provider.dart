@@ -58,7 +58,6 @@ final onURLTappedProvider =
     StateProvider<URLTapper?>((_) => null, name: 'onURLTappedProvider');
 final onButtonTappedProvider = StateProvider<QButtonTapper>((ref) {
   return (ref, message, button) async {
-    print('is this called?');
     await button.next(ref);
   };
 }, name: 'onButtonTappedProvider');
@@ -66,7 +65,6 @@ final onButtonTappedProvider = StateProvider<QButtonTapper>((ref) {
 typedef OnBackBtnFn = void Function(BuildContext);
 final onBackBtnTappedProvider = StateProvider<OnBackBtnFn>((ref) {
   return (context) {
-    print('default popper!');
     ref.read(userIdProvider.notifier).state = null;
     ref.read(displayNameProvider.notifier).state = null;
     ref.read(userPropertiesProvider.notifier).state = null;

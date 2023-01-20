@@ -1,12 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'states_provider.dart';
+import '../utils/extensions.dart';
 
-final roomIdProvider = Provider<AsyncValue<int>>((ref) {
+final roomIdProvider = FutureProvider<int>((ref) async {
   var appState = ref.watch(appStateProvider);
 
-  return appState.maybeWhen(
-    orElse: () => const AsyncValue.loading(),
-    ready: (roomId, _) => AsyncValue.data(roomId),
-  );
+  var res = await appState
+      .maybeWhen<AsyncValue<int>>(
+        orElse: () => const AsyncValue.loading(),
+        ready: (roomId, _) => AsyncValue.data(roomId),
+      )
+      .future;
+
+  return res;
 }, name: 'roomIdProvider');

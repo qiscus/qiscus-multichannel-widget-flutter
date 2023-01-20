@@ -232,7 +232,6 @@ extension QButtonsX on QButtons {
   /// `button_postback_response` and if this button [type] are `link` it will
   /// trigger `onURLTapped` handler
   Future<void> next(QMultichannel ref) async {
-    print('got a button tap: text($postbackText) type($type)');
     if (type == 'link') {
       ref.ref.read(onURLTappedProvider)?.call(payload.url);
     }
@@ -266,8 +265,6 @@ extension QButtonsX on QButtons {
         body: jsonEncode(body),
       );
       var respBody = jsonDecode(resp.body);
-
-      print('got resp: $respBody');
     }
   }
 }

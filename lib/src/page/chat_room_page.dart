@@ -82,13 +82,6 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     var isLoadMore = false;
     var lastCountMessage = 0;
 
-    var roomId = ref.watch(roomIdProvider);
-    roomId.when(
-      loading: () => debugPrint('Loading roomId...'),
-      error: (e, _) => debugPrint('Error loading roomId...'),
-      data: (roomId) => debugPrint('Data roomId($roomId)'),
-    );
-
     return Scaffold(
       appBar: buildAppBar(
         context: context,
@@ -193,12 +186,6 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     QMessage message,
   ) {
     var accountId = ref.account.whenData((v) => v.id);
-
-    // print('type: ${message.type} ${message.runtimeType}');
-
-    // if (message.type == QMessageType.custom) {
-    //   var type = message.payload;
-    // }
 
     if (message is QMessageSystem) {
       return QChatSystem(message: message);

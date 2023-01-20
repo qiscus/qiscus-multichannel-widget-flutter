@@ -68,21 +68,6 @@ class QMultichannelProvider extends ConsumerWidget {
   }
 }
 
-class ProvObserver extends ProviderObserver {
-  @override
-  void didDisposeProvider(ProviderBase provider, ProviderContainer container) {
-    print('@did-dispose-provider ${provider.name}');
-    super.didDisposeProvider(provider, container);
-  }
-
-  @override
-  void didUpdateProvider(ProviderBase provider, Object? previousValue,
-      Object? newValue, ProviderContainer container) {
-    print('@did-update-provider ${provider.name}');
-    super.didUpdateProvider(provider, previousValue, newValue, container);
-  }
-}
-
 class QMultichannelConsumer extends ConsumerWidget {
   const QMultichannelConsumer({Key? key, required this.builder})
       : super(key: key);

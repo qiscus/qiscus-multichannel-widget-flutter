@@ -144,12 +144,6 @@ final mappedMessagesProvider = Provider.autoDispose<List<QMessage>>((ref) {
     message ??= QMessageReply.tryParse(it);
     message ??= it;
 
-    // if (it.type == QMessageType.custom) {
-    //   // FOR debugging purpose to place breakpoint
-    //   var payload = it.payload!;
-    //   print('payload: $payload');
-    // }
-
     return message;
   }).toList();
 });
