@@ -27,7 +27,6 @@ extension QRefExt on Ref {
   void subscribe<R>(StreamProvider<R> provider, void Function(R) onData) {
     var subs = watch(provider.stream).listen(onData);
     onDispose(() {
-      var name = provider.name;
       subs.cancel();
     });
   }

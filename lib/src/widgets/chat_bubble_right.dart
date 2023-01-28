@@ -45,6 +45,8 @@ class QChatBubbleRight extends ConsumerWidget {
 }
 
 class QChatBubbleRightEmpty extends ConsumerWidget {
+  const QChatBubbleRightEmpty({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;

@@ -200,7 +200,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
         }
       },
       loading: () {
-        return QChatBubbleRightEmpty();
+        return const QChatBubbleRightEmpty();
       },
       error: (e, _) {
         return Text(e.toString());

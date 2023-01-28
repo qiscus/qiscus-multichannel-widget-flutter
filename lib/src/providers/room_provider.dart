@@ -1,7 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-import 'dart:async';
-import 'package:async/async.dart';
 
 import 'messages_provider.dart';
 import 'qiscus_sdk_provider.dart';
