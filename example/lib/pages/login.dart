@@ -96,6 +96,30 @@ class _LoginScreenState extends State<LoginScreen> {
     // var deviceId = await FirebaseMessaging.instance.getToken();
     // mulchan.setDeviceId(deviceId!);
 
-    await mulchan.initiateChat();
+    print('initiate chat!');
+    try {
+      mulchan.initiateChat().then(
+        (room) {
+          print('sukses initiate chat: ${room.id}');
+        },
+        onError: (err) {
+          print('fail initiatae chat: ${err.runtimeType}');
+        },
+      );
+
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => QChatRoomScreen(onBack: (ctx) {
+            print('on do back!');
+            mulchan.clearUser();
+            Navigator.of(context)
+                .maybePop()
+                .then((r) => debugPrint('maybePop: $r'));
+          }),
+        ),
+      );
+    } catch (e) {
+      print('type: ${e.runtimeType}');
+    }
   }
 }
