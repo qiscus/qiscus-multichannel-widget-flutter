@@ -1,3 +1,7 @@
+## 1.1.6
+
+- fix undefined StrokeAlign
+
 ## 1.1.5
 
 - fix not loading room data properly when using imperative flutter navigator
