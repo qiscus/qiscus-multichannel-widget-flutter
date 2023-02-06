@@ -14,6 +14,7 @@ var _roomDataProvider = FutureProvider.family((ref, int roomId) async {
       .getChatRoomWithMessages(roomId: roomId)
       .timeout(const Duration(seconds: 1))
       .catchError(
+    // ignore: body_might_complete_normally_catch_error
     (_) {
       ref.invalidateSelf();
     },
