@@ -14,9 +14,11 @@ var _roomDataProvider = FutureProvider.family((ref, int roomId) async {
       .getChatRoomWithMessages(roomId: roomId)
       .timeout(const Duration(seconds: 1))
       .catchError(
-        (err) {},
-        test: (err) => err is TimeoutException,
-      );
+    (_) {
+      ref.invalidateSelf();
+    },
+    test: (err) => err is TimeoutException,
+  );
 });
 
 final roomProvider = FutureProvider.autoDispose((ref) async {

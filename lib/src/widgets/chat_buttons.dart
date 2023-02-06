@@ -152,7 +152,7 @@ class QButtonFragment extends ConsumerWidget {
         side: BorderSide(
           color: bgColor,
           width: 0.8,
-          strokeAlign: StrokeAlign.center,
+          strokeAlign: BorderSide.strokeAlignCenter,
         ),
       ),
       child: Text(
@@ -259,12 +259,7 @@ extension QButtonsX on QButtons {
         'extras': null,
       };
 
-      var resp = await http.post(
-        url,
-        headers: headers,
-        body: jsonEncode(body),
-      );
-      var respBody = jsonDecode(resp.body);
+      http.post(url, headers: headers, body: jsonEncode(body)).ignore();
     }
   }
 }
