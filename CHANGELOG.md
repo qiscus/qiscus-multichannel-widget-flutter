@@ -1,3 +1,7 @@
+## 1.1.7
+
+- fix not loading room data on hardware back button
+
 ## 1.1.6
 
 - fix undefined StrokeAlign
