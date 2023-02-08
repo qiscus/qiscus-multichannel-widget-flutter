@@ -7,7 +7,8 @@ import 'messages_provider.dart';
 import 'qiscus_sdk_provider.dart';
 import 'room_id_provider.dart';
 
-var _roomDataProvider = FutureProvider.family((ref, int roomId) async {
+var _roomDataProvider =
+    FutureProvider.family.autoDispose((ref, int roomId) async {
   var qiscus = await ref.watch(qiscusProvider.future);
 
   return qiscus

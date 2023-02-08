@@ -76,12 +76,7 @@ class QMultichannelConsumer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return FutureBuilder(
-      future: ref.read(localUserDataProvider.notifier).fetchData(),
-      builder: (context, s) {
-        return builder(context, QMultichannel(ref));
-      },
-    );
+    return builder(context, QMultichannel(ref));
   }
 }
 
@@ -176,7 +171,6 @@ class QMultichannel {
     ref.read(userPropertiesProvider.notifier).state = null;
     ref.read(sdkUserExtrasProvider.notifier).state = null;
     ref.read(appStateProvider.notifier).state = const AppState.initial();
-    ref.read(localUserDataProvider.notifier).clear();
     ref.read(messagesProvider.notifier).clear();
     ref.read(qiscusProvider.future).then((q) => q.clearUser());
   }

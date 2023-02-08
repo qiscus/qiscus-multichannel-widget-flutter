@@ -78,13 +78,6 @@ final initiateChatProvider = FutureProvider((ref) async {
     properties,
   );
 
-  ref.read(localUserDataProvider.notifier).setData(QLocalUserData(
-        appId: qiscus.appId,
-        roomId: roomId,
-        token: qiscus.token,
-        account: user,
-      ));
-
   if (deviceId != null) {
     try {
       await qiscus.registerDeviceToken(

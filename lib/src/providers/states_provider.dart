@@ -7,7 +7,6 @@ import '../config/subtitle_config.dart';
 import '../multichannel_provider.dart';
 import '../states/app_state.dart';
 import '../states/app_theme.dart';
-import '../storage_provider.dart';
 import '../widgets/chat_buttons.dart';
 import 'messages_provider.dart';
 import 'qiscus_sdk_provider.dart';
@@ -70,7 +69,6 @@ final onBackBtnTappedProvider = StateProvider<OnBackBtnFn>((ref) {
     ref.read(userPropertiesProvider.notifier).state = null;
     ref.read(sdkUserExtrasProvider.notifier).state = null;
     ref.read(appStateProvider.notifier).state = const AppState.initial();
-    ref.read(localUserDataProvider.notifier).clear();
     ref.read(messagesProvider.notifier).clear();
     ref.read(qiscusProvider.future).then((q) => q.clearUser());
 
