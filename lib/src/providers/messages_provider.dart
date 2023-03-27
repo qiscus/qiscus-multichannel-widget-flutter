@@ -15,16 +15,17 @@ import 'room_provider.dart';
 final messagesProvider =
     StateNotifierProvider.autoDispose<MessagesStateNotifier, List<QMessage>>(
         (ref) {
-  return MessagesStateNotifier(ref);
+  var roomData = ref.watch(roomProvider);
+
+  return roomData.maybeWhen(
+    orElse: () => MessagesStateNotifier(ref),
+    data: (v) => MessagesStateNotifier(ref, v.messages),
+  );
 });
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   MessagesStateNotifier(this.ref, [List<QMessage> state = const []])
       : super(state) {
-    ref.wait(roomProvider, (QChatRoomWithMessages roomData) {
-      state = roomData.messages;
-    });
-
     ref.subscribe(messageReceivedProvider, _onMessageReceived);
     ref.subscribe(messageReadProvider, _onMessageRead);
     ref.subscribe(messageDeliveredProvider, _onMessageDelivered);

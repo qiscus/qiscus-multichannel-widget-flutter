@@ -6,12 +6,10 @@ extension QRefExt1 on AutoDisposeStateNotifierProviderRef {
   void subscribe<R>(
     AutoDisposeStreamProvider<R> provider,
     void Function(R) onData,
-  ) async {
-    var events = watch(provider.stream);
-
-    await for (var data in events) {
-      onData(data);
-    }
+  ) {
+    var events = read(provider.stream);
+    var sub = events.listen(onData);
+    onDispose(() => sub.cancel());
   }
 
   void wait<R>(

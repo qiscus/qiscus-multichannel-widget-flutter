@@ -17,6 +17,7 @@ dependencies:
   firebase_core: ^1.17.1
   firebase_messaging: ^11.4.1
   url_launcher: ^6.1.7
+  go_router: ^6.0.7
 
 dev_dependencies:
   flutter_test:

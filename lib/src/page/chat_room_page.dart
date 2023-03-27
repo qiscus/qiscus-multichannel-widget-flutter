@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-import 'package:qiscus_multichannel_widget/src/models.dart';
 
+import '../models.dart';
 import '../multichannel_provider.dart';
 import '../provider.dart';
 import '../widgets/chat_form.dart';
