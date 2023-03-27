@@ -1,3 +1,8 @@
+## 1.1.8
+
+- fix not loading newest messages
+- fix not infinite loading
+
 ## 1.1.7
 
 - fix not loading room data on hardware back button
