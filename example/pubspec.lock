@@ -508,17 +508,17 @@ packages:
     dependency: transitive
     description:
       name: qiscus_chat_sdk
-      sha256: "01cba6d26f31acb609965cf84d90c658d8363fd63288e6c77518e5f7335b6062"
+      sha256: "6ae31329990432617e81494cbb38d32ecc75f3fe02b84648f5b124f1d1f4826a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.4"
   qiscus_multichannel_widget:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "1.1.6"
+    version: "1.1.7"
   riverpod:
     dependency: transitive
     description:
@@ -733,5 +733,5 @@ packages:
     source: hosted
     version: "0.2.0+3"
 sdks:
-  dart: ">=2.18.0 <4.0.0"
+  dart: ">=2.18.0 <3.0.0"
   flutter: ">=3.3.0"
