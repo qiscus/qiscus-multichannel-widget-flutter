@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
@@ -16,22 +18,53 @@ final messagesProvider =
     StateNotifierProvider.autoDispose<MessagesStateNotifier, List<QMessage>>(
         (ref) {
   var roomData = ref.watch(roomProvider);
+  var deliveredStream = ref.watch(messageDeliveredProvider.stream);
+  var readStream = ref.watch(messageReadProvider.stream);
+  var receivedStream = ref.watch(messageReceivedProvider.stream);
 
   return roomData.maybeWhen(
-    orElse: () => MessagesStateNotifier(ref),
-    data: (v) => MessagesStateNotifier(ref, v.messages),
+    orElse: () => MessagesStateNotifier(ref,
+        deliveredStream: deliveredStream,
+        readStream: readStream,
+        receivedStream: receivedStream),
+    data: (v) => MessagesStateNotifier(ref,
+        state: v.messages,
+        deliveredStream: deliveredStream,
+        readStream: readStream,
+        receivedStream: receivedStream),
   );
 });
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
-  MessagesStateNotifier(this.ref, [List<QMessage> state = const []])
-      : super(state) {
-    ref.subscribe(messageReceivedProvider, _onMessageReceived);
-    ref.subscribe(messageReadProvider, _onMessageRead);
-    ref.subscribe(messageDeliveredProvider, _onMessageDelivered);
+  final AutoDisposeStateNotifierProviderRef ref;
+  final Stream<QMessage> readStream;
+  final Stream<QMessage> deliveredStream;
+  final Stream<QMessage> receivedStream;
+
+  late final StreamSubscription? readSubs;
+  late final StreamSubscription? deliveredSubs;
+  late final StreamSubscription? receivedSubs;
+
+  MessagesStateNotifier(
+    this.ref, {
+    required this.readStream,
+    required this.deliveredStream,
+    required this.receivedStream,
+    List<QMessage> state = const [],
+  }) : super(state) {
+    readSubs = readStream.listen(_onMessageRead);
+    deliveredSubs = deliveredStream.listen(_onMessageDelivered);
+    receivedSubs = receivedStream.listen(_onMessageReceived);
   }
 
-  final AutoDisposeStateNotifierProviderRef ref;
+  @override
+  void dispose() {
+    readSubs?.cancel();
+    deliveredSubs?.cancel();
+    receivedSubs?.cancel();
+
+    super.dispose();
+  }
 
   void _onMessageRead(QMessage message) {
     state = state.map((m) {
