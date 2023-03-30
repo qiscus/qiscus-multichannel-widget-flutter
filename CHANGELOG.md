@@ -1,3 +1,7 @@
+## 1.1.9
+
+- fix message not appearing / realtime
+
 ## 1.1.8
 
 - fix not loading newest messages
