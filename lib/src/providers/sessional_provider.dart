@@ -1,9 +1,4 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final sessionalProvider = FutureProvider<bool>((ref) async {
   var baseUrl = ref.watch(baseUrlProvider);

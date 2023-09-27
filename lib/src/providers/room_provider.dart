@@ -1,5 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+part of 'provider.dart';
 
 final roomStateProvider = StateProvider<QChatRoomWithMessages?>((_) => null);
 final roomProvider = Provider<AsyncValue<QChatRoomWithMessages>>((ref) {

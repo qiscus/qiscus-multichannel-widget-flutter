@@ -1,15 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-
-import '../config/avatar_config.dart';
-import '../config/subtitle_config.dart';
-import '../multichannel_provider.dart';
-import '../states/app_state.dart';
-import '../states/app_theme.dart';
-import '../widgets/chat_buttons.dart';
-import 'messages_provider.dart';
-import 'qiscus_sdk_provider.dart';
+part of 'provider.dart';
 
 final appStateProvider =
     StateProvider((_) => const AppState.initial(), name: 'appStateProvider');
@@ -51,6 +40,10 @@ final isResolvedProvider =
 final isSessionalProvider =
     StateProvider<bool>((_) => false, name: 'isSessionalProvider');
 
+// Security Enhancement
+final secureSessionProvider =
+    StateProvider<SecureSession?>((_) => null, name: 'secureSessionProvider');
+
 typedef URLTapper = void Function(String);
 typedef QButtonTapper = void Function(QMultichannel, QMessage, QButtons);
 final onURLTappedProvider =
@@ -75,3 +68,16 @@ final onBackBtnTappedProvider = StateProvider<OnBackBtnFn>((ref) {
     Navigator.of(context).pop();
   };
 }, name: 'onBackBtnTappedProvider');
+
+@freezed
+class SecureSession with _$SecureSession {
+  const factory SecureSession({
+    required String appId,
+    required String channelId,
+    required String id,
+    required String userId,
+  }) = _SecureSession;
+
+  factory SecureSession.fromJson(Map<String, dynamic> json) =>
+      _$SecureSessionFromJson(json);
+}

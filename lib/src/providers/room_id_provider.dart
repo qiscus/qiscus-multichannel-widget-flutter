@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'states_provider.dart';
-import '../utils/extensions.dart';
+part of 'provider.dart';
 
 final roomIdProvider = FutureProvider<int>((ref) async {
   var appState = ref.watch(appStateProvider);

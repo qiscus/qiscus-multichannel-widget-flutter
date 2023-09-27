@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
   var appId = ref.watch(appIdProvider);

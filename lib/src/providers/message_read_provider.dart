@@ -1,8 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../utils/extensions.dart';
-import 'qiscus_sdk_provider.dart';
-import 'room_provider.dart';
+part of 'provider.dart';
 
 final messageReadProvider = StreamProvider.autoDispose((ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);

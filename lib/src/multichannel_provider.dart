@@ -1,19 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    hide Provider, ChangeNotifierProvider;
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
-import 'providers/account_provider.dart';
-import 'providers/avatar_url_provider.dart';
-import 'providers/initiate_chat_provider.dart' as I;
-import 'providers/messages_provider.dart';
-import 'providers/qiscus_sdk_provider.dart';
-import 'providers/room_id_provider.dart';
-import 'providers/room_provider.dart';
-import 'providers/states_provider.dart';
+import 'provider.dart';
 import 'states/app_state.dart';
 import 'states/app_theme.dart';
 import 'utils/extensions.dart';
@@ -107,33 +101,9 @@ class QMultichannel {
       ref.watch(roomProvider.select((it) => it.whenData((v) => v.room)));
 
   Future<QChatRoom> initiateChat() async {
-    var data = await I.initiateChat(
-      qiscus: await ref.read(qiscusProvider.future),
-      initiateUrl: ref.read(I.initiateChatUrlProvider),
-      userId: ref.read(userIdProvider),
-      displayName: ref.read(displayNameProvider),
-      avatarUrl: ref.read(avatarUrlProvider),
-      channelId: ref.read(channelIdConfigProvider),
-      userProperties: ref.read(userPropertiesProvider),
-      sdkUserExtras: ref.read(sdkUserExtrasProvider),
-      deviceId: ref.read(deviceIdConfigProvider),
-      deviceIdDevelopmentMode: ref.read(deviceIdDevelopmentModeProvider),
-      appState: ref.read(appStateProvider),
-    );
+    var room = await ref.read(initiateChatProvider.future).then((f) => f());
 
-    ref.read(isResolvedProvider.notifier).state = data.isResolved;
-    ref.read(isSessionalProvider.notifier).state = data.isSessional;
-    ref.read(roomStateProvider.notifier).state = QChatRoomWithMessages(
-      data.room,
-      data.messages,
-    );
-
-    ref.read(appStateProvider.notifier).state = AppState.ready(
-      roomId: data.room.id,
-      account: data.account,
-    );
-
-    return data.room;
+    return room;
   }
 
   void enableDebugMode(bool enable) async {

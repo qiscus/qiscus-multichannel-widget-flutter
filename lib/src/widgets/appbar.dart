@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../multichannel_provider.dart';
-import '../providers/states_provider.dart';
+import '../provider.dart';
 
 AppBar buildAppBar({
   required BuildContext context,

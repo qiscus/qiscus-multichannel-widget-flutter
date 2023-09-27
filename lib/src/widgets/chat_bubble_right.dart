@@ -5,7 +5,7 @@ import 'package:qiscus_multichannel_widget/src/utils/build_message_area.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/avatar.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_meta.dart';
 
-import '../providers/states_provider.dart';
+import '../provider.dart';
 
 class QChatBubbleRight extends ConsumerWidget {
   const QChatBubbleRight({

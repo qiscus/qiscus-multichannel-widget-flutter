@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_buttons.dart';
 
-import '../providers/chat_bubble_color_provider.dart';
+import '../provider.dart';
 
 part 'chat_carousel.freezed.dart';
 part 'chat_carousel.g.dart';

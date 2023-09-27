@@ -1,9 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-
-import 'account_provider.dart';
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final chatBubbleFgColorProvider =
     Provider.autoDispose.family((ref, QUser sender) {

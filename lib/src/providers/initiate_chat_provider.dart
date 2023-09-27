@@ -1,15 +1,4 @@
-import 'dart:convert';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:http/http.dart' as http;
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
-
-import '../account.dart';
-import '../states/app_state.dart';
-import 'avatar_url_provider.dart';
-import 'qiscus_sdk_provider.dart';
-import 'room_provider.dart';
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final initiateChatUrlProvider = Provider((ref) {
   var baseUrl = ref.watch(baseUrlProvider);
@@ -17,96 +6,130 @@ final initiateChatUrlProvider = Provider((ref) {
   return Uri.parse('$baseUrl/api/v2/qiscus/initiate_chat');
 }, name: 'initiateChatUrlProvider');
 
-class InitiateChatResponse {
-  const InitiateChatResponse({
-    required this.account,
-    required this.room,
-    required this.messages,
-    required this.isResolved,
-    required this.isSessional,
-  });
+typedef InitiateChatFunction = Future<QChatRoom> Function();
 
-  final QAccount account;
-  final QChatRoom room;
-  final List<QMessage> messages;
-  final bool isResolved;
-  final bool isSessional;
-}
+@riverpod
+Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
+  var qiscus = await ref.watch(qiscusProvider.future);
+  var userId = ref.watch(userIdProvider);
+  var displayName = ref.watch(displayNameProvider);
+  var avatarUrl = ref.watch(avatarUrlProvider);
+  var userProperties = ref.watch(userPropertiesProvider);
+  var channelId = ref.watch(channelIdConfigProvider);
+  var sdkUserExtras = ref.watch(sdkUserExtrasProvider);
+  var initiateUrl = ref.watch(initiateChatUrlProvider);
+  var deviceId = ref.watch(deviceIdConfigProvider);
+  var deviceIdDevelopment = ref.watch(deviceIdDevelopmentModeProvider);
 
-Future<InitiateChatResponse> initiateChat({
-  required QiscusSDK qiscus,
-  String? userId,
-  String? displayName,
-  String? avatarUrl,
-  Map<String, dynamic>? userProperties,
-  String? channelId,
-  Map<String, dynamic>? sdkUserExtras,
-  required Uri initiateUrl,
-  String? deviceId,
-  bool deviceIdDevelopmentMode = false,
-  AppState appState = const AppState.initial(),
-}) async {
-  var nonce = await qiscus.getJWTNonce();
-  var data = <String, dynamic>{
-    'app_id': qiscus.appId,
-    'user_id': userId,
-    'nonce': nonce,
-  };
+  var storage = ref.watch(encSharedPreferenceProvider);
 
-  if (displayName != null) data['name'] = displayName;
-  if (avatarUrl != null) data['avatar'] = avatarUrl;
-  if (sdkUserExtras != null) data['sdk_user_extras'] = sdkUserExtras;
-  if (userProperties != null) {
-    data['user_properties'] = jsonEncode(userProperties);
-  }
-  if (channelId != null) data['channel_id'] = channelId;
+  return () async {
+    var nonce = await qiscus.getJWTNonce();
+    var data = <String, dynamic>{
+      'app_id': qiscus.appId,
+      'user_id': userId,
+      'nonce': nonce,
+    };
 
-  var resp = await http.post(initiateUrl, body: data);
-  var json = jsonDecode(resp.body);
-  var identityToken = json['data']['identity_token'] as String;
-  // var isSessional = json['data']['is_sessional'] as bool;
-  var room = json['data']['customer_room'];
-
-  var roomId = int.parse(room['room_id']);
-  var isResolved = room['is_resolved'] as bool?;
-  var isSessional = room['is_sessional'] as bool?;
-
-  Map<String, Object?>? properties;
-  try {
-    var prop = (room['extras']['user_properties'] as List)
-        .cast<Map<String, Object?>>();
-
-    if (prop.isNotEmpty) properties ??= {};
-    for (var item in prop) {
-      if (item['key'] != null) {
-        properties?['${item['key']}'] = item['value'];
-      }
+    if (displayName != null) data['name'] = displayName;
+    if (avatarUrl != null) data['avatar'] = avatarUrl;
+    if (sdkUserExtras != null) data['sdk_user_extras'] = sdkUserExtras;
+    if (userProperties != null) {
+      data['user_properties'] = jsonEncode(userProperties);
     }
-  } catch (_) {}
+    if (channelId != null) data['channel_id'] = channelId;
 
-  var user = QAccount.merge(
-    await qiscus.setUserWithIdentityToken(token: identityToken),
-    properties,
-  );
+    var secureSession = await storage
+        .read(key: StorageKey.secureSession)
+        .then((v) => v == null ? null : jsonDecode(v) as Map<String, dynamic>)
+        .then((v) => v == null ? null : SecureSession.fromJson(v));
 
-  if (deviceId != null) {
+    print('last session: $secureSession');
+
+    if (secureSession != null &&
+        secureSession.appId == qiscus.appId &&
+        secureSession.channelId == channelId &&
+        secureSession.userId == userId) {
+      print('got last secure session data: $secureSession');
+      data['session_id'] = secureSession.id;
+    }
+
+    var json = await http
+        .post(initiateUrl, body: data)
+        .then((r) => jsonDecode(r.body) as Map<String, dynamic>);
+    var identityToken = json['data']['identity_token'] as String;
+    var roomJson = json['data']['customer_room'] as Map<String, dynamic>;
+
+    var roomId = int.parse(roomJson['room_id']);
+    var isResolved = roomJson['is_resolved'] as bool?;
+    var isSessional = roomJson['is_sessional'] as bool?;
+
+    Map<String, dynamic>? properties;
     try {
-      await qiscus.registerDeviceToken(
-        token: deviceId,
-        isDevelopment: deviceIdDevelopmentMode,
-      );
+      var prop = (roomJson['extras']['user_properties'] as List)
+          .cast<Map<String, dynamic>>();
+
+      if (prop.isNotEmpty) properties ??= {};
+      for (var item in prop) {
+        if (item['key'] != null) {
+          properties?['${item['key']}'] = item['value'];
+        }
+      }
     } catch (_) {}
-  }
 
-  var roomData = await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
+    var user = QAccount.merge(
+      await qiscus.setUserWithIdentityToken(token: identityToken),
+      properties,
+    );
 
-  return InitiateChatResponse(
-    account: user,
-    room: roomData.room,
-    messages: roomData.messages,
-    isResolved: isResolved ?? false,
-    isSessional: isSessional ?? false,
-  );
+    if (deviceId != null) {
+      qiscus
+          .registerDeviceToken(
+              token: deviceId, isDevelopment: deviceIdDevelopment)
+          .ignore();
+    }
+
+    var roomData =
+        await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
+    var room = roomData.room;
+    var messages = roomData.messages;
+
+    // Security Enchancements
+    var isSecure = json['data']['is_secure'] as bool? ?? false;
+    var sessionId = roomJson['session_id'] as String?;
+    channelId = (roomJson['channel_id'] as int).toString();
+    print('initiate chat: isSecure($isSecure) sessionId($sessionId)');
+    if (isSecure == false) {
+      storage.delete(key: StorageKey.secureSession).ignore();
+    }
+    if (isSecure && sessionId != null) {
+      var userId = user.id.split('_')[1];
+      // Save session data to local
+      var data = SecureSession(
+        appId: qiscus.appId!,
+        channelId: channelId!,
+        userId: userId,
+        id: sessionId,
+      );
+      ref.read(secureSessionProvider.notifier).state = data;
+      await storage.write(
+        key: StorageKey.secureSession,
+        value: jsonEncode(data.toJson()),
+      );
+    }
+
+    // Update providers
+    ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
+    ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
+    ref.read(appStateProvider.notifier).state = AppState.ready(
+      roomId: roomId,
+      account: user,
+    );
+    ref.read(roomStateProvider.notifier).state =
+        QChatRoomWithMessages(room, messages);
+
+    return room;
+  };
 }
 
 Future<QChatRoomWithMessages> getChatRoomWithMessages({
@@ -117,116 +140,3 @@ Future<QChatRoomWithMessages> getChatRoomWithMessages({
       const Duration(seconds: 2),
       onTimeout: () => getChatRoomWithMessages(qiscus: qiscus, roomId: roomId));
 }
-
-Future<void> initiateChatF(Ref ref) async {
-  var data = await initiateChat(
-    qiscus: await ref.read(qiscusProvider.future),
-    initiateUrl: ref.read(initiateChatUrlProvider),
-    userId: ref.read(userIdProvider),
-    displayName: ref.read(displayNameProvider),
-    avatarUrl: ref.read(avatarUrlProvider),
-    channelId: ref.read(channelIdConfigProvider),
-    userProperties: ref.read(userPropertiesProvider),
-    sdkUserExtras: ref.read(sdkUserExtrasProvider),
-    deviceId: ref.read(deviceIdConfigProvider),
-    deviceIdDevelopmentMode: ref.read(deviceIdDevelopmentModeProvider),
-    appState: ref.read(appStateProvider),
-  );
-
-  ref.read(isResolvedProvider.notifier).state = data.isResolved;
-  ref.read(isSessionalProvider.notifier).state = data.isSessional;
-
-  ref.read(appStateProvider.notifier).state = AppState.ready(
-    roomId: data.room.id,
-    account: data.account,
-  );
-
-  ref.read(roomStateProvider.notifier).state = QChatRoomWithMessages(
-    data.room,
-    data.messages,
-  );
-}
-
-final initiateChatProvider = Provider.autoDispose((ref) {
-  return () => initiateChatF(ref);
-});
-
-final _initiateChatProvider = FutureProvider((ref) async {
-  var qiscus = await ref.watch(qiscusProvider.future);
-  var userId = ref.watch(userIdProvider);
-  var displayName = ref.watch(displayNameProvider);
-  var avatarUrl = ref.watch(userAvatarUrl);
-  var userProperties = ref.watch(userPropertiesProvider);
-  var channelId = ref.watch(channelIdConfigProvider);
-  var sdkUserExtras = ref.watch(sdkUserExtrasProvider);
-  var url = ref.watch(initiateChatUrlProvider);
-  var deviceId = ref.watch(deviceIdConfigProvider);
-  var deviceIdDevelopmentMode = ref.watch(deviceIdDevelopmentModeProvider);
-
-  var appState = ref.watch(appStateProvider);
-  if (appState.maybeMap(orElse: () => false, ready: (_) => true)) {
-    return 0;
-  }
-
-  var nonce = await qiscus.getJWTNonce();
-  var data = <String, dynamic>{
-    'app_id': qiscus.appId,
-    'user_id': userId,
-    'nonce': nonce,
-  };
-
-  if (displayName != null) data['name'] = displayName;
-  if (avatarUrl != null) data['avatar'] = avatarUrl;
-  if (sdkUserExtras != null) data['sdk_user_extras'] = sdkUserExtras;
-  if (userProperties != null) {
-    data['user_properties'] = jsonEncode(userProperties);
-  }
-  if (channelId != null) data['channel_id'] = channelId;
-
-  var resp = await http.post(url, body: data);
-  var json = jsonDecode(resp.body);
-  var identityToken = json['data']['identity_token'] as String;
-  // var isSessional = json['data']['is_sessional'] as bool;
-  var room = json['data']['customer_room'];
-
-  var roomId = int.parse(room['room_id']);
-  var isResolved = room['is_resolved'] as bool?;
-  var isSessional = room['is_sessional'] as bool?;
-
-  Map<String, Object?>? properties;
-  try {
-    var prop = (room['extras']['user_properties'] as List)
-        .cast<Map<String, Object?>>();
-
-    if (prop.isNotEmpty) properties ??= {};
-    for (var item in prop) {
-      if (item['key'] != null) {
-        properties?['${item['key']}'] = item['value'];
-      }
-    }
-  } catch (_) {}
-
-  ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
-  ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
-
-  var user = QAccount.merge(
-    await qiscus.setUserWithIdentityToken(token: identityToken),
-    properties,
-  );
-
-  if (deviceId != null) {
-    try {
-      await qiscus.registerDeviceToken(
-        token: deviceId,
-        isDevelopment: deviceIdDevelopmentMode,
-      );
-    } catch (_) {}
-  }
-
-  ref.read(appStateProvider.notifier).state = AppState.ready(
-    roomId: roomId,
-    account: user,
-  );
-
-  return 0;
-}, name: 'initiateChatProvider');

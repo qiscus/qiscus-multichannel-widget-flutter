@@ -1,6 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'messages_provider.dart';
+part of 'provider.dart';
 
 final lastMessageProvider = Provider.autoDispose((ref) {
   var messages = ref.watch(sortedMessagesProvider);

@@ -8,9 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
 import '../multichannel_provider.dart';
-import '../providers/chat_bubble_color_provider.dart';
-import '../providers/qiscus_sdk_provider.dart';
-import '../providers/states_provider.dart';
+import '../provider.dart';
 import '../utils/extensions.dart';
 
 part 'chat_buttons.freezed.dart';

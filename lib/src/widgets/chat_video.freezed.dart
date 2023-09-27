@@ -235,12 +235,11 @@ abstract class _QImagePayload implements QImagePayload {
   const factory _QImagePayload(
       {required final String url,
       required final String? caption,
-      @JsonKey(name: 'file_name')
-          required final String? fileName,
+      @JsonKey(name: 'file_name') required final String? fileName,
       required final int? size,
       required final int? pages,
       @JsonKey(name: 'encryption_key')
-          required final String? encryptionKey}) = _$_QImagePayload;
+      required final String? encryptionKey}) = _$_QImagePayload;
 
   factory _QImagePayload.fromJson(Map<String, dynamic> json) =
       _$_QImagePayload.fromJson;

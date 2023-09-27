@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../account.dart';
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final accountProvider = Provider<AsyncValue<QAccount>>((ref) {
   var state = ref.watch(appStateProvider);

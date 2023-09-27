@@ -1,12 +1,4 @@
-import 'dart:io';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-
-import '../utils/extensions.dart';
-import 'messages_provider.dart';
-import 'qiscus_sdk_provider.dart';
-import 'room_id_provider.dart';
+part of 'provider.dart';
 
 final uploaderProvider =
     StateNotifierProvider<UploadStateNotifier, Set<QUpload>>((ref) {

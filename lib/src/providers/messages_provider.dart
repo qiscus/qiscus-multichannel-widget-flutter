@@ -1,45 +1,18 @@
-import 'dart:async';
-
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-
-import '../models.dart';
-import '../utils/extensions.dart';
-import '../widgets/chat_buttons.dart';
-import '../widgets/chat_carousel.dart';
-import 'message_delivered_provider.dart';
-import 'message_read_provider.dart';
-import 'message_received_provider.dart';
-import 'qiscus_sdk_provider.dart';
-import 'room_id_provider.dart';
-import 'room_provider.dart';
+part of 'provider.dart';
 
 final messagesProvider =
     StateNotifierProvider.autoDispose<MessagesStateNotifier, List<QMessage>>(
         (ref) {
   var roomData = ref.watch(roomProvider);
-  var deliveredStream = ref.watch(messageDeliveredProvider.stream);
-  var readStream = ref.watch(messageReadProvider.stream);
-  var receivedStream = ref.watch(messageReceivedProvider.stream);
 
   return roomData.maybeWhen(
-    orElse: () => MessagesStateNotifier(ref,
-        deliveredStream: deliveredStream,
-        readStream: readStream,
-        receivedStream: receivedStream),
-    data: (v) => MessagesStateNotifier(ref,
-        state: v.messages,
-        deliveredStream: deliveredStream,
-        readStream: readStream,
-        receivedStream: receivedStream),
+    orElse: () => MessagesStateNotifier(ref),
+    data: (v) => MessagesStateNotifier(ref, state: v.messages),
   );
 });
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   final AutoDisposeStateNotifierProviderRef ref;
-  final Stream<QMessage> readStream;
-  final Stream<QMessage> deliveredStream;
-  final Stream<QMessage> receivedStream;
 
   late final StreamSubscription? readSubs;
   late final StreamSubscription? deliveredSubs;
@@ -47,21 +20,30 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
 
   MessagesStateNotifier(
     this.ref, {
-    required this.readStream,
-    required this.deliveredStream,
-    required this.receivedStream,
     List<QMessage> state = const [],
   }) : super(state) {
-    readSubs = readStream.listen(_onMessageRead);
-    deliveredSubs = deliveredStream.listen(_onMessageDelivered);
-    receivedSubs = receivedStream.listen(_onMessageReceived);
+    // readSubs = readStream.listen(_onMessageRead);
+    // deliveredSubs = deliveredStream.listen(_onMessageDelivered);
+    // receivedSubs = receivedStream.listen(_onMessageReceived);
+
+    ref.subscribe(messageReceivedProvider, (QMessage m) {
+      print('on message received! uniqueId:${m.id} text:${m.text}');
+      _onMessageReceived(m);
+    });
+    ref.read(qiscusProvider).whenData((qiscus) async {
+      var broker = qiscus.debug.mqtt.server;
+      print('mqtt broker: $broker');
+      await for (var status in qiscus.debug.onMqttConnectionStatus()) {
+        print('mqtt status: $status');
+      }
+    });
   }
 
   @override
   void dispose() {
-    readSubs?.cancel();
-    deliveredSubs?.cancel();
-    receivedSubs?.cancel();
+    // readSubs?.cancel();
+    // deliveredSubs?.cancel();
+    // receivedSubs?.cancel();
 
     super.dispose();
   }
@@ -111,9 +93,9 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
       var m = await qiscus.sendMessage(message: message);
       message.id = m.id;
       message.status = QMessageStatus.read;
-
       _onMessageReceived(message);
       _onMessageRead(message);
+      qiscus.synchronize();
     });
 
     return message;

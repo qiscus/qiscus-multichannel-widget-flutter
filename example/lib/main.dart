@@ -18,6 +18,8 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
+  var appId = 'wefds-c6f0p2h1cxwz3oq';
+
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
@@ -35,7 +37,13 @@ class _AppStateBuilder extends State<App> {
           navigatorObservers: [
             QNavObserver(),
           ],
-          home: LoginScreen(),
+          home: LoginScreen(
+            onChangeAppId: (appId) {
+              setState(() {
+                this.appId = appId;
+              });
+            },
+          ),
         );
       },
     );

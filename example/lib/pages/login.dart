@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class LoginPage extends Page {
-  const LoginPage() : super(key: const ValueKey("LoginPageKey"));
+  const LoginPage({
+    required this.onChangeAppId,
+  }) : super(key: const ValueKey("LoginPageKey"));
+
+  final void Function(String appId) onChangeAppId;
 
   @override
   String? get name => 'LoginPage';
@@ -11,19 +15,32 @@ class LoginPage extends Page {
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
       settings: this,
-      builder: (context) => LoginScreen(),
+      builder: (context) => LoginScreen(
+        onChangeAppId: onChangeAppId,
+      ),
     );
   }
 }
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({
+    Key? key,
+    required this.onChangeAppId,
+  }) : super(key: key);
+
+  final void Function(String appId) onChangeAppId;
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  late final appIdController =
+      TextEditingController(text: 'wefds-c6f0p2h1cxwz3oq');
+  // Non Secure
+  // late final channelIdController = TextEditingController(text: '126962');
+  // Secure
+  late final channelIdController = TextEditingController(text: '126965');
   late final usernameController = TextEditingController(text: 'guest-1001');
   late final displayNameController = TextEditingController(text: 'guest-1001');
 
@@ -44,6 +61,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+                TextField(
+                  decoration: const InputDecoration(hintText: 'App ID'),
+                  controller: appIdController,
+                  onSubmitted: (val) {
+                    widget.onChangeAppId(val);
+                  },
+                ),
+                TextField(
+                  decoration: const InputDecoration(hintText: 'Channel ID'),
+                  controller: channelIdController,
                 ),
                 TextField(
                   decoration: const InputDecoration(
@@ -77,11 +105,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onDoLogin(QMultichannel mulchan) async {
+    var channelId = channelIdController.text;
     var username = usernameController.text;
     var displayName = displayNameController.text;
 
     try {
       print('set user! $username');
+      mulchan.setChannelId(channelId);
       mulchan.setUser(
         userId: username,
         displayName: displayName,
@@ -103,7 +133,8 @@ class _LoginScreenState extends State<LoginScreen> {
           print('sukses initiate chat: ${room.id}');
         },
         onError: (err) {
-          print('fail initiatae chat: ${err.runtimeType}');
+          print('fail initiate chat: ${err.runtimeType}');
+          print(err);
         },
       );
 

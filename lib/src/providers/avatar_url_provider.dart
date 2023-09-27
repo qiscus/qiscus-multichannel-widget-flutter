@@ -1,7 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'account_provider.dart';
-import 'states_provider.dart';
+part of 'provider.dart';
 
 final avatarUrlProvider = Provider<String?>((ref) {
   var account = ref.watch(accountProvider);

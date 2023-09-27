@@ -386,7 +386,7 @@ abstract class _QCarouselCard implements QCarouselCard {
       required final String title,
       final String? description,
       @JsonKey(name: 'default_action')
-          required final QCarouselAction defaultAction,
+      required final QCarouselAction defaultAction,
       required final List<QButtons> buttons}) = _$_QCarouselCard;
 
   factory _QCarouselCard.fromJson(Map<String, dynamic> json) =
