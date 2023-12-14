@@ -6,6 +6,9 @@ final baseUrlProvider = StateProvider((_) => 'https://multichannel.qiscus.com',
     name: 'baseUrlProvider');
 final avatarConfigProvider = StateProvider((_) => const QAvatarConfig.enabled(),
     name: 'avatarConfigProvider');
+final rightAvatarConfigProvider = StateProvider(
+    (_) => const QAvatarConfig.enabled(),
+    name: 'rightAvatarConfigProvider');
 final subtitleConfigProvider = StateProvider(
     (_) => const QSubtitleConfig.disabled(),
     name: 'subtitleConfigProvider');

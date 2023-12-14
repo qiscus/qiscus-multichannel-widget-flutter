@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/multichannel_provider.dart';
+import 'package:qiscus_multichannel_widget/src/providers/provider.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/avatar.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_meta.dart';
 
 import '../utils/build_message_area.dart';
 
-class QChatBubbleLeft extends StatelessWidget {
+class QChatBubbleLeft extends ConsumerWidget {
   QChatBubbleLeft({
     Key? key,
     required this.message,
@@ -16,23 +18,23 @@ class QChatBubbleLeft extends StatelessWidget {
   final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var avatarUrl = ref.watch(avatarConfigProvider).when<String?>(
+          disabled: () => null,
+          enabled: () => message.sender.avatarUrl,
+          editable: (url) => url,
+        );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          QMultichannelConsumer(builder: (context, m) {
-            var avatar = message.sender.avatarUrl ?? m.avatarUrl;
-            if (avatar != null) {
-              return QAvatar(
-                avatarUrl: avatar,
-              );
-            } else {
-              return Container();
-            }
-          }),
+          if (avatarUrl != null)
+            QAvatar(
+              avatarUrl: avatarUrl,
+            ),
           buildMessageArea(message),
           QChatMeta(
             timestamp: message.timestamp,

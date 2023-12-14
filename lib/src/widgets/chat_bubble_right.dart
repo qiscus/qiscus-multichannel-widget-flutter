@@ -17,8 +17,11 @@ class QChatBubbleRight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    var avatarConfig = ref.watch(avatarConfigProvider);
-    var senderAvatar = message.sender.avatarUrl;
+    var avatarUrl = ref.watch(rightAvatarConfigProvider).when<String?>(
+          disabled: () => null,
+          enabled: () => message.sender.avatarUrl,
+          editable: (url) => url,
+        );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
@@ -32,12 +35,7 @@ class QChatBubbleRight extends ConsumerWidget {
             isLeft: false,
           ),
           buildMessageArea(message),
-          avatarConfig.maybeWhen(
-            orElse: () => senderAvatar != null
-                ? QAvatar(avatarUrl: senderAvatar)
-                : Container(),
-            disabled: () => Container(),
-          ),
+          if (avatarUrl != null) QAvatar(avatarUrl: avatarUrl)
         ],
       ),
     );

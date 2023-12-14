@@ -19,6 +19,7 @@ class QMultichannelProvider extends ConsumerWidget {
     required this.builder,
     this.onURLTapped,
     this.avatar = const QAvatarConfig.enabled(),
+    this.rightAvatar = const QAvatarConfig.enabled(),
     this.subtitle = const QSubtitleConfig.enabled(),
     this.title,
     this.channelId,
@@ -32,6 +33,7 @@ class QMultichannelProvider extends ConsumerWidget {
   final Widget Function(BuildContext) builder;
   final QAppTheme theme;
   final QAvatarConfig avatar;
+  final QAvatarConfig rightAvatar;
   final QSubtitleConfig subtitle;
   final String? title;
   final String? channelId;
@@ -46,6 +48,7 @@ class QMultichannelProvider extends ConsumerWidget {
       appThemeConfigProvider.overrideWithValue(theme),
       baseUrlProvider.overrideWithValue(baseUrl),
       avatarConfigProvider.overrideWithValue(avatar),
+      rightAvatarConfigProvider.overrideWithValue(rightAvatar),
       subtitleConfigProvider.overrideWithValue(subtitle),
       titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
       channelIdConfigProvider.overrideWithValue(channelId),

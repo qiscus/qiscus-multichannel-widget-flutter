@@ -32,6 +32,9 @@ mixin _$QAppTheme {
   Color get sendContainerBackgroundColor => throw _privateConstructorUsedError;
   Color get fieldChatBorderColor => throw _privateConstructorUsedError;
   Color get fieldChatTextColor => throw _privateConstructorUsedError;
+  Color get buttonChatBackgroundColor => throw _privateConstructorUsedError;
+  Color get buttonChatTextColor => throw _privateConstructorUsedError;
+  Color get buttonChatBorderColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QAppThemeCopyWith<QAppTheme> get copyWith =>
@@ -59,7 +62,10 @@ abstract class $QAppThemeCopyWith<$Res> {
       Color sendContainerColor,
       Color sendContainerBackgroundColor,
       Color fieldChatBorderColor,
-      Color fieldChatTextColor});
+      Color fieldChatTextColor,
+      Color buttonChatBackgroundColor,
+      Color buttonChatTextColor,
+      Color buttonChatBorderColor});
 }
 
 /// @nodoc
@@ -91,6 +97,9 @@ class _$QAppThemeCopyWithImpl<$Res, $Val extends QAppTheme>
     Object? sendContainerBackgroundColor = null,
     Object? fieldChatBorderColor = null,
     Object? fieldChatTextColor = null,
+    Object? buttonChatBackgroundColor = null,
+    Object? buttonChatTextColor = null,
+    Object? buttonChatBorderColor = null,
   }) {
     return _then(_value.copyWith(
       baseColor: null == baseColor
@@ -157,6 +166,18 @@ class _$QAppThemeCopyWithImpl<$Res, $Val extends QAppTheme>
           ? _value.fieldChatTextColor
           : fieldChatTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      buttonChatBackgroundColor: null == buttonChatBackgroundColor
+          ? _value.buttonChatBackgroundColor
+          : buttonChatBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      buttonChatTextColor: null == buttonChatTextColor
+          ? _value.buttonChatTextColor
+          : buttonChatTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      buttonChatBorderColor: null == buttonChatBorderColor
+          ? _value.buttonChatBorderColor
+          : buttonChatBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ) as $Val);
   }
 }
@@ -184,7 +205,10 @@ abstract class _$$_QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
       Color sendContainerColor,
       Color sendContainerBackgroundColor,
       Color fieldChatBorderColor,
-      Color fieldChatTextColor});
+      Color fieldChatTextColor,
+      Color buttonChatBackgroundColor,
+      Color buttonChatTextColor,
+      Color buttonChatBorderColor});
 }
 
 /// @nodoc
@@ -214,6 +238,9 @@ class __$$_QAppThemeCopyWithImpl<$Res>
     Object? sendContainerBackgroundColor = null,
     Object? fieldChatBorderColor = null,
     Object? fieldChatTextColor = null,
+    Object? buttonChatBackgroundColor = null,
+    Object? buttonChatTextColor = null,
+    Object? buttonChatBorderColor = null,
   }) {
     return _then(_$_QAppTheme(
       baseColor: null == baseColor
@@ -280,6 +307,18 @@ class __$$_QAppThemeCopyWithImpl<$Res>
           ? _value.fieldChatTextColor
           : fieldChatTextColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      buttonChatBackgroundColor: null == buttonChatBackgroundColor
+          ? _value.buttonChatBackgroundColor
+          : buttonChatBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      buttonChatTextColor: null == buttonChatTextColor
+          ? _value.buttonChatTextColor
+          : buttonChatTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      buttonChatBorderColor: null == buttonChatBorderColor
+          ? _value.buttonChatBorderColor
+          : buttonChatBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -304,7 +343,10 @@ class _$_QAppTheme implements _QAppTheme {
       this.sendContainerBackgroundColor =
           const Color.fromARGB(255, 250, 250, 250),
       this.fieldChatBorderColor = const Color.fromARGB(255, 227, 227, 227),
-      this.fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51)});
+      this.fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51),
+      this.buttonChatBackgroundColor = const Color.fromARGB(255, 250, 250, 250),
+      this.buttonChatTextColor = const Color.fromARGB(255, 102, 102, 102),
+      this.buttonChatBorderColor = const Color.fromARGB(200, 102, 102, 102)});
 
   @override
   @JsonKey()
@@ -354,10 +396,19 @@ class _$_QAppTheme implements _QAppTheme {
   @override
   @JsonKey()
   final Color fieldChatTextColor;
+  @override
+  @JsonKey()
+  final Color buttonChatBackgroundColor;
+  @override
+  @JsonKey()
+  final Color buttonChatTextColor;
+  @override
+  @JsonKey()
+  final Color buttonChatBorderColor;
 
   @override
   String toString() {
-    return 'QAppTheme(baseColor: $baseColor, navigationColor: $navigationColor, navigationTitleColor: $navigationTitleColor, systemEventTextColor: $systemEventTextColor, rightBubbleColor: $rightBubbleColor, rightBubbleTextColor: $rightBubbleTextColor, leftBubbleColor: $leftBubbleColor, leftBubbleTextColor: $leftBubbleTextColor, timeLabelTextColor: $timeLabelTextColor, timeBackgroundColor: $timeBackgroundColor, emptyTextColor: $emptyTextColor, emptyBackgroundColor: $emptyBackgroundColor, sendContainerColor: $sendContainerColor, sendContainerBackgroundColor: $sendContainerBackgroundColor, fieldChatBorderColor: $fieldChatBorderColor, fieldChatTextColor: $fieldChatTextColor)';
+    return 'QAppTheme(baseColor: $baseColor, navigationColor: $navigationColor, navigationTitleColor: $navigationTitleColor, systemEventTextColor: $systemEventTextColor, rightBubbleColor: $rightBubbleColor, rightBubbleTextColor: $rightBubbleTextColor, leftBubbleColor: $leftBubbleColor, leftBubbleTextColor: $leftBubbleTextColor, timeLabelTextColor: $timeLabelTextColor, timeBackgroundColor: $timeBackgroundColor, emptyTextColor: $emptyTextColor, emptyBackgroundColor: $emptyBackgroundColor, sendContainerColor: $sendContainerColor, sendContainerBackgroundColor: $sendContainerBackgroundColor, fieldChatBorderColor: $fieldChatBorderColor, fieldChatTextColor: $fieldChatTextColor, buttonChatBackgroundColor: $buttonChatBackgroundColor, buttonChatTextColor: $buttonChatTextColor, buttonChatBorderColor: $buttonChatBorderColor)';
   }
 
   @override
@@ -398,28 +449,39 @@ class _$_QAppTheme implements _QAppTheme {
             (identical(other.fieldChatBorderColor, fieldChatBorderColor) ||
                 other.fieldChatBorderColor == fieldChatBorderColor) &&
             (identical(other.fieldChatTextColor, fieldChatTextColor) ||
-                other.fieldChatTextColor == fieldChatTextColor));
+                other.fieldChatTextColor == fieldChatTextColor) &&
+            (identical(other.buttonChatBackgroundColor,
+                    buttonChatBackgroundColor) ||
+                other.buttonChatBackgroundColor == buttonChatBackgroundColor) &&
+            (identical(other.buttonChatTextColor, buttonChatTextColor) ||
+                other.buttonChatTextColor == buttonChatTextColor) &&
+            (identical(other.buttonChatBorderColor, buttonChatBorderColor) ||
+                other.buttonChatBorderColor == buttonChatBorderColor));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      baseColor,
-      navigationColor,
-      navigationTitleColor,
-      systemEventTextColor,
-      rightBubbleColor,
-      rightBubbleTextColor,
-      leftBubbleColor,
-      leftBubbleTextColor,
-      timeLabelTextColor,
-      timeBackgroundColor,
-      emptyTextColor,
-      emptyBackgroundColor,
-      sendContainerColor,
-      sendContainerBackgroundColor,
-      fieldChatBorderColor,
-      fieldChatTextColor);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        baseColor,
+        navigationColor,
+        navigationTitleColor,
+        systemEventTextColor,
+        rightBubbleColor,
+        rightBubbleTextColor,
+        leftBubbleColor,
+        leftBubbleTextColor,
+        timeLabelTextColor,
+        timeBackgroundColor,
+        emptyTextColor,
+        emptyBackgroundColor,
+        sendContainerColor,
+        sendContainerBackgroundColor,
+        fieldChatBorderColor,
+        fieldChatTextColor,
+        buttonChatBackgroundColor,
+        buttonChatTextColor,
+        buttonChatBorderColor
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -445,7 +507,10 @@ abstract class _QAppTheme implements QAppTheme {
       final Color sendContainerColor,
       final Color sendContainerBackgroundColor,
       final Color fieldChatBorderColor,
-      final Color fieldChatTextColor}) = _$_QAppTheme;
+      final Color fieldChatTextColor,
+      final Color buttonChatBackgroundColor,
+      final Color buttonChatTextColor,
+      final Color buttonChatBorderColor}) = _$_QAppTheme;
 
   @override
   Color get baseColor;
@@ -479,6 +544,12 @@ abstract class _QAppTheme implements QAppTheme {
   Color get fieldChatBorderColor;
   @override
   Color get fieldChatTextColor;
+  @override
+  Color get buttonChatBackgroundColor;
+  @override
+  Color get buttonChatTextColor;
+  @override
+  Color get buttonChatBorderColor;
   @override
   @JsonKey(ignore: true)
   _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>

@@ -118,8 +118,12 @@ class QButtonFragment extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var theme = ref.watch(appThemeConfigProvider);
-    var bgColor = ref.watch(chatBubbleBgColorProvider(message.sender));
+    var fgColor =
+        ref.watch(appThemeConfigProvider.select((v) => v.buttonChatTextColor));
+    var bgColor = ref.watch(
+        appThemeConfigProvider.select((v) => v.buttonChatBackgroundColor));
+    var borderColor = ref
+        .watch(appThemeConfigProvider.select((v) => v.buttonChatBorderColor));
 
     BorderRadius borderRadius = BorderRadius.zero;
     if (first) {
@@ -142,13 +146,13 @@ class QButtonFragment extends ConsumerWidget {
             .call(QMultichannel(ref), message, button);
       },
       style: TextButton.styleFrom(
-        backgroundColor: theme.rightBubbleColor,
+        backgroundColor: bgColor,
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
-        foregroundColor: theme.rightBubbleTextColor,
+        foregroundColor: fgColor,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         side: BorderSide(
-          color: bgColor,
+          color: borderColor,
           width: 0.8,
           strokeAlign: BorderSide.strokeAlignCenter,
         ),
@@ -156,7 +160,7 @@ class QButtonFragment extends ConsumerWidget {
       child: Text(
         button.label,
         style: TextStyle(
-          color: bgColor,
+          color: fgColor,
         ),
       ),
     );

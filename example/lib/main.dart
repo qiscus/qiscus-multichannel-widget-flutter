@@ -29,8 +29,14 @@ class _AppStateBuilder extends State<App> {
     return QMultichannelProvider(
       appId: appId,
       channelId: channelId,
-      avatar: QAvatarConfig.editable('https://via.placeholder.com/200'),
       title: 'Some custom title',
+      avatar: QAvatarConfig.enabled(),
+      rightAvatar: QAvatarConfig.disabled(),
+      theme: QAppTheme(
+        buttonChatBackgroundColor: Colors.red,
+        buttonChatTextColor: Colors.green,
+        buttonChatBorderColor: Colors.blue,
+      ),
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);
         print('url tapped: $url $uri');
