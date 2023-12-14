@@ -1,3 +1,7 @@
+## 1.1.10
+
+- fix not showing remote avatar
+
 ## 1.1.9
 
 - fix message not appearing / realtime
