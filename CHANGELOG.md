@@ -1,3 +1,8 @@
+## 1.2.0
+
+- added support to config right bubble chat avatar
+- added support to style button on chat with button type
+
 ## 1.1.10
 
 - fix not showing remote avatar
