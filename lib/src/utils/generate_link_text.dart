@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
-import '../multichannel_provider.dart';
 import '../provider.dart';
 
 class RichLinkText extends ConsumerWidget {
@@ -18,27 +17,14 @@ class RichLinkText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    onTap(String url) => ref.watch(onURLTappedProvider)?.call(url);
-
-    return QMultichannelConsumer(
-      builder: (context, ref) {
-        final fgColor = _getFgColor(ref);
-        return generateRichLinkText(
-          text: text,
-          onTap: onTap,
-          fgColor: fgColor,
-        );
+    var fgColor = ref.watch(chatBubbleFgColorProvider(sender));
+    return generateRichLinkText(
+      text: text,
+      onTap: (url) {
+        ref.read(onURLTappedProvider)?.call(url);
       },
+      fgColor: fgColor,
     );
-  }
-
-  Color _getFgColor(QMultichannel ref) {
-    final account = ref.account.value!;
-    if (account.id == sender.id) {
-      return ref.theme.rightBubbleTextColor;
-    } else {
-      return ref.theme.leftBubbleTextColor;
-    }
   }
 }
 

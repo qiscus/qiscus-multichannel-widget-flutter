@@ -85,7 +85,9 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
     if (deviceId != null) {
       qiscus
           .registerDeviceToken(
-              token: deviceId, isDevelopment: deviceIdDevelopment)
+            token: deviceId,
+            isDevelopment: deviceIdDevelopment,
+          )
           .ignore();
     }
 

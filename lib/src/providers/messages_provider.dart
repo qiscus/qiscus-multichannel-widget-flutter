@@ -14,22 +14,14 @@ final messagesProvider =
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   final AutoDisposeStateNotifierProviderRef ref;
 
-  late final StreamSubscription? readSubs;
-  late final StreamSubscription? deliveredSubs;
-  late final StreamSubscription? receivedSubs;
-
   MessagesStateNotifier(
     this.ref, {
     List<QMessage> state = const [],
   }) : super(state) {
-    // readSubs = readStream.listen(_onMessageRead);
-    // deliveredSubs = deliveredStream.listen(_onMessageDelivered);
-    // receivedSubs = receivedStream.listen(_onMessageReceived);
-
     ref.subscribe(messageReceivedProvider, (QMessage m) {
-      print('on message received! uniqueId:${m.id} text:${m.text}');
       _onMessageReceived(m);
     });
+
     ref.read(qiscusProvider).whenData((qiscus) async {
       var broker = qiscus.debug.mqtt.server;
       print('mqtt broker: $broker');
@@ -39,31 +31,12 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     });
   }
 
-  @override
-  void dispose() {
-    // readSubs?.cancel();
-    // deliveredSubs?.cancel();
-    // receivedSubs?.cancel();
-
-    super.dispose();
-  }
-
   void _onMessageRead(QMessage message) {
     state = state.map((m) {
       if (m.timestamp.isBefore(message.timestamp)) {
         m.status = QMessageStatus.read;
       }
 
-      return m;
-    }).toList();
-  }
-
-  void _onMessageDelivered(QMessage message) {
-    state = state.map((m) {
-      if (m.status != QMessageStatus.read &&
-          m.timestamp.isBefore(message.timestamp)) {
-        m.status = QMessageStatus.delivered;
-      }
       return m;
     }).toList();
   }
@@ -145,7 +118,7 @@ final sortedMessagesProvider = Provider.autoDispose((ref) {
 });
 
 final mappedMessagesProvider = Provider.autoDispose<List<QMessage>>((ref) {
-  var messages = ref.watch(messagesProvider);
+  var messages = ref.watch(sortedMessagesProvider);
 
   return messages.map((it) {
     QMessage? message;

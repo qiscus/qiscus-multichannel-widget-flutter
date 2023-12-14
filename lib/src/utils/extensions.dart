@@ -6,30 +6,17 @@ extension QRefExt1 on AutoDisposeStateNotifierProviderRef {
   void subscribe<R>(
     AutoDisposeStreamProvider<R> provider,
     void Function(R) onData,
-  ) {
-    var events = read(provider.stream);
-    var sub = events.listen(onData);
-    onDispose(() => sub.cancel());
+  ) async {
+    var sub = listen(provider, (_, AsyncValue<R> data) async {
+      onData(await data.future);
+    });
+    onDispose(() => sub.close());
   }
 
   void wait<R>(
     AutoDisposeFutureProvider<R> provider,
     void Function(R) onData,
   ) async {
-    var data = await watch(provider.future);
-    onData(data);
-  }
-}
-
-extension QRefExt on Ref {
-  void subscribe<R>(StreamProvider<R> provider, void Function(R) onData) {
-    var subs = watch(provider.stream).listen(onData);
-    onDispose(() {
-      subs.cancel();
-    });
-  }
-
-  void wait<R>(FutureProvider<R> provider, void Function(R) onData) async {
     var data = await watch(provider.future);
     onData(data);
   }

@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -5,8 +8,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'constants.dart';
 import 'pages/login.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  unawaited(Firebase.initializeApp());
   runApp(const App());
 }
 
@@ -25,6 +29,8 @@ class _AppStateBuilder extends State<App> {
     return QMultichannelProvider(
       appId: appId,
       channelId: channelId,
+      avatar: QAvatarConfig.editable('https://via.placeholder.com/200'),
+      title: 'Some custom title',
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);
         print('url tapped: $url $uri');

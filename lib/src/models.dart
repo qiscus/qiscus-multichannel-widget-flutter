@@ -179,7 +179,9 @@ class QMessageSystem extends QMessage {
 
   static QMessageSystem? tryParse(QMessage message) {
     var type = message.type;
-    var senderName = message.sender.name;
+    var senderName = message.sender.name.isNotEmpty
+        ? message.sender.name
+        : message.payload?['object_username'] as String;
 
     if (type == QMessageType.custom && senderName.toLowerCase() == 'system') {
       return QMessageSystem.fromMessage(message);

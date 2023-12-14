@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
@@ -123,8 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
       print('got error');
       print(e);
     }
-    // var deviceId = await FirebaseMessaging.instance.getToken();
-    // mulchan.setDeviceId(deviceId!);
+
+    var deviceId = await FirebaseMessaging.instance.getToken();
+    mulchan.setDeviceId(deviceId!);
 
     print('initiate chat!');
     try {

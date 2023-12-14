@@ -24,7 +24,7 @@ class QChatBubbleLeft extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           QMultichannelConsumer(builder: (context, m) {
-            var avatar = m.avatarUrl;
+            var avatar = message.sender.avatarUrl ?? m.avatarUrl;
             if (avatar != null) {
               return QAvatar(
                 avatarUrl: avatar,
