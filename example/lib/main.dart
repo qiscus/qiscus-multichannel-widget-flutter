@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:multichannel_flutter_sample/firebase_options.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -10,7 +9,7 @@ import 'pages/login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  unawaited(Firebase.initializeApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const App());
 }
 
@@ -36,6 +35,8 @@ class _AppStateBuilder extends State<App> {
         buttonChatBackgroundColor: Colors.red,
         buttonChatTextColor: Colors.green,
         buttonChatBorderColor: Colors.blue,
+        timeBackgroundColor: Colors.black54,
+        timeLabelTextColor: Colors.white,
       ),
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);
