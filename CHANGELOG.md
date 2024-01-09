@@ -1,3 +1,7 @@
+## 1.2.1
+
+- update qiscus chat sdk to latest version
+
 ## 1.2.0
 
 - added support to config right bubble chat avatar
