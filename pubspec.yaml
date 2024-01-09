@@ -4,13 +4,13 @@ version: 1.2.1
 homepage: https://www.qiscus.com/en
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
   flutter: ">=2.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  qiscus_chat_sdk: ^2.0.11
+  qiscus_chat_sdk: ^2.0.12
   freezed_annotation: ^2.0.3
   grouped_list: ^5.1.1
   http: ^0.13.4
