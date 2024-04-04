@@ -65,8 +65,7 @@ class QMultichannelProvider extends ConsumerWidget {
 }
 
 class QMultichannelConsumer extends ConsumerWidget {
-  const QMultichannelConsumer({Key? key, required this.builder})
-      : super(key: key);
+  const QMultichannelConsumer({super.key, required this.builder});
 
   final Widget Function(BuildContext, QMultichannel) builder;
 
@@ -97,6 +96,7 @@ class QMultichannel {
   List<QMessage> get messages => ref.watch(mappedMessagesProvider);
   QAppTheme get theme => ref.watch(appThemeConfigProvider);
   String get title => ref.watch(titleConfigProvider);
+  bool get showSystemEvent => ref.watch(systemEventConfigProvider);
   String? get avatarUrl => ref.watch(avatarUrlProvider);
 
   bool get isResolved => ref.watch(isResolvedProvider);

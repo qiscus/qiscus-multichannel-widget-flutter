@@ -186,8 +186,11 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     QMessage message,
   ) {
     var accountId = ref.account.whenData((v) => v.id);
+    if (message is QMessageSystem && !ref.showSystemEvent) {
+      return Container();
+    }
 
-    if (message is QMessageSystem) {
+    if (message is QMessageSystem && ref.showSystemEvent) {
       return QChatSystem(message: message);
     }
 

@@ -21,13 +21,14 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
-  var appId = 'wefds-c6f0p2h1cxwz3oq';
+  var appId = 'ramo-29lun8b1ulepsaio';
 
   @override
   Widget build(BuildContext context) {
     return QMultichannelProvider(
       appId: appId,
       channelId: channelId,
+      hideEventUI: true,
       title: 'Some custom title',
       avatar: QAvatarConfig.enabled(),
       rightAvatar: QAvatarConfig.disabled(),
