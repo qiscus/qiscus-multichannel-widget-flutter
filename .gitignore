@@ -27,3 +27,7 @@
 .dart_tool/
 .packages
 build/
+example/android/app/google-services.json
+example/ios/firebase_app_id_file.json
+example/ios/Runner/GoogleService-Info.plist
+example/lib/firebase_options.dart
