@@ -57,6 +57,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
     var json = await http
         .post(initiateUrl, body: data)
         .then((r) => jsonDecode(r.body) as Map<String, dynamic>);
+
     var identityToken = json['data']['identity_token'] as String;
     var roomJson = json['data']['customer_room'] as Map<String, dynamic>;
 
@@ -77,7 +78,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
       }
     } catch (_) {}
 
-    var user = QAccount.merge(
+    final user = QAccount.merge(
       await qiscus.setUserWithIdentityToken(token: identityToken),
       properties,
     );
@@ -91,8 +92,13 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
           .ignore();
     }
 
-    var roomData =
-        await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
+    QChatRoomWithMessages roomData;
+    try {
+      roomData = await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
+    } catch (e) {
+      roomData = QChatRoomWithMessages(QChatRoom(id: 1, uniqueId: '1'), []);
+      print('error: $e');
+    }
     var room = roomData.room;
     var messages = roomData.messages;
 

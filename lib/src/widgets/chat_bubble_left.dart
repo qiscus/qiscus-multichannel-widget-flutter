@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import 'package:qiscus_multichannel_widget/src/providers/provider.dart';
-import 'package:qiscus_multichannel_widget/src/widgets/avatar.dart';
 import 'package:qiscus_multichannel_widget/src/widgets/chat_meta.dart';
 
 import '../utils/build_message_area.dart';
+import 'avatar.dart';
 
 class QChatBubbleLeft extends ConsumerWidget {
   QChatBubbleLeft({

@@ -86,7 +86,7 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
 
   Future<List<QMessage>> loadMoreMessage([int lastMessageId = 0]) async {
     var qiscus = await ref.read(qiscusProvider.future);
-    var roomId = await ref.watch(roomIdProvider).future;
+    var roomId = await ref.read(roomIdProvider).future;
     // var lastMessage = ref.watch(lastMessageProvider);
     // lastMessageId ??= lastMessage.id;
 

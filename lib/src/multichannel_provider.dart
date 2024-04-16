@@ -25,6 +25,7 @@ class QMultichannelProvider extends ConsumerWidget {
     this.channelId,
     this.hideEventUI = false,
     this.baseUrl = 'https://multichannel.qiscus.com',
+    this.sdkBaseUrl = 'https://api3.qiscus.com',
     //
     this.theme = const QAppTheme(),
   }) : super(key: key);
@@ -39,6 +40,7 @@ class QMultichannelProvider extends ConsumerWidget {
   final String? channelId;
   final bool hideEventUI;
   final String baseUrl;
+  final String sdkBaseUrl;
   final void Function(String url)? onURLTapped;
 
   @override
@@ -52,8 +54,9 @@ class QMultichannelProvider extends ConsumerWidget {
       subtitleConfigProvider.overrideWithValue(subtitle),
       titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
       channelIdConfigProvider.overrideWithValue(channelId),
-      systemEventConfigProvider.overrideWithValue(!hideEventUI),
+      systemEventVisibleConfigProvider.overrideWithValue(!hideEventUI),
       baseUrlProvider.overrideWithValue(baseUrl),
+      sdkBaseUrlProvider.overrideWithValue(sdkBaseUrl),
       onURLTappedProvider.overrideWithValue(onURLTapped),
     ];
 
@@ -123,7 +126,7 @@ class QMultichannel {
   }
 
   void setHideUIEvent() {
-    ref.read(systemEventConfigProvider.notifier).state = false;
+    ref.read(systemEventVisibleConfigProvider.notifier).state = false;
   }
 
   void setAvatar(QAvatarConfig config) {
@@ -183,6 +186,20 @@ class QMultichannel {
       chatRoomId: roomId,
       text: text,
       extras: extras,
+    );
+  }
+
+  Future<QMessage> generateReplyMessage({
+    required String text,
+    required QMessage repliedMessage,
+    Map<String, dynamic>? extras,
+  }) async {
+    var roomId = await ref.read(roomIdProvider).future;
+    var q = await qiscus.future;
+    return q.generateReplyMessage(
+      chatRoomId: roomId,
+      text: text,
+      repliedMessage: repliedMessage,
     );
   }
 

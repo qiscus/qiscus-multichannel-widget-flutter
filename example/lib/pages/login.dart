@@ -26,10 +26,10 @@ class LoginPage extends Page {
 class LoginScreen extends StatefulWidget {
   const LoginScreen({
     Key? key,
-    required this.onChangeAppId,
+    this.onChangeAppId,
   }) : super(key: key);
 
-  final void Function(String appId) onChangeAppId;
+  final void Function(String appId)? onChangeAppId;
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   decoration: const InputDecoration(hintText: 'App ID'),
                   controller: appIdController,
                   onSubmitted: (val) {
-                    widget.onChangeAppId(val);
+                    widget.onChangeAppId?.call(val);
                   },
                 ),
                 TextField(
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       print('set user! $username');
-      mulchan.setChannelId(channelId);
+      // mulchan.setChannelId(channelId);
       mulchan.setUser(
         userId: username,
         displayName: displayName,

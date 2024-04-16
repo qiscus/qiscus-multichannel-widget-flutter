@@ -28,7 +28,7 @@ Map<String, dynamic> _$$_SecureSessionToJson(_$_SecureSession instance) =>
 // RiverpodGenerator
 // **************************************************************************
 
-String _$initiateChatHash() => r'8c3986c22e601262d87ce6c23bfe16da6f46cb93';
+String _$initiateChatHash() => r'ddb08ff0168d3a6e452359669bb850f09bd644d4';
 
 /// See also [initiateChat].
 @ProviderFor(initiateChat)
