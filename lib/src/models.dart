@@ -45,12 +45,47 @@ class QMessageReply extends QMessage {
         );
 
   static QMessageReply? tryParse(QMessage message) {
-    if (message.type == QMessageType.custom &&
-        message.payload?['type'] == 'reply') {
+    if (message.type == QMessageType.reply) {
       return QMessageReply.fromMessage(message);
     }
     return null;
   }
+
+  QMessageReplyPayload get typedPayload {
+    return QMessageReplyPayload(payload!);
+  }
+}
+
+class QMessageReplyPayload {
+  QMessageReplyPayload(Map<String, Object?> payload)
+      : repliedCommentId = payload['replied_comment_id'] as int,
+        repliedCommentIsDeleted = payload['replied_comment_is_deleted'] as bool,
+        repliedCommentPayload =
+            payload['replied_comment_payload'] as Map<String, Object?>?,
+        repliedCommentSenderEmail =
+            payload['replied_comment_sender_email'] as String,
+        repliedCommentSenderUsername =
+            payload['replied_comment_sender_username'] as String,
+        repliedCommentType = payload['replied_comment_type'] as String,
+        repliedCommentMessage = payload['replied_comment_message'] as String,
+        message = payload['text'] as String;
+
+  final int repliedCommentId;
+  final bool repliedCommentIsDeleted;
+  final String repliedCommentMessage;
+  final Map<String, Object?>? repliedCommentPayload;
+  final String repliedCommentSenderEmail;
+  final String repliedCommentSenderUsername;
+  final String repliedCommentType;
+  final String message;
+  // 0 = {map entry} "replied_comment_id" -> 2028902450
+  // 1 = {map entry} "replied_comment_is_deleted" -> false
+  // 2 = {map entry} "replied_comment_message" -> "lagi?"
+  // 3 = {map entry} "replied_comment_payload" -> [_Map]
+  // 4 = {map entry} "replied_comment_sender_email" -> "guest-1001"
+  // 5 = {map entry} "replied_comment_sender_username" -> "guest-1001"
+  // 6 = {map entry} "replied_comment_type" -> "text"
+  // 7 = {map entry} "text" -> "ada yang bisa dibantu?"
 }
 
 class QMessageImage extends QMessage {

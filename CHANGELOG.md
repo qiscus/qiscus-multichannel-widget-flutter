@@ -1,3 +1,8 @@
+## 1.3.0
+
+- added support for message type reply
+- fix unable to hide system event
+
 ## 1.2.2
 
 - update qiscus chat sdk to latest version

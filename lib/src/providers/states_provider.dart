@@ -4,6 +4,7 @@ final appStateProvider =
     StateProvider((_) => const AppState.initial(), name: 'appStateProvider');
 final baseUrlProvider = StateProvider((_) => 'https://multichannel.qiscus.com',
     name: 'baseUrlProvider');
+final sdkBaseUrlProvider = StateProvider((_) => 'https://api3.qiscus.com');
 final avatarConfigProvider = StateProvider((_) => const QAvatarConfig.enabled(),
     name: 'avatarConfigProvider');
 final rightAvatarConfigProvider = StateProvider(
@@ -20,7 +21,7 @@ final deviceIdConfigProvider =
     StateProvider<String?>((_) => null, name: 'deviceIdConfigProvider');
 final deviceIdDevelopmentModeProvider =
     StateProvider((_) => false, name: 'deviceIdDevelopmentModeProvider');
-final systemEventConfigProvider =
+final systemEventVisibleConfigProvider =
     StateProvider<bool>((_) => true, name: 'systemEventConfigProvider');
 final appThemeConfigProvider =
     StateProvider((_) => const QAppTheme(), name: 'appThemeConfigProvider');

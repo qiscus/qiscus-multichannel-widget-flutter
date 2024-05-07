@@ -34,7 +34,16 @@ mixin _$QAppTheme {
   Color get fieldChatTextColor => throw _privateConstructorUsedError;
   Color get buttonChatBackgroundColor => throw _privateConstructorUsedError;
   Color get buttonChatTextColor => throw _privateConstructorUsedError;
-  Color get buttonChatBorderColor => throw _privateConstructorUsedError;
+  Color get buttonChatBorderColor =>
+      throw _privateConstructorUsedError; // Reply Message
+  Color get replyContainerTopBorderColor => throw _privateConstructorUsedError;
+  Color get replyContainerLeftBorderColor => throw _privateConstructorUsedError;
+  Color get replyBackgroundColor => throw _privateConstructorUsedError;
+  Color get replyTextColor => throw _privateConstructorUsedError;
+  Color get leftBubbleReplyBoxColor => throw _privateConstructorUsedError;
+  Color get leftBubbleReplyTextColor => throw _privateConstructorUsedError;
+  Color get rightBubbleReplyBoxColor => throw _privateConstructorUsedError;
+  Color get rightBubbleReplyTextColor => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $QAppThemeCopyWith<QAppTheme> get copyWith =>
@@ -65,7 +74,15 @@ abstract class $QAppThemeCopyWith<$Res> {
       Color fieldChatTextColor,
       Color buttonChatBackgroundColor,
       Color buttonChatTextColor,
-      Color buttonChatBorderColor});
+      Color buttonChatBorderColor,
+      Color replyContainerTopBorderColor,
+      Color replyContainerLeftBorderColor,
+      Color replyBackgroundColor,
+      Color replyTextColor,
+      Color leftBubbleReplyBoxColor,
+      Color leftBubbleReplyTextColor,
+      Color rightBubbleReplyBoxColor,
+      Color rightBubbleReplyTextColor});
 }
 
 /// @nodoc
@@ -100,6 +117,14 @@ class _$QAppThemeCopyWithImpl<$Res, $Val extends QAppTheme>
     Object? buttonChatBackgroundColor = null,
     Object? buttonChatTextColor = null,
     Object? buttonChatBorderColor = null,
+    Object? replyContainerTopBorderColor = null,
+    Object? replyContainerLeftBorderColor = null,
+    Object? replyBackgroundColor = null,
+    Object? replyTextColor = null,
+    Object? leftBubbleReplyBoxColor = null,
+    Object? leftBubbleReplyTextColor = null,
+    Object? rightBubbleReplyBoxColor = null,
+    Object? rightBubbleReplyTextColor = null,
   }) {
     return _then(_value.copyWith(
       baseColor: null == baseColor
@@ -178,6 +203,38 @@ class _$QAppThemeCopyWithImpl<$Res, $Val extends QAppTheme>
           ? _value.buttonChatBorderColor
           : buttonChatBorderColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      replyContainerTopBorderColor: null == replyContainerTopBorderColor
+          ? _value.replyContainerTopBorderColor
+          : replyContainerTopBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyContainerLeftBorderColor: null == replyContainerLeftBorderColor
+          ? _value.replyContainerLeftBorderColor
+          : replyContainerLeftBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyBackgroundColor: null == replyBackgroundColor
+          ? _value.replyBackgroundColor
+          : replyBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyTextColor: null == replyTextColor
+          ? _value.replyTextColor
+          : replyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      leftBubbleReplyBoxColor: null == leftBubbleReplyBoxColor
+          ? _value.leftBubbleReplyBoxColor
+          : leftBubbleReplyBoxColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      leftBubbleReplyTextColor: null == leftBubbleReplyTextColor
+          ? _value.leftBubbleReplyTextColor
+          : leftBubbleReplyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      rightBubbleReplyBoxColor: null == rightBubbleReplyBoxColor
+          ? _value.rightBubbleReplyBoxColor
+          : rightBubbleReplyBoxColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      rightBubbleReplyTextColor: null == rightBubbleReplyTextColor
+          ? _value.rightBubbleReplyTextColor
+          : rightBubbleReplyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ) as $Val);
   }
 }
@@ -208,7 +265,15 @@ abstract class _$$_QAppThemeCopyWith<$Res> implements $QAppThemeCopyWith<$Res> {
       Color fieldChatTextColor,
       Color buttonChatBackgroundColor,
       Color buttonChatTextColor,
-      Color buttonChatBorderColor});
+      Color buttonChatBorderColor,
+      Color replyContainerTopBorderColor,
+      Color replyContainerLeftBorderColor,
+      Color replyBackgroundColor,
+      Color replyTextColor,
+      Color leftBubbleReplyBoxColor,
+      Color leftBubbleReplyTextColor,
+      Color rightBubbleReplyBoxColor,
+      Color rightBubbleReplyTextColor});
 }
 
 /// @nodoc
@@ -241,6 +306,14 @@ class __$$_QAppThemeCopyWithImpl<$Res>
     Object? buttonChatBackgroundColor = null,
     Object? buttonChatTextColor = null,
     Object? buttonChatBorderColor = null,
+    Object? replyContainerTopBorderColor = null,
+    Object? replyContainerLeftBorderColor = null,
+    Object? replyBackgroundColor = null,
+    Object? replyTextColor = null,
+    Object? leftBubbleReplyBoxColor = null,
+    Object? leftBubbleReplyTextColor = null,
+    Object? rightBubbleReplyBoxColor = null,
+    Object? rightBubbleReplyTextColor = null,
   }) {
     return _then(_$_QAppTheme(
       baseColor: null == baseColor
@@ -319,6 +392,38 @@ class __$$_QAppThemeCopyWithImpl<$Res>
           ? _value.buttonChatBorderColor
           : buttonChatBorderColor // ignore: cast_nullable_to_non_nullable
               as Color,
+      replyContainerTopBorderColor: null == replyContainerTopBorderColor
+          ? _value.replyContainerTopBorderColor
+          : replyContainerTopBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyContainerLeftBorderColor: null == replyContainerLeftBorderColor
+          ? _value.replyContainerLeftBorderColor
+          : replyContainerLeftBorderColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyBackgroundColor: null == replyBackgroundColor
+          ? _value.replyBackgroundColor
+          : replyBackgroundColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      replyTextColor: null == replyTextColor
+          ? _value.replyTextColor
+          : replyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      leftBubbleReplyBoxColor: null == leftBubbleReplyBoxColor
+          ? _value.leftBubbleReplyBoxColor
+          : leftBubbleReplyBoxColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      leftBubbleReplyTextColor: null == leftBubbleReplyTextColor
+          ? _value.leftBubbleReplyTextColor
+          : leftBubbleReplyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      rightBubbleReplyBoxColor: null == rightBubbleReplyBoxColor
+          ? _value.rightBubbleReplyBoxColor
+          : rightBubbleReplyBoxColor // ignore: cast_nullable_to_non_nullable
+              as Color,
+      rightBubbleReplyTextColor: null == rightBubbleReplyTextColor
+          ? _value.rightBubbleReplyTextColor
+          : rightBubbleReplyTextColor // ignore: cast_nullable_to_non_nullable
+              as Color,
     ));
   }
 }
@@ -346,7 +451,17 @@ class _$_QAppTheme implements _QAppTheme {
       this.fieldChatTextColor = const Color.fromARGB(255, 51, 51, 51),
       this.buttonChatBackgroundColor = const Color.fromARGB(255, 250, 250, 250),
       this.buttonChatTextColor = const Color.fromARGB(255, 102, 102, 102),
-      this.buttonChatBorderColor = const Color.fromARGB(200, 102, 102, 102)});
+      this.buttonChatBorderColor = const Color.fromARGB(200, 102, 102, 102),
+      this.replyContainerTopBorderColor =
+          const Color.fromARGB(25, 102, 102, 102),
+      this.replyContainerLeftBorderColor =
+          const Color.fromARGB(255, 85, 178, 154),
+      this.replyBackgroundColor = const Color.fromARGB(255, 250, 250, 250),
+      this.replyTextColor = const Color.fromARGB(255, 51, 51, 51),
+      this.leftBubbleReplyBoxColor = const Color.fromARGB(200, 250, 250, 250),
+      this.leftBubbleReplyTextColor = const Color.fromARGB(255, 51, 51, 51),
+      this.rightBubbleReplyBoxColor = const Color.fromARGB(200, 250, 250, 250),
+      this.rightBubbleReplyTextColor = const Color.fromARGB(255, 51, 51, 51)});
 
   @override
   @JsonKey()
@@ -405,10 +520,35 @@ class _$_QAppTheme implements _QAppTheme {
   @override
   @JsonKey()
   final Color buttonChatBorderColor;
+// Reply Message
+  @override
+  @JsonKey()
+  final Color replyContainerTopBorderColor;
+  @override
+  @JsonKey()
+  final Color replyContainerLeftBorderColor;
+  @override
+  @JsonKey()
+  final Color replyBackgroundColor;
+  @override
+  @JsonKey()
+  final Color replyTextColor;
+  @override
+  @JsonKey()
+  final Color leftBubbleReplyBoxColor;
+  @override
+  @JsonKey()
+  final Color leftBubbleReplyTextColor;
+  @override
+  @JsonKey()
+  final Color rightBubbleReplyBoxColor;
+  @override
+  @JsonKey()
+  final Color rightBubbleReplyTextColor;
 
   @override
   String toString() {
-    return 'QAppTheme(baseColor: $baseColor, navigationColor: $navigationColor, navigationTitleColor: $navigationTitleColor, systemEventTextColor: $systemEventTextColor, rightBubbleColor: $rightBubbleColor, rightBubbleTextColor: $rightBubbleTextColor, leftBubbleColor: $leftBubbleColor, leftBubbleTextColor: $leftBubbleTextColor, timeLabelTextColor: $timeLabelTextColor, timeBackgroundColor: $timeBackgroundColor, emptyTextColor: $emptyTextColor, emptyBackgroundColor: $emptyBackgroundColor, sendContainerColor: $sendContainerColor, sendContainerBackgroundColor: $sendContainerBackgroundColor, fieldChatBorderColor: $fieldChatBorderColor, fieldChatTextColor: $fieldChatTextColor, buttonChatBackgroundColor: $buttonChatBackgroundColor, buttonChatTextColor: $buttonChatTextColor, buttonChatBorderColor: $buttonChatBorderColor)';
+    return 'QAppTheme(baseColor: $baseColor, navigationColor: $navigationColor, navigationTitleColor: $navigationTitleColor, systemEventTextColor: $systemEventTextColor, rightBubbleColor: $rightBubbleColor, rightBubbleTextColor: $rightBubbleTextColor, leftBubbleColor: $leftBubbleColor, leftBubbleTextColor: $leftBubbleTextColor, timeLabelTextColor: $timeLabelTextColor, timeBackgroundColor: $timeBackgroundColor, emptyTextColor: $emptyTextColor, emptyBackgroundColor: $emptyBackgroundColor, sendContainerColor: $sendContainerColor, sendContainerBackgroundColor: $sendContainerBackgroundColor, fieldChatBorderColor: $fieldChatBorderColor, fieldChatTextColor: $fieldChatTextColor, buttonChatBackgroundColor: $buttonChatBackgroundColor, buttonChatTextColor: $buttonChatTextColor, buttonChatBorderColor: $buttonChatBorderColor, replyContainerTopBorderColor: $replyContainerTopBorderColor, replyContainerLeftBorderColor: $replyContainerLeftBorderColor, replyBackgroundColor: $replyBackgroundColor, replyTextColor: $replyTextColor, leftBubbleReplyBoxColor: $leftBubbleReplyBoxColor, leftBubbleReplyTextColor: $leftBubbleReplyTextColor, rightBubbleReplyBoxColor: $rightBubbleReplyBoxColor, rightBubbleReplyTextColor: $rightBubbleReplyTextColor)';
   }
 
   @override
@@ -442,21 +582,39 @@ class _$_QAppTheme implements _QAppTheme {
                 other.emptyBackgroundColor == emptyBackgroundColor) &&
             (identical(other.sendContainerColor, sendContainerColor) ||
                 other.sendContainerColor == sendContainerColor) &&
-            (identical(other.sendContainerBackgroundColor,
-                    sendContainerBackgroundColor) ||
+            (identical(other.sendContainerBackgroundColor, sendContainerBackgroundColor) ||
                 other.sendContainerBackgroundColor ==
                     sendContainerBackgroundColor) &&
             (identical(other.fieldChatBorderColor, fieldChatBorderColor) ||
                 other.fieldChatBorderColor == fieldChatBorderColor) &&
             (identical(other.fieldChatTextColor, fieldChatTextColor) ||
                 other.fieldChatTextColor == fieldChatTextColor) &&
-            (identical(other.buttonChatBackgroundColor,
-                    buttonChatBackgroundColor) ||
+            (identical(other.buttonChatBackgroundColor, buttonChatBackgroundColor) ||
                 other.buttonChatBackgroundColor == buttonChatBackgroundColor) &&
             (identical(other.buttonChatTextColor, buttonChatTextColor) ||
                 other.buttonChatTextColor == buttonChatTextColor) &&
             (identical(other.buttonChatBorderColor, buttonChatBorderColor) ||
-                other.buttonChatBorderColor == buttonChatBorderColor));
+                other.buttonChatBorderColor == buttonChatBorderColor) &&
+            (identical(other.replyContainerTopBorderColor, replyContainerTopBorderColor) ||
+                other.replyContainerTopBorderColor ==
+                    replyContainerTopBorderColor) &&
+            (identical(other.replyContainerLeftBorderColor,
+                    replyContainerLeftBorderColor) ||
+                other.replyContainerLeftBorderColor ==
+                    replyContainerLeftBorderColor) &&
+            (identical(other.replyBackgroundColor, replyBackgroundColor) ||
+                other.replyBackgroundColor == replyBackgroundColor) &&
+            (identical(other.replyTextColor, replyTextColor) ||
+                other.replyTextColor == replyTextColor) &&
+            (identical(other.leftBubbleReplyBoxColor, leftBubbleReplyBoxColor) ||
+                other.leftBubbleReplyBoxColor == leftBubbleReplyBoxColor) &&
+            (identical(other.leftBubbleReplyTextColor, leftBubbleReplyTextColor) ||
+                other.leftBubbleReplyTextColor == leftBubbleReplyTextColor) &&
+            (identical(other.rightBubbleReplyBoxColor, rightBubbleReplyBoxColor) ||
+                other.rightBubbleReplyBoxColor == rightBubbleReplyBoxColor) &&
+            (identical(
+                    other.rightBubbleReplyTextColor, rightBubbleReplyTextColor) ||
+                other.rightBubbleReplyTextColor == rightBubbleReplyTextColor));
   }
 
   @override
@@ -480,7 +638,15 @@ class _$_QAppTheme implements _QAppTheme {
         fieldChatTextColor,
         buttonChatBackgroundColor,
         buttonChatTextColor,
-        buttonChatBorderColor
+        buttonChatBorderColor,
+        replyContainerTopBorderColor,
+        replyContainerLeftBorderColor,
+        replyBackgroundColor,
+        replyTextColor,
+        leftBubbleReplyBoxColor,
+        leftBubbleReplyTextColor,
+        rightBubbleReplyBoxColor,
+        rightBubbleReplyTextColor
       ]);
 
   @JsonKey(ignore: true)
@@ -510,7 +676,15 @@ abstract class _QAppTheme implements QAppTheme {
       final Color fieldChatTextColor,
       final Color buttonChatBackgroundColor,
       final Color buttonChatTextColor,
-      final Color buttonChatBorderColor}) = _$_QAppTheme;
+      final Color buttonChatBorderColor,
+      final Color replyContainerTopBorderColor,
+      final Color replyContainerLeftBorderColor,
+      final Color replyBackgroundColor,
+      final Color replyTextColor,
+      final Color leftBubbleReplyBoxColor,
+      final Color leftBubbleReplyTextColor,
+      final Color rightBubbleReplyBoxColor,
+      final Color rightBubbleReplyTextColor}) = _$_QAppTheme;
 
   @override
   Color get baseColor;
@@ -550,6 +724,22 @@ abstract class _QAppTheme implements QAppTheme {
   Color get buttonChatTextColor;
   @override
   Color get buttonChatBorderColor;
+  @override // Reply Message
+  Color get replyContainerTopBorderColor;
+  @override
+  Color get replyContainerLeftBorderColor;
+  @override
+  Color get replyBackgroundColor;
+  @override
+  Color get replyTextColor;
+  @override
+  Color get leftBubbleReplyBoxColor;
+  @override
+  Color get leftBubbleReplyTextColor;
+  @override
+  Color get rightBubbleReplyBoxColor;
+  @override
+  Color get rightBubbleReplyTextColor;
   @override
   @JsonKey(ignore: true)
   _$$_QAppThemeCopyWith<_$_QAppTheme> get copyWith =>

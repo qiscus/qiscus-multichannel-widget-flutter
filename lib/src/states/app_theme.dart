@@ -27,5 +27,17 @@ class QAppTheme with _$QAppTheme {
     Color buttonChatBackgroundColor,
     @Default(Color.fromARGB(255, 102, 102, 102)) Color buttonChatTextColor,
     @Default(Color.fromARGB(200, 102, 102, 102)) Color buttonChatBorderColor,
+
+    // Reply Message
+    @Default(Color.fromARGB(25, 102, 102, 102))
+    Color replyContainerTopBorderColor,
+    @Default(Color.fromARGB(255, 85, 178, 154))
+    Color replyContainerLeftBorderColor,
+    @Default(Color.fromARGB(255, 250, 250, 250)) Color replyBackgroundColor,
+    @Default(Color.fromARGB(255, 51, 51, 51)) Color replyTextColor,
+    @Default(Color.fromARGB(200, 250, 250, 250)) Color leftBubbleReplyBoxColor,
+    @Default(Color.fromARGB(255, 51, 51, 51)) Color leftBubbleReplyTextColor,
+    @Default(Color.fromARGB(200, 250, 250, 250)) Color rightBubbleReplyBoxColor,
+    @Default(Color.fromARGB(255, 51, 51, 51)) Color rightBubbleReplyTextColor,
   }) = _QAppTheme;
 }

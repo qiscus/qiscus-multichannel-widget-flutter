@@ -86,7 +86,7 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
 
   Future<List<QMessage>> loadMoreMessage([int lastMessageId = 0]) async {
     var qiscus = await ref.read(qiscusProvider.future);
-    var roomId = await ref.watch(roomIdProvider).future;
+    var roomId = await ref.read(roomIdProvider).future;
     // var lastMessage = ref.watch(lastMessageProvider);
     // lastMessageId ??= lastMessage.id;
 
@@ -119,6 +119,7 @@ final sortedMessagesProvider = Provider.autoDispose((ref) {
 
 final mappedMessagesProvider = Provider.autoDispose<List<QMessage>>((ref) {
   var messages = ref.watch(sortedMessagesProvider);
+  var showSystemMessage = ref.watch(systemEventVisibleConfigProvider);
 
   return messages.map((it) {
     QMessage? message;
@@ -134,5 +135,8 @@ final mappedMessagesProvider = Provider.autoDispose<List<QMessage>>((ref) {
     message ??= it;
 
     return message;
+  }).where((m) {
+    if (m is QMessageSystem) return showSystemMessage;
+    return true;
   }).toList();
 });

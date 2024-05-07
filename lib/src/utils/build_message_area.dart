@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_multichannel_widget/src/widgets/chat_reply.dart';
 
 import '../models.dart';
 import '../widgets/chat_buttons.dart';
@@ -29,6 +30,8 @@ Widget buildMessageArea(QMessage message) {
       return QChatButton(message: message as QMessageButton);
     case QMessageCarousel:
       return QChatCarousel(message: message as QMessageCarousel);
+    case QMessageReply:
+      return QChatReply(message: message as QMessageReply);
     default:
       return QChatText(message: message);
   }

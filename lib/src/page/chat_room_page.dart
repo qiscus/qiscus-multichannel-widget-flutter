@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
+import '../providers/replied_message_provider.dart';
 import '../models.dart';
 import '../multichannel_provider.dart';
 import '../provider.dart';
@@ -116,15 +117,12 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
                       return GroupedListView<QMessage, DateTime>(
                         reverse: true,
                         elements: messages,
-                        groupBy: (message) => DateTime.parse(formatDate(
-                            message.timestamp, [yyyy, '-', mm, '-', dd])),
+                        groupBy: (message) => _buildGroupList(message),
                         itemBuilder: (context, message) {
                           return InkWell(
                             child: _buildChatBubble(context, ref, message),
                             onLongPress: () {
-                              if (message.type == QMessageType.text) {
-                                _showModalBottomSheet(context, ref, message);
-                              }
+                              _showModalBottomSheet(context, this.ref, message);
                             },
                           );
                         },
@@ -147,6 +145,11 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
         ),
       ),
     );
+  }
+
+  DateTime _buildGroupList(QMessage message) {
+    return DateTime.parse(
+        formatDate(message.timestamp, [yyyy, '-', mm, '-', dd]));
   }
 
   Widget _buildSeparator(DateTime date, QMultichannel ref) {
@@ -238,7 +241,10 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
   }
 
   _showModalBottomSheet(
-      BuildContext context, QMultichannel ref, QMessage message) {
+    BuildContext context,
+    WidgetRef ref,
+    QMessage message,
+  ) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -252,7 +258,8 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
           children: [
             const Padding(padding: EdgeInsets.only(top: 16)),
             Visibility(
-              visible: message.type == QMessageType.text,
+              visible: message.type == QMessageType.text ||
+                  message.type == QMessageType.reply,
               child: ListTile(
                 leading: const Icon(Icons.copy),
                 title: const Text('Copy Message'),
@@ -264,6 +271,14 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
                   Navigator.of(context).maybePop();
                 },
               ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.reply),
+              title: const Text('Reply'),
+              onTap: () {
+                ref.read(repliedMessageProvider.notifier).state = message;
+                Navigator.of(context).maybePop();
+              },
             ),
             const Padding(padding: EdgeInsets.only(bottom: 16)),
           ],
