@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:multichannel_flutter_sample/firebase_options.dart';
+import 'package:multichannel_flutter_sample/pages/example_with_fab_screen.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'pages/login.dart';
+import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +21,6 @@ class App extends StatefulWidget {
 }
 
 class _AppStateBuilder extends State<App> {
-  var appId = 'wefds-c6f0p2h1cxwz3oq';
   // static const appId = 'dragongo2';
   // static const baseURL = 'https://dragongo.qiscus.io';
 
@@ -43,7 +43,7 @@ class _AppStateBuilder extends State<App> {
       },
       builder: (context) {
         return MaterialApp(
-          home: LoginScreen(),
+          home: ExampleWithFabScreen(),
         );
       },
     );
