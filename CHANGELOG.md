@@ -1,3 +1,8 @@
+## 1.3.1
+
+- add functionality to call function without using QMultichannelConsumer
+- fix support for user extras data
+
 ## 1.3.0
 
 - added support for message type reply
