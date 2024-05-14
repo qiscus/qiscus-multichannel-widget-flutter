@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final messageDeliveredProvider = StreamProvider.autoDispose((ref) async* {
+@riverpod
+Stream<QMessage> messageDelivered(MessageDeliveredRef ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);
   var room = await ref
       .watch(roomProvider.select((data) => data.whenData((v) => v.room)))
@@ -12,4 +13,4 @@ final messageDeliveredProvider = StreamProvider.autoDispose((ref) async* {
   });
 
   yield* qiscus.onMessageDelivered();
-}, name: 'messageDeliveredProvider');
+}

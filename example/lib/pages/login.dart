@@ -1,11 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginPage extends Page {
   const LoginPage({
     required this.onChangeAppId,
-  }) : super(key: const ValueKey("LoginPageKey"));
+  }) : super(key: const ValueKey('LoginPageKey'));
 
   final void Function(String appId) onChangeAppId;
 
@@ -23,27 +24,29 @@ class LoginPage extends Page {
   }
 }
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({
-    Key? key,
+    super.key,
     this.onChangeAppId,
-  }) : super(key: key);
+  });
 
   final void Function(String appId)? onChangeAppId;
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   late final appIdController =
       TextEditingController(text: 'wefds-c6f0p2h1cxwz3oq');
-  // Non Secure
-  // late final channelIdController = TextEditingController(text: '126962');
-  // Secure
-  late final channelIdController = TextEditingController(text: '126965');
   late final usernameController = TextEditingController(text: 'guest-1001');
   late final displayNameController = TextEditingController(text: 'guest-1001');
+
+  // Non Secure Channel
+  late final channelIdController = TextEditingController(text: '126962');
+
+  // Secure Channel
+  // late final channelIdController = TextEditingController(text: '126965');
 
   @override
   Widget build(BuildContext context) {
@@ -88,13 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: QMultichannelConsumer(
-                    builder: (context, ref) {
-                      return ElevatedButton(
-                        onPressed: () => _onDoLogin(ref),
-                        child: const Text('Login'),
-                      );
-                    },
+                  child: ElevatedButton(
+                    onPressed: () => _onDoLogin(),
+                    child: const Text('Login'),
                   ),
                 ),
               ],
@@ -105,20 +104,19 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _onDoLogin(QMultichannel mulchan) async {
+  void _onDoLogin() async {
     var channelId = channelIdController.text;
     var username = usernameController.text;
     var displayName = displayNameController.text;
 
     try {
       print('set user! $username');
-      // mulchan.setChannelId(channelId);
-      mulchan.setUser(
+      ref.read(QMultichannel.provider).setChannelId(channelId);
+      ref.read(QMultichannel.provider).setUser(
         userId: username,
         displayName: displayName,
-        userProperties: {
-          'name': 'something',
-        },
+        userProperties: {'name': 'something', 'username': username},
+        extras: {'extras_value1': 'value1'},
       );
     } catch (e) {
       print('got error');
@@ -126,25 +124,23 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     var deviceId = await FirebaseMessaging.instance.getToken();
-    mulchan.setDeviceId(deviceId!);
+    ref.read(QMultichannel.provider).setDeviceId(deviceId!);
 
     print('initiate chat!');
     try {
-      mulchan.initiateChat().then(
-        (room) {
-          print('sukses initiate chat: ${room.id}');
-        },
-        onError: (err) {
-          print('fail initiate chat: ${err.runtimeType}');
-          print(err);
-        },
-      );
+      var appId = ref.read(appIdProvider);
+      print('appId: $appId');
+      ref.read(QMultichannel.provider).initiateChat().then((room) {
+        print('success initiate chat: ${room.id}');
+      }, onError: (err) {
+        print('fail initiate chat: ${err.runtimeType}');
+        print(err);
+      });
 
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => QChatRoomScreen(onBack: (ctx) {
-            print('on do back!');
-            mulchan.clearUser();
+            ref.read(QMultichannel.provider).clearUser();
             Navigator.of(context)
                 .maybePop()
                 .then((r) => debugPrint('maybePop: $r'));

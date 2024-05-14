@@ -1,10 +1,11 @@
 part of 'provider.dart';
 
-final initiateChatUrlProvider = Provider((ref) {
+@riverpod
+Uri initiateChatUrl(InitiateChatUrlRef ref) {
   var baseUrl = ref.watch(baseUrlProvider);
 
   return Uri.parse('$baseUrl/api/v2/qiscus/initiate_chat');
-}, name: 'initiateChatUrlProvider');
+}
 
 typedef InitiateChatFunction = Future<QChatRoom> Function();
 
@@ -20,6 +21,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
   var initiateUrl = ref.watch(initiateChatUrlProvider);
   var deviceId = ref.watch(deviceIdConfigProvider);
   var deviceIdDevelopment = ref.watch(deviceIdDevelopmentModeProvider);
+  var userExtras = ref.watch(userExtrasProvider);
 
   var storage = ref.watch(encSharedPreferenceProvider);
 
@@ -37,6 +39,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
     if (userProperties != null) {
       data['user_properties'] = jsonEncode(userProperties);
     }
+    if (userExtras != null) data['extras'] = jsonEncode(userExtras);
     if (channelId != null) data['channel_id'] = channelId;
 
     var secureSession = await storage
@@ -44,13 +47,10 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
         .then((v) => v == null ? null : jsonDecode(v) as Map<String, dynamic>)
         .then((v) => v == null ? null : SecureSession.fromJson(v));
 
-    print('last session: $secureSession');
-
     if (secureSession != null &&
         secureSession.appId == qiscus.appId &&
         secureSession.channelId == channelId &&
         secureSession.userId == userId) {
-      print('got last secure session data: $secureSession');
       data['session_id'] = secureSession.id;
     }
 
@@ -97,7 +97,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
       roomData = await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
     } catch (e) {
       roomData = QChatRoomWithMessages(QChatRoom(id: 1, uniqueId: '1'), []);
-      print('error: $e');
+      print('error while getting room data: $e');
     }
     var room = roomData.room;
     var messages = roomData.messages;
@@ -106,7 +106,6 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
     var isSecure = json['data']['is_secure'] as bool? ?? false;
     var sessionId = roomJson['session_id'] as String?;
     channelId = (roomJson['channel_id'] as int).toString();
-    print('initiate chat: isSecure($isSecure) sessionId($sessionId)');
     if (isSecure == false) {
       storage.delete(key: StorageKey.secureSession).ignore();
     }

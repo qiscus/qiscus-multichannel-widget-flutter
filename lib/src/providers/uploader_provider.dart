@@ -1,14 +1,11 @@
 part of 'provider.dart';
 
-final uploaderProvider =
-    StateNotifierProvider<UploadStateNotifier, Set<QUpload>>((ref) {
-  return UploadStateNotifier(ref);
-});
-
-class UploadStateNotifier extends StateNotifier<Set<QUpload>> {
-  final Ref ref;
-
-  UploadStateNotifier(this.ref, [Set<QUpload> state = const {}]) : super(state);
+@riverpod
+class UploadNotifier extends _$UploadNotifier {
+  @override
+  Set<QUpload> build() {
+    return {};
+  }
 
   void add(File file) async {
     var qiscus = await ref.read(qiscusProvider.future);
@@ -29,7 +26,7 @@ class UploadStateNotifier extends StateNotifier<Set<QUpload>> {
           caption: '',
           url: data.data!,
         );
-        await ref.read(messagesProvider.notifier).sendMessage(m);
+        await ref.read(messagesNotifierProvider.notifier).sendMessage(m);
       } else {
         progress.progress = data.progress;
         state = {...state, progress};

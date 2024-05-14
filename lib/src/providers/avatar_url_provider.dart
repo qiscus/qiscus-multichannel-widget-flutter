@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final avatarUrlProvider = Provider<String?>((ref) {
+@riverpod
+String? avatarUrl(AvatarUrlRef ref) {
   var account = ref.watch(accountProvider);
   var avatarConfig = ref.watch(avatarConfigProvider);
 
@@ -9,4 +10,4 @@ final avatarUrlProvider = Provider<String?>((ref) {
     editable: (avatar) => avatar,
     enabled: () => account.valueOrNull?.avatarUrl,
   );
-});
+}

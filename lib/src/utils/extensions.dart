@@ -2,6 +2,18 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+extension QRefExt2<T> on AutoDisposeNotifierProviderRef<T> {
+  void subscribe<R>(
+    AutoDisposeStreamProvider<R> provider,
+    void Function(R) onData,
+  ) {
+    var sub = listen(provider, (_, AsyncValue<R> data) async {
+      onData(await data.future);
+    });
+    onDispose(sub.close);
+  }
+}
+
 extension QRefExt1 on AutoDisposeStateNotifierProviderRef {
   void subscribe<R>(
     AutoDisposeStreamProvider<R> provider,

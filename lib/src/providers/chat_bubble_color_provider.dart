@@ -1,7 +1,7 @@
 part of 'provider.dart';
 
-final chatBubbleFgColorProvider =
-    Provider.autoDispose.family((ref, QUser sender) {
+@riverpod
+Color chatBubbleFgColor(ChatBubbleFgColorRef ref, QUser sender) {
   var accountId = ref.watch(accountIdProvider);
   var theme = ref.watch(appThemeConfigProvider);
   if (accountId == sender.id) {
@@ -9,10 +9,10 @@ final chatBubbleFgColorProvider =
   } else {
     return theme.leftBubbleTextColor;
   }
-});
+}
 
-final chatBubbleBgColorProvider =
-    Provider.autoDispose.family((ref, QUser sender) {
+@riverpod
+Color chatBubbleBgColor(ChatBubbleBgColorRef ref, QUser sender) {
   var accountId = ref.watch(accountIdProvider);
   var theme = ref.watch(appThemeConfigProvider);
 
@@ -21,10 +21,10 @@ final chatBubbleBgColorProvider =
   } else {
     return theme.leftBubbleColor;
   }
-});
+}
 
-final ProviderFamily<Color, String> bubbleTextColorProvider =
-    Provider.family((ref, String senderId) {
+@riverpod
+Color bubbleTextColor(BubbleTextColorRef ref, String senderId) {
   final account = ref.watch(accountIdProvider)!;
   final theme = ref.watch(appThemeConfigProvider);
 
@@ -33,9 +33,10 @@ final ProviderFamily<Color, String> bubbleTextColorProvider =
   } else {
     return theme.leftBubbleTextColor;
   }
-});
-final ProviderFamily<Color, String> bubbleBgColorProvider =
-    Provider.family((ref, String senderId) {
+}
+
+@riverpod
+Color bubbleBgColor(BubbleBgColorRef ref, String senderId) {
   final account = ref.watch(accountIdProvider)!;
   final theme = ref.watch(appThemeConfigProvider);
 
@@ -44,4 +45,4 @@ final ProviderFamily<Color, String> bubbleBgColorProvider =
   } else {
     return theme.leftBubbleColor;
   }
-});
+}

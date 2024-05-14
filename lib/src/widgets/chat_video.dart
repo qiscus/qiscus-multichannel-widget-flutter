@@ -4,13 +4,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../models.dart';
-import '../multichannel_provider.dart';
+import '../provider.dart';
 import '../utils/generate_link_text.dart';
 
 part 'chat_video.freezed.dart';
 part 'chat_video.g.dart';
 
-class QChatVideo extends StatelessWidget {
+class QChatVideo extends ConsumerWidget {
   const QChatVideo({
     Key? key,
     required this.message,
@@ -19,104 +19,92 @@ class QChatVideo extends StatelessWidget {
   final QMessageVideo message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     var size = MediaQuery.of(context).size;
 
-    return QMultichannelConsumer(
-      builder: (context, ref) {
-        final bgColor = _getBgColor(ref);
+    final bgColor = _getBgColor(ref);
+    QImagePayload? payload;
+    if (message.payload != null) {
+      payload = QImagePayload.fromJson(message.payload!);
+    }
+    var url = message.url;
+    var qiscus = ref.watch(qiscusProvider).requireValue;
 
-        QImagePayload? payload;
-        if (message.payload != null) {
-          payload = QImagePayload.fromJson(message.payload!);
-        }
-        var url = message.url;
-
-        return Padding(
-          padding: const EdgeInsets.only(left: 10, right: 5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: size.width * 0.6,
-              decoration: BoxDecoration(
-                color: bgColor,
-                // color: Colors.amber,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(3),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(7),
-                      child: GestureDetector(
-                        onTap: () async {
-                          await launchUrlString(url);
-                        },
-                        child: QMultichannelConsumer(
-                          builder: (context, ref) {
-                            return ref.qiscus.maybeWhen(
-                              orElse: () => const CircularProgressIndicator(),
-                              data: (qiscus) {
-                                return Stack(
-                                  children: <Widget>[
-                                    Image.network(
-                                      qiscus.getThumbnailURL(url),
-                                      fit: BoxFit.contain,
-                                    ),
-                                    Positioned.fill(
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withAlpha(80),
-                                        ),
-                                        child: const Icon(
-                                          Icons.play_circle_outline,
-                                          size: 34,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                    const Positioned(
-                                      bottom: 10,
-                                      right: 10,
-                                      child: Icon(
-                                        Icons.open_in_new,
-                                        size: 24,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 5),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          width: size.width * 0.6,
+          decoration: BoxDecoration(
+            color: bgColor,
+            // color: Colors.amber,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(3),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(7),
+                  child: GestureDetector(
+                    onTap: () async {
+                      await launchUrlString(url);
+                    },
+                    child: Stack(
+                      children: <Widget>[
+                        Image.network(
+                          qiscus.getThumbnailURL(url),
+                          fit: BoxFit.contain,
                         ),
-                      ),
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black.withAlpha(80),
+                            ),
+                            child: const Icon(
+                              Icons.play_circle_outline,
+                              size: 34,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const Positioned(
+                          bottom: 10,
+                          right: 10,
+                          child: Icon(
+                            Icons.open_in_new,
+                            size: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                    if (payload?.caption?.isNotEmpty == true)
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: RichLinkText(
-                          sender: message.sender,
-                          text: payload!.caption!,
-                        ),
-                      ),
-                  ],
+                  ),
                 ),
-              ),
+                if (payload?.caption?.isNotEmpty == true)
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: RichLinkText(
+                      sender: message.sender,
+                      text: payload!.caption!,
+                    ),
+                  ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
-  Color _getBgColor(QMultichannel ref) {
-    final account = ref.account.value!;
+  Color _getBgColor(WidgetRef ref) {
+    final account = ref.read(accountProvider).value!;
+    final theme = ref.read(appThemeConfigProvider);
     if (account.id == message.sender.id) {
-      return ref.theme.rightBubbleColor;
+      return theme.rightBubbleColor;
     } else {
-      return ref.theme.leftBubbleColor;
+      return theme.leftBubbleColor;
     }
   }
 }

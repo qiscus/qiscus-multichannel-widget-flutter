@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final sessionalProvider = FutureProvider<bool>((ref) async {
+@riverpod
+Future<bool> sessional(SessionalRef ref) async {
   var baseUrl = ref.watch(baseUrlProvider);
   var appId = ref.watch(appIdProvider);
 
@@ -13,4 +14,4 @@ final sessionalProvider = FutureProvider<bool>((ref) async {
   isSessional ??= false;
 
   return isSessional;
-});
+}

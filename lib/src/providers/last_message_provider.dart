@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final lastMessageProvider = Provider.autoDispose((ref) {
+@riverpod
+QMessage lastMessage(LastMessageRef ref) {
   var messages = ref.watch(sortedMessagesProvider);
   return messages.first;
-});
+}

@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final roomIdProvider = FutureProvider<int>((ref) async {
+@riverpod
+Future<int> roomId(RoomIdRef ref) async {
   var appState = ref.watch(appStateProvider);
 
   var res = await appState
@@ -11,4 +12,4 @@ final roomIdProvider = FutureProvider<int>((ref) async {
       .future;
 
   return res;
-}, name: 'roomIdProvider');
+}

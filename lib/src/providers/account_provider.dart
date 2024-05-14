@@ -1,13 +1,15 @@
 part of 'provider.dart';
 
-final accountProvider = Provider<AsyncValue<QAccount>>((ref) {
+@riverpod
+AsyncValue<QAccount> account(AccountRef ref) {
   var state = ref.watch(appStateProvider);
   return state.maybeWhen(
     orElse: () => const AsyncValue.loading(),
     ready: (_, account) => AsyncValue.data(account),
   );
-}, name: 'accountProvider');
+}
 
-final accountIdProvider = Provider((ref) {
+@riverpod
+String? accountId(AccountIdRef ref) {
   return ref.watch(accountProvider.select((v) => v.value?.id));
-}, name: 'accountIdProvider');
+}

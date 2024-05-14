@@ -1,19 +1,105 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'
     hide Provider, ChangeNotifierProvider;
-import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
 import 'config/avatar_config.dart';
 import 'config/subtitle_config.dart';
 import 'provider.dart';
-import 'states/app_state.dart';
 import 'states/app_theme.dart';
-import 'utils/extensions.dart';
 
-class QMultichannelProvider extends ConsumerWidget {
+class QMultichannelProvider extends ConsumerStatefulWidget {
   const QMultichannelProvider({
+    super.key,
+    required this.appId,
+    required this.builder,
+    this.onURLTapped,
+    this.avatar = const QAvatarConfig.enabled(),
+    this.rightAvatar = const QAvatarConfig.enabled(),
+    this.subtitle = const QSubtitleConfig.enabled(),
+    this.title,
+    this.channelId,
+    this.hideEventUI = false,
+    this.baseUrl = 'https://multichannel.qiscus.com',
+    this.sdkBaseUrl = 'https://api3.qiscus.com',
+    //
+    this.theme = const QAppTheme(),
+    this.parentProviderContainer,
+  });
+
+  final String appId;
+  final Widget Function(BuildContext) builder;
+  final QAppTheme theme;
+  final QAvatarConfig avatar;
+  final QAvatarConfig rightAvatar;
+  final QSubtitleConfig subtitle;
+  final String? title;
+  final String? channelId;
+  final bool hideEventUI;
+  final String baseUrl;
+  final String sdkBaseUrl;
+  final void Function(String url)? onURLTapped;
+  final ProviderContainer? parentProviderContainer;
+
+  @override
+  ConsumerState<QMultichannelProvider> createState() =>
+      _QMultichannelProviderState();
+}
+
+class _QMultichannelProviderState extends ConsumerState<QMultichannelProvider> {
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.parentProviderContainer != null) {
+      Future.microtask(() {
+        ref.read(appIdProvider.notifier).state = widget.appId;
+        ref.read(appThemeConfigProvider.notifier).state = widget.theme;
+        ref.read(baseUrlProvider.notifier).state = widget.baseUrl;
+        ref.read(avatarConfigProvider.notifier).state = widget.avatar;
+        ref.read(rightAvatarConfigProvider.notifier).state = widget.rightAvatar;
+        ref.read(subtitleConfigProvider.notifier).state = widget.subtitle;
+        ref.read(titleConfigProvider.notifier).state =
+            widget.title ?? 'Customer Service';
+        ref.read(channelIdConfigProvider.notifier).state = widget.channelId;
+        ref.read(systemEventVisibleConfigProvider.notifier).state =
+            !widget.hideEventUI;
+        ref.read(baseUrlProvider.notifier).state = widget.baseUrl;
+        ref.read(sdkBaseUrlProvider.notifier).state = widget.sdkBaseUrl;
+        ref.read(onURLTappedProvider.notifier).state = widget.onURLTapped;
+      });
+    }
+  }
+
+  List<Override> get _overrides {
+    if (widget.parentProviderContainer != null) return [];
+    return [
+      appIdProvider.overrideWithValue(widget.appId),
+      appThemeConfigProvider.overrideWithValue(widget.theme),
+      baseUrlProvider.overrideWithValue(widget.baseUrl),
+      avatarConfigProvider.overrideWithValue(widget.avatar),
+      rightAvatarConfigProvider.overrideWithValue(widget.rightAvatar),
+      subtitleConfigProvider.overrideWithValue(widget.subtitle),
+      titleConfigProvider.overrideWithValue(widget.title ?? 'Customer Service'),
+      channelIdConfigProvider.overrideWithValue(widget.channelId),
+      systemEventVisibleConfigProvider.overrideWithValue(!widget.hideEventUI),
+      baseUrlProvider.overrideWithValue(widget.baseUrl),
+      sdkBaseUrlProvider.overrideWithValue(widget.sdkBaseUrl),
+      onURLTappedProvider.overrideWithValue(widget.onURLTapped),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ProviderScope(
+      parent: widget.parentProviderContainer,
+      overrides: _overrides,
+      child: widget.builder(context),
+    );
+  }
+}
+
+class Q_MultichannelProvider extends StatelessWidget {
+  const Q_MultichannelProvider({
     Key? key,
     required this.appId,
     required this.builder,
@@ -28,6 +114,7 @@ class QMultichannelProvider extends ConsumerWidget {
     this.sdkBaseUrl = 'https://api3.qiscus.com',
     //
     this.theme = const QAppTheme(),
+    this.parentProviderContainer,
   }) : super(key: key);
 
   final String appId;
@@ -42,9 +129,10 @@ class QMultichannelProvider extends ConsumerWidget {
   final String baseUrl;
   final String sdkBaseUrl;
   final void Function(String url)? onURLTapped;
+  final ProviderContainer? parentProviderContainer;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     var overrides = <Override>[
       appIdProvider.overrideWithValue(appId),
       appThemeConfigProvider.overrideWithValue(theme),
@@ -62,6 +150,7 @@ class QMultichannelProvider extends ConsumerWidget {
 
     return ProviderScope(
       overrides: overrides,
+      parent: parentProviderContainer,
       child: builder(context),
     );
   }
@@ -84,148 +173,6 @@ extension StateProviderExt<T> on StateProvider<T> {
     return overrideWith((_) {
       return value;
     });
-  }
-}
-
-class QMultichannel {
-  const QMultichannel(this.ref);
-
-  final WidgetRef ref;
-
-  int? get roomId => ref.watch(appStateProvider).mapOrNull(
-        ready: (data) => data.roomId,
-      );
-  AsyncValue<QiscusSDK> get qiscus => ref.watch(qiscusProvider);
-  AsyncValue<QAccount> get account => ref.watch(accountProvider);
-  List<QMessage> get messages => ref.watch(mappedMessagesProvider);
-  QAppTheme get theme => ref.watch(appThemeConfigProvider);
-  String get title => ref.watch(titleConfigProvider);
-  String? get avatarUrl => ref.watch(avatarUrlProvider);
-
-  bool get isResolved => ref.watch(isResolvedProvider);
-  AsyncValue<QChatRoom> get room =>
-      ref.watch(roomProvider.select((it) => it.whenData((v) => v.room)));
-
-  Future<QChatRoom> initiateChat() async {
-    var room = await ref.read(initiateChatProvider.future).then((f) => f());
-
-    return room;
-  }
-
-  void enableDebugMode(bool enable) async {
-    var qiscus = await ref.read(qiscusProvider.future);
-    qiscus.enableDebugMode(enable: enable, level: QLogLevel.verbose);
-  }
-
-  void setRoomTitle(String title) {
-    ref.read(titleConfigProvider.notifier).state = title;
-  }
-
-  void setRoomSubTitle(QSubtitleConfig config) {
-    ref.read(subtitleConfigProvider.notifier).state = config;
-  }
-
-  void setHideUIEvent() {
-    ref.read(systemEventVisibleConfigProvider.notifier).state = false;
-  }
-
-  void setAvatar(QAvatarConfig config) {
-    ref.read(avatarConfigProvider.notifier).state = config;
-  }
-
-  void setUser({
-    required String userId,
-    required String displayName,
-    String? avatarUrl,
-    Map<String, dynamic>? userProperties,
-  }) {
-    ref.read(userIdProvider.notifier).state = userId;
-    ref.read(displayNameProvider.notifier).state = displayName;
-    ref.read(userAvatarUrl.notifier).state = avatarUrl;
-    ref.read(userPropertiesProvider.notifier).state = userProperties;
-  }
-
-  void setChannelId(String channelId) {
-    ref.read(channelIdConfigProvider.notifier).state = channelId;
-  }
-
-  void setDeviceId(String deviceId, {bool isDevelopment = false}) {
-    ref.read(deviceIdConfigProvider.notifier).state = deviceId;
-    ref.read(deviceIdDevelopmentModeProvider.notifier).state = isDevelopment;
-  }
-
-  Future<void> clearUser() async {
-    ref.read(userIdProvider.notifier).state = null;
-    ref.read(displayNameProvider.notifier).state = null;
-    ref.read(userPropertiesProvider.notifier).state = null;
-    ref.read(sdkUserExtrasProvider.notifier).state = null;
-    ref.read(appStateProvider.notifier).state = const AppState.initial();
-    ref.read(messagesProvider.notifier).clear();
-    ref.read(qiscusProvider.future).then((q) => q.clearUser());
-  }
-
-  Future<QMessage> sendMessage(QMessage message) async {
-    return ref.watch(messagesProvider.notifier).sendMessage(message);
-  }
-
-  Future<QMessage> deleteMessage(String messageUniqueId) async {
-    return ref.watch(messagesProvider.notifier).deleteMessage(messageUniqueId);
-  }
-
-  Future<List<QMessage>> loadMoreMessages(int lastMessageId) async {
-    return ref.watch(messagesProvider.notifier).loadMoreMessage(lastMessageId);
-  }
-
-  Future<QMessage> generateMessage({
-    required String text,
-    Map<String, dynamic>? extras,
-  }) async {
-    var roomId = await ref.watch(roomIdProvider).future;
-    var q = await qiscus.future;
-    return q.generateMessage(
-      chatRoomId: roomId,
-      text: text,
-      extras: extras,
-    );
-  }
-
-  Future<QMessage> generateReplyMessage({
-    required String text,
-    required QMessage repliedMessage,
-    Map<String, dynamic>? extras,
-  }) async {
-    var roomId = await ref.read(roomIdProvider).future;
-    var q = await qiscus.future;
-    return q.generateReplyMessage(
-      chatRoomId: roomId,
-      text: text,
-      repliedMessage: repliedMessage,
-    );
-  }
-
-  Future<QMessage> generateFileAttachmentMessage({
-    required String url,
-    required String caption,
-  }) async {
-    var roomId = await ref.watch(roomIdProvider).future;
-    var q = await qiscus.future;
-    return q.generateFileAttachmentMessage(
-        chatRoomId: roomId, caption: caption, url: url);
-  }
-
-  Future<QMessage> generateFileAttachmentMessageFromFile({
-    required File file,
-    required String caption,
-  }) async {
-    var roomId = await ref.watch(roomIdProvider).future;
-    var q = await qiscus.future;
-    var stream = q.upload(file);
-    var data = await stream.firstWhere((item) => item.data != null);
-    return q.generateFileAttachmentMessage(
-      chatRoomId: roomId,
-      caption: caption,
-      url: data.data!,
-    );
   }
 }
 

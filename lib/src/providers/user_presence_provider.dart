@@ -1,6 +1,7 @@
 part of 'provider.dart';
 
-final userPresenceProvider = StreamProvider.autoDispose((ref) async* {
+@riverpod
+Stream<QUserPresence> userPresence(UserPresenceRef ref) async* {
   var qiscus = await ref.watch(qiscusProvider.future);
   var userId = ref.watch(userIdProvider);
 
@@ -13,4 +14,4 @@ final userPresenceProvider = StreamProvider.autoDispose((ref) async* {
     }
   });
   yield* qiscus.onUserOnlinePresence();
-});
+}

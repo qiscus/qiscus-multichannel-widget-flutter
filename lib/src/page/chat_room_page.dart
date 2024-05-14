@@ -7,10 +7,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
-import '../providers/replied_message_provider.dart';
 import '../models.dart';
-import '../multichannel_provider.dart';
 import '../provider.dart';
+import '../providers/replied_message_provider.dart';
 import '../widgets/chat_form.dart';
 import '../widgets/chat_system.dart';
 import '../widgets/widgets.dart';
@@ -80,8 +79,13 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
   Widget build(BuildContext context) {
     final base = appThemeConfigProvider.select((v) => v.baseColor);
     final baseBgColor = ref.watch(base);
-    var isLoadMore = false;
+    var isAbleToLoadMore = false;
     var lastCountMessage = 0;
+
+    var messages = ref.watch(mappedMessagesProvider);
+    isAbleToLoadMore = lastCountMessage < messages.length;
+    var room =
+        ref.watch(roomProvider.select((v) => v.whenData((v) => v.room).value));
 
     return Scaffold(
       appBar: buildAppBar(
@@ -92,9 +96,9 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
       body: NotificationListener<ScrollNotification>(
         onNotification: (ScrollNotification scrollInfo) {
           if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
-              isLoadMore) {
-            ref.read(messagesProvider.notifier).loadMoreMessage();
-            isLoadMore = false;
+              isAbleToLoadMore) {
+            ref.read(messagesNotifierProvider.notifier).loadMoreMessage();
+            isAbleToLoadMore = false;
           }
           return false;
         },
@@ -104,40 +108,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
               flex: 1,
               child: Container(
                 color: baseBgColor,
-                child: QMultichannelConsumer(
-                  builder: (context, ref) {
-                    var messages = ref.messages;
-                    isLoadMore = lastCountMessage < messages.length;
-
-                    if (messages.isEmpty && ref.room.value == null) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (messages.isEmpty && ref.room.value != null) {
-                      return _buildChatEmpty(context, ref);
-                    } else {
-                      return GroupedListView<QMessage, DateTime>(
-                        reverse: true,
-                        elements: messages,
-                        groupBy: (message) => _buildGroupList(message),
-                        itemBuilder: (context, message) {
-                          return InkWell(
-                            child: _buildChatBubble(context, ref, message),
-                            onLongPress: () {
-                              _showModalBottomSheet(context, this.ref, message);
-                            },
-                          );
-                        },
-                        itemComparator: (item1, item2) =>
-                            item1.timestamp.compareTo(item2.timestamp),
-                        floatingHeader: true,
-                        useStickyGroupSeparators: true,
-                        groupSeparatorBuilder: (DateTime date) {
-                          return _buildSeparator(date, ref);
-                        },
-                        order: GroupedListOrder.DESC,
-                      );
-                    }
-                  },
-                ),
+                child: buildMessageList(messages, room),
               ),
             ),
             QChatForm(),
@@ -147,12 +118,46 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     );
   }
 
+  Widget buildMessageList(
+    List<QMessage> messages,
+    QChatRoom? room,
+  ) {
+    if (messages.isEmpty && room == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (messages.isEmpty && room != null) {
+      return _buildChatEmpty();
+    } else {
+      return GroupedListView<QMessage, DateTime>(
+        reverse: true,
+        elements: messages,
+        groupBy: (message) => _buildGroupList(message),
+        itemBuilder: (context, message) {
+          return InkWell(
+            child: _buildChatBubble(message),
+            onLongPress: () {
+              _showModalBottomSheet(message);
+            },
+          );
+        },
+        itemComparator: (item1, item2) =>
+            item1.timestamp.compareTo(item2.timestamp),
+        floatingHeader: true,
+        useStickyGroupSeparators: true,
+        groupSeparatorBuilder: (DateTime date) {
+          return _buildSeparator(date);
+        },
+        order: GroupedListOrder.DESC,
+      );
+    }
+  }
+
   DateTime _buildGroupList(QMessage message) {
     return DateTime.parse(
         formatDate(message.timestamp, [yyyy, '-', mm, '-', dd]));
   }
 
-  Widget _buildSeparator(DateTime date, QMultichannel ref) {
+  Widget _buildSeparator(DateTime date) {
+    var theme = ref.watch(appThemeConfigProvider);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -162,7 +167,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
             borderRadius: BorderRadius.circular(8),
             child: Container(
               decoration: BoxDecoration(
-                color: ref.theme.timeBackgroundColor,
+                color: theme.timeBackgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
@@ -171,7 +176,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
                   formatDate(date, [DD, ', ', dd, ' ', MM, ' ', yyyy]),
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: ref.theme.timeLabelTextColor,
+                    color: theme.timeLabelTextColor,
                     overflow: TextOverflow.clip,
                   ),
                 ),
@@ -183,12 +188,9 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     );
   }
 
-  Widget _buildChatBubble(
-    BuildContext context,
-    QMultichannel ref,
-    QMessage message,
-  ) {
-    var accountId = ref.account.whenData((v) => v.id);
+  Widget _buildChatBubble(QMessage message) {
+    var accountId = ref
+        .watch(accountProvider.select((v) => v.whenData((value) => value.id)));
 
     if (message is QMessageSystem) {
       return QChatSystem(message: message);
@@ -211,9 +213,10 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     );
   }
 
-  Widget _buildChatEmpty(BuildContext context, QMultichannel ref) {
+  Widget _buildChatEmpty() {
+    var theme = ref.watch(appThemeConfigProvider);
     return Container(
-      color: ref.theme.emptyBackgroundColor,
+      color: theme.emptyBackgroundColor,
       width: MediaQuery.of(context).size.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -222,7 +225,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
           Text(
             "No Message here yet…",
             style: TextStyle(
-              color: ref.theme.emptyTextColor,
+              color: theme.emptyTextColor,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -231,7 +234,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
           Text(
             "Great discussion start from greeting each others first",
             style: TextStyle(
-              color: ref.theme.emptyTextColor,
+              color: theme.emptyTextColor,
               fontSize: 13,
             ),
           ),
@@ -240,11 +243,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     );
   }
 
-  _showModalBottomSheet(
-    BuildContext context,
-    WidgetRef ref,
-    QMessage message,
-  ) {
+  _showModalBottomSheet(QMessage message) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(

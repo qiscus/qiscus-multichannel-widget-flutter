@@ -35,6 +35,8 @@ final userAvatarUrl =
     StateProvider<String?>((_) => null, name: 'userAvatarUrlProvider');
 final userPropertiesProvider = StateProvider<Map<String, dynamic>?>((_) => null,
     name: 'userPropertiesProvider');
+final userExtrasProvider =
+    StateProvider<Map<String, dynamic>?>((_) => null, name: 'userExtras');
 final sdkUserExtrasProvider = StateProvider<Map<String, dynamic>?>((_) => null,
     name: 'sdkUserExtrasProvider');
 final isSessionalRoomProvider =
@@ -66,7 +68,7 @@ final onBackBtnTappedProvider = StateProvider<OnBackBtnFn>((ref) {
     ref.read(userPropertiesProvider.notifier).state = null;
     ref.read(sdkUserExtrasProvider.notifier).state = null;
     ref.read(appStateProvider.notifier).state = const AppState.initial();
-    ref.read(messagesProvider.notifier).clear();
+    ref.read(messagesNotifierProvider.notifier).clear();
     ref.read(qiscusProvider.future).then((q) => q.clearUser());
 
     Navigator.of(context).pop();

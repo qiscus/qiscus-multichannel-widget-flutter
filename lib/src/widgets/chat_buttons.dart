@@ -7,61 +7,53 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:http/http.dart' as http;
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
-import '../multichannel_provider.dart';
 import '../provider.dart';
 import '../utils/extensions.dart';
 
 part 'chat_buttons.freezed.dart';
 part 'chat_buttons.g.dart';
 
-class QChatButton extends StatelessWidget {
+class QChatButton extends ConsumerWidget {
   const QChatButton({Key? key, required this.message}) : super(key: key);
   final QMessageButton message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     var size = MediaQuery.of(context).size;
     var payload = message.typedPayload;
+    final bgColor = ref.watch(chatBubbleBgColorProvider(message.sender));
+    final fgColor = ref.watch(chatBubbleFgColorProvider(message.sender));
 
-    return QMultichannelConsumer(
-      builder: (context, ref) {
-        final bgColor =
-            ref.ref.watch(chatBubbleBgColorProvider(message.sender));
-        final fgColor =
-            ref.ref.watch(chatBubbleFgColorProvider(message.sender));
-
-        return Padding(
-          padding: const EdgeInsets.only(left: 10, right: 5),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: size.width * 0.6,
-              decoration: BoxDecoration(
-                color: bgColor,
-                // color: Colors.amber,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      payload.text,
-                      style: TextStyle(
-                        color: fgColor,
-                      ),
-                    ),
-                  ),
-                  QButtonListFragment(
-                    buttons: payload.buttons,
-                    message: message,
-                  ),
-                ],
-              ),
-            ),
+    return Padding(
+      padding: const EdgeInsets.only(left: 10, right: 5),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          width: size.width * 0.6,
+          decoration: BoxDecoration(
+            color: bgColor,
+            // color: Colors.amber,
           ),
-        );
-      },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  payload.text,
+                  style: TextStyle(
+                    color: fgColor,
+                  ),
+                ),
+              ),
+              QButtonListFragment(
+                buttons: payload.buttons,
+                message: message,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

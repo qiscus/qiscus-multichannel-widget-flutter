@@ -34,7 +34,7 @@ class QLocalUserDataStateNotifier
   ]) : super(state);
 
   final Ref ref;
-  late FlutterSecureStorage enc = ref.watch(encSharedPreferenceProvider);
+  late FlutterSecureStorage enc = ref.read(encSharedPreferenceProvider);
   bool _isFetching = false;
 
   static const _appId$ = 'last-app-id';

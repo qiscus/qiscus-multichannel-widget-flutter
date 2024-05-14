@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../multichannel_provider.dart';
 import '../provider.dart';
 
 AppBar buildAppBar({
@@ -34,51 +33,38 @@ AppBar buildAppBar({
           dimension: 44,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(100),
-            child: buildAvatar(),
+            child: buildAvatar(ref),
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 10.0),
-          child: QMultichannelConsumer(
-            builder: (context, ref) {
-              // var roomName = ref.room.whenOrNull(data: (v) => v.name);
-              var title = ref.title;
-
-              return Text(title);
-            },
-          ),
+          child: Text(ref.watch(titleConfigProvider)),
         ),
       ],
     ),
   );
 }
 
-Widget buildAvatar() {
-  return QMultichannelConsumer(
-    builder: (context, QMultichannel ref) {
-      var avatarUrl = ref.avatarUrl;
-
-      if (avatarUrl != null) {
-        return CachedNetworkImage(
-          imageUrl: avatarUrl,
-          placeholder: (_, __) => const CircularProgressIndicator(),
-          errorWidget: (ctx, _, e) => Image.asset(
-            "lib/src/assets/avatar.png",
-            fit: BoxFit.cover,
-            height: 44,
-            width: 44,
-            package: 'qiscus_multichannel_widget',
-          ),
-        );
-      } else {
-        return Image.asset(
-          "lib/src/assets/avatar.png",
-          fit: BoxFit.cover,
-          height: 44,
-          width: 44,
-          package: 'qiscus_multichannel_widget',
-        );
-      }
-    },
+Widget buildAvatar(WidgetRef ref) {
+  var avatarUrl = ref.read(avatarConfigProvider);
+  return avatarUrl.maybeWhen(
+    editable: (url) => CachedNetworkImage(
+      imageUrl: url,
+      placeholder: (_, __) => const CircularProgressIndicator(),
+      errorWidget: (ctx, _, e) => Image.asset(
+        "lib/src/assets/avatar.png",
+        fit: BoxFit.cover,
+        height: 44,
+        width: 44,
+        package: 'qiscus_multichannel_widget',
+      ),
+    ),
+    orElse: () => Image.asset(
+      "lib/src/assets/avatar.png",
+      fit: BoxFit.cover,
+      height: 44,
+      width: 44,
+      package: 'qiscus_multichannel_widget',
+    ),
   );
 }

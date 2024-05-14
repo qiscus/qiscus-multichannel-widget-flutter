@@ -1,10 +1,16 @@
 part of 'provider.dart';
 
-final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
+@Riverpod(keepAlive: true)
+QiscusSDK qiscusSDK(QiscusSDKRef ref) {
+  return QiscusSDK();
+}
+
+@Riverpod(keepAlive: true)
+Future<QiscusSDK> qiscus(QiscusRef ref) async {
+  var qiscus = ref.watch(qiscusSDKProvider);
   var appId = ref.watch(appIdProvider);
   var baseUrl = ref.watch(sdkBaseUrlProvider);
 
-  var qiscus = QiscusSDK();
   // qiscus.enableDebugMode(enable: true, level: QLogLevel.verbose);
 
   if (appId != null) {
@@ -12,4 +18,4 @@ final qiscusProvider = FutureProvider<QiscusSDK>((ref) async {
   }
 
   return qiscus;
-});
+}

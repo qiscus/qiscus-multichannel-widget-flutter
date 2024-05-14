@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
-import '../multichannel_provider.dart';
+
+import '../provider.dart';
 import '../utils/generate_link_text.dart';
 
-class QChatText extends StatelessWidget {
+class QChatText extends ConsumerWidget {
   const QChatText({
     Key? key,
     required this.message,
@@ -12,24 +14,19 @@ class QChatText extends StatelessWidget {
   final QMessage message;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     var size = MediaQuery.of(context).size;
+    final bgColor = _getBgColor(ref);
+    final fgColor = _getFgColor(ref);
 
-    return QMultichannelConsumer(
-      builder: (context, ref) {
-        final bgColor = _getBgColor(ref);
-        final fgColor = _getFgColor(ref);
-
-        return _buildContainer(
-          size: size,
-          bgColor: bgColor,
-          fgColor: fgColor,
-          child: RichLinkText(
-            text: message.text,
-            sender: message.sender,
-          ),
-        );
-      },
+    return _buildContainer(
+      size: size,
+      bgColor: bgColor,
+      fgColor: fgColor,
+      child: RichLinkText(
+        text: message.text,
+        sender: message.sender,
+      ),
     );
   }
 
@@ -60,21 +57,24 @@ class QChatText extends StatelessWidget {
     );
   }
 
-  Color _getBgColor(QMultichannel ref) {
-    final account = ref.account.value!;
+  Color _getBgColor(WidgetRef ref) {
+    final account = ref.read(accountProvider).requireValue;
+    final theme = ref.read(appThemeConfigProvider);
     if (account.id == message.sender.id) {
-      return ref.theme.rightBubbleColor;
+      return theme.rightBubbleColor;
     } else {
-      return ref.theme.leftBubbleColor;
+      return theme.leftBubbleColor;
     }
   }
 
-  Color _getFgColor(QMultichannel ref) {
-    final account = ref.account.value!;
+  Color _getFgColor(WidgetRef ref) {
+    final account = ref.read(accountProvider).requireValue;
+    final theme = ref.read(appThemeConfigProvider);
+
     if (account.id == message.sender.id) {
-      return ref.theme.rightBubbleTextColor;
+      return theme.rightBubbleTextColor;
     } else {
-      return ref.theme.leftBubbleTextColor;
+      return theme.leftBubbleTextColor;
     }
   }
 }

@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 
-import '../providers/replied_message_provider.dart';
-import '../multichannel_provider.dart';
 import '../provider.dart';
+import '../providers/replied_message_provider.dart';
 import '../utils/colors.dart';
 
 class QChatForm extends ConsumerWidget {
@@ -19,24 +18,30 @@ class QChatForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var files = ref.watch(uploaderProvider);
+    var files = ref.watch(uploadNotifierProvider);
 
     var isResolved = ref.watch(isResolvedProvider);
     if (isResolved) {
       return Container();
     }
 
+    var theme = ref.watch(appThemeConfigProvider);
+    var replyBgColor = theme.replyBackgroundColor;
+    var replyTopBorderColor = theme.replyContainerTopBorderColor;
+    var replyLeftBorderColor = theme.replyContainerLeftBorderColor;
+    var replyFgColor = theme.replyTextColor;
+    var borderColor = theme.fieldChatBorderColor;
+
     var repliedComment = ref.watch(repliedMessageProvider);
-    var replyBgColor =
-        ref.watch(appThemeConfigProvider.select((v) => v.replyBackgroundColor));
-    var replyTopBorderColor = ref.watch(
-        appThemeConfigProvider.select((v) => v.replyContainerTopBorderColor));
-    var replyLeftBorderColor = ref.watch(
-        appThemeConfigProvider.select((v) => v.replyContainerLeftBorderColor));
-    var replyFgColor =
-        ref.watch(appThemeConfigProvider.select((v) => v.replyTextColor));
     var accountName =
         ref.watch(accountProvider.select((v) => v.asData?.value.name));
+
+    var account = ref.watch(accountProvider);
+
+    final border = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8),
+      borderSide: BorderSide(color: borderColor),
+    );
 
     return Column(
       children: [
@@ -102,81 +107,68 @@ class QChatForm extends ConsumerWidget {
               top: BorderSide(width: 1, color: "#e3e3e3".toColor()),
             ),
           ),
-          child: QMultichannelConsumer(
-            builder: (context, QMultichannel mulchan) {
-              var account = mulchan.account;
-              var borderColor = mulchan.theme.fieldChatBorderColor;
-              var theme = mulchan.theme;
-
-              final border = OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: borderColor),
-              );
-
-              return Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                color: theme.sendContainerBackgroundColor,
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: <Widget>[
-                          TextButton(
-                            onPressed: () async {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (c) => _modalBottomSheet(c, ref),
-                                isDismissible: true,
-                                // isScrollControlled: true,
-                                elevation: 2,
-                              );
-                            },
-                            child: Image.asset(
-                              'lib/src/assets/ic-add.png',
-                              package: 'qiscus_multichannel_widget',
-                              color: theme.sendContainerColor,
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              color: Colors.white,
-                              child: TextField(
-                                enabled: account.hasValue,
-                                controller: _messageController,
-                                onSubmitted: (_) => _onSubmit(
-                                  mulchan,
-                                  repliedMessage: repliedComment,
-                                ),
-                                decoration: InputDecoration(
-                                  hintText: 'Your message here...',
-                                  disabledBorder: border,
-                                  enabledBorder: border,
-                                  focusedBorder: border,
-                                ),
-                                style: TextStyle(
-                                  color: mulchan.theme.fieldChatTextColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => _onSubmit(
-                              mulchan,
+          child: Container(
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            color: theme.sendContainerBackgroundColor,
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Row(
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () async {
+                          showModalBottomSheet(
+                            context: context,
+                            builder: (c) => _modalBottomSheet(c, ref),
+                            isDismissible: true,
+                            // isScrollControlled: true,
+                            elevation: 2,
+                          );
+                        },
+                        child: Image.asset(
+                          'lib/src/assets/ic-add.png',
+                          package: 'qiscus_multichannel_widget',
+                          color: theme.sendContainerColor,
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          child: TextField(
+                            enabled: account.hasValue,
+                            controller: _messageController,
+                            onSubmitted: (_) => _onSubmit(
+                              ref,
                               repliedMessage: repliedComment,
                             ),
-                            child: Image.asset(
-                              'lib/src/assets/ic-send.png',
-                              package: 'qiscus_multichannel_widget',
-                              color: theme.sendContainerColor,
+                            decoration: InputDecoration(
+                              hintText: 'Your message here...',
+                              disabledBorder: border,
+                              enabledBorder: border,
+                              focusedBorder: border,
+                            ),
+                            style: TextStyle(
+                              color: theme.fieldChatTextColor,
                             ),
                           ),
-                        ],
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => _onSubmit(
+                          ref,
+                          repliedMessage: repliedComment,
+                        ),
+                        child: Image.asset(
+                          'lib/src/assets/ic-send.png',
+                          package: 'qiscus_multichannel_widget',
+                          color: theme.sendContainerColor,
+                        ),
                       ),
                     ],
                   ),
-                ),
-              );
-            },
+                ],
+              ),
+            ),
           ),
         ),
       ],
@@ -194,7 +186,7 @@ class QChatForm extends ConsumerWidget {
             Expanded(child: Text(file.file.uri.pathSegments.last)),
             TextButton(
               onPressed: () {
-                ref.read(uploaderProvider.notifier).cancel(file);
+                ref.read(uploadNotifierProvider.notifier).cancel(file);
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -213,25 +205,26 @@ class QChatForm extends ConsumerWidget {
     );
   }
 
-  void _onSubmit(QMultichannel ref, {QMessage? repliedMessage}) async {
+  void _onSubmit(WidgetRef ref, {QMessage? repliedMessage}) async {
     var text = _messageController.text;
 
     if (text.trim().isEmpty) return;
 
     QMessage message;
     if (repliedMessage != null) {
-      message = await ref.generateReplyMessage(
-        text: text,
-        repliedMessage: repliedMessage,
-      );
+      message = await ref.read(QMultichannel.provider).generateReplyMessage(
+            text: text,
+            repliedMessage: repliedMessage,
+          );
     } else {
-      message = await ref.generateMessage(text: text);
+      message =
+          await ref.read(QMultichannel.provider).generateMessage(text: text);
     }
 
-    await ref.sendMessage(message);
+    await ref.read(QMultichannel.provider).sendMessage(message);
     _messageController.clear();
     if (repliedMessage != null) {
-      ref.ref.read(repliedMessageProvider.notifier).state = null;
+      ref.read(repliedMessageProvider.notifier).state = null;
     }
   }
 
@@ -320,7 +313,7 @@ class QChatForm extends ConsumerWidget {
         .toList();
 
     for (var file in files) {
-      ref.read(uploaderProvider.notifier).add(file);
+      ref.read(uploadNotifierProvider.notifier).add(file);
     }
   }
 }
