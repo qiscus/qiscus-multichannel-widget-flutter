@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class QAvatar extends StatelessWidget {
   const QAvatar({
-    Key? key,
+    super.key,
     required this.avatarUrl,
-  }) : super(key: key);
+  });
   final String avatarUrl;
 
   @override

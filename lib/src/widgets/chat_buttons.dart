@@ -14,7 +14,7 @@ part 'chat_buttons.freezed.dart';
 part 'chat_buttons.g.dart';
 
 class QChatButton extends ConsumerWidget {
-  const QChatButton({Key? key, required this.message}) : super(key: key);
+  const QChatButton({super.key, required this.message});
   final QMessageButton message;
 
   @override
@@ -60,10 +60,10 @@ class QChatButton extends ConsumerWidget {
 
 class QButtonListFragment extends ConsumerWidget {
   const QButtonListFragment({
-    Key? key,
+    super.key,
     required this.buttons,
     required this.message,
-  }) : super(key: key);
+  });
   final List<QButtons> buttons;
   final QMessage message;
 
@@ -97,12 +97,12 @@ class QButtonListFragment extends ConsumerWidget {
 
 class QButtonFragment extends ConsumerWidget {
   const QButtonFragment({
-    Key? key,
+    super.key,
     required this.button,
     required this.message,
     required this.first,
     required this.last,
-  }) : super(key: key);
+  });
   final QButtons button;
   final QMessage message;
   final bool first;

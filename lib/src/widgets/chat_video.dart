@@ -12,9 +12,9 @@ part 'chat_video.g.dart';
 
 class QChatVideo extends ConsumerWidget {
   const QChatVideo({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessageVideo message;
 

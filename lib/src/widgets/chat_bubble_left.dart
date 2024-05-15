@@ -9,9 +9,9 @@ import 'avatar.dart';
 
 class QChatBubbleLeft extends ConsumerWidget {
   QChatBubbleLeft({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessage message;
   final fileRe = RegExp(r'(https?:\/\/.*\.(?:png|jpg|jpeg|gif))');

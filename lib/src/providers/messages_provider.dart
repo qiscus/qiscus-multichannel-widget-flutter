@@ -67,8 +67,6 @@ class MessagesNotifier extends _$MessagesNotifier {
   Future<List<QMessage>> loadMoreMessage([int lastMessageId = 0]) async {
     var qiscus = await ref.read(qiscusProvider.future);
     var roomId = await ref.read(roomIdProvider).future;
-    // var lastMessage = ref.watch(lastMessageProvider);
-    // lastMessageId ??= lastMessage.id;
 
     var messages = await qiscus.getPreviousMessagesById(
       roomId: roomId,
@@ -87,17 +85,6 @@ class MessagesNotifier extends _$MessagesNotifier {
     state = const [];
   }
 }
-
-final _messagesProvider =
-    StateNotifierProvider.autoDispose<MessagesStateNotifier, List<QMessage>>(
-        (ref) {
-  var roomData = ref.watch(roomProvider);
-
-  return roomData.maybeWhen(
-    orElse: () => MessagesStateNotifier(ref),
-    data: (v) => MessagesStateNotifier(ref, state: v.messages),
-  );
-});
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   final AutoDisposeStateNotifierProviderRef ref;

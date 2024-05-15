@@ -11,8 +11,8 @@ import '../utils/colors.dart';
 
 class QChatForm extends ConsumerWidget {
   QChatForm({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final TextEditingController _messageController = TextEditingController();
 

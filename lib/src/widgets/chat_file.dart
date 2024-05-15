@@ -12,9 +12,9 @@ part 'chat_file.g.dart';
 
 class QChatFile extends ConsumerWidget {
   const QChatFile({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessageFile message;
 

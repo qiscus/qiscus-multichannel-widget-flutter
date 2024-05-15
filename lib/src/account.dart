@@ -3,21 +3,14 @@ import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' as Q;
 
 class QAccount extends Q.QAccount {
   QAccount({
-    required String id,
-    required String name,
-    String? avatarUrl,
-    Map<String, dynamic>? extras,
-    int? lastEventId,
-    int? lastMessageId,
+    required super.id,
+    required super.name,
+    super.avatarUrl,
+    Map<String, dynamic>? super.extras,
+    super.lastEventId,
+    super.lastMessageId,
     this.properties,
-  }) : super(
-          id: id,
-          name: name,
-          avatarUrl: avatarUrl,
-          extras: extras,
-          lastEventId: lastEventId,
-          lastMessageId: lastMessageId,
-        );
+  });
 
   factory QAccount.merge(
     Q.QAccount account, [

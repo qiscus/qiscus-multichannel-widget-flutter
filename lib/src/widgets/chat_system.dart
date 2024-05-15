@@ -5,9 +5,9 @@ import '../utils/colors.dart';
 
 class QChatSystem extends StatelessWidget {
   const QChatSystem({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessage message;
 

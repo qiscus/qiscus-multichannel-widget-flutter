@@ -137,16 +137,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         print(err);
       });
 
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => QChatRoomScreen(onBack: (ctx) {
-            ref.read(QMultichannel.provider).clearUser();
-            Navigator.of(context)
-                .maybePop()
-                .then((r) => debugPrint('maybePop: $r'));
-          }),
-        ),
-      );
+      if (mounted) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => QChatRoomScreen(onBack: (ctx) {
+              ref.read(QMultichannel.provider).clearUser();
+              Navigator.of(context)
+                  .maybePop()
+                  .then((r) => debugPrint('maybePop: $r'));
+            }),
+          ),
+        );
+      }
     } catch (e) {
       print('type: ${e.runtimeType}');
     }

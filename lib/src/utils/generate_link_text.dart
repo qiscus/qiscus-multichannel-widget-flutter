@@ -10,10 +10,10 @@ class RichLinkText extends ConsumerWidget {
   final QUser sender;
 
   const RichLinkText({
-    Key? key,
+    super.key,
     required this.text,
     required this.sender,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

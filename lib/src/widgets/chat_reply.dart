@@ -11,9 +11,9 @@ part 'chat_reply.g.dart';
 
 class QChatReply extends ConsumerWidget {
   const QChatReply({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessageReply message;
 

@@ -2,30 +2,18 @@ import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
 
 class QMessageText extends QMessage {
   QMessageText({
-    required int id,
-    required int chatRoomId,
-    required int previousMessageId,
-    required String uniqueId,
-    required String text,
-    required QMessageStatus status,
-    required QMessageType type,
-    required Map<String, dynamic>? extras,
-    required Map<String, dynamic>? payload,
-    required QUser sender,
-    required DateTime timestamp,
-  }) : super(
-          id: id,
-          chatRoomId: chatRoomId,
-          previousMessageId: previousMessageId,
-          uniqueId: uniqueId,
-          text: text,
-          status: status,
-          type: type,
-          extras: extras,
-          payload: payload,
-          sender: sender,
-          timestamp: timestamp,
-        );
+    required super.id,
+    required super.chatRoomId,
+    required super.previousMessageId,
+    required super.uniqueId,
+    required super.text,
+    required super.status,
+    required super.type,
+    required Map<String, dynamic>? super.extras,
+    required Map<String, dynamic>? super.payload,
+    required super.sender,
+    required super.timestamp,
+  });
 }
 
 class QMessageReply extends QMessage {

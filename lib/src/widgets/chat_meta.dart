@@ -7,11 +7,11 @@ import '../provider.dart';
 
 class QChatMeta extends ConsumerWidget {
   const QChatMeta({
-    Key? key,
+    super.key,
     required this.timestamp,
     this.status,
     this.isLeft = true,
-  }) : super(key: key);
+  });
 
   final bool isLeft;
   final DateTime timestamp;

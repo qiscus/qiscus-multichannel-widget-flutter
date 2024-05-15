@@ -10,6 +10,8 @@ import 'pages/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // ignore: missing_provider_scope
   runApp(const App());
 }
 
@@ -31,7 +33,6 @@ class _AppStateBuilder extends State<App> {
 
   Widget buildWithoutProviderScope(BuildContext context) {
     return QMultichannelProvider(
-      // parentProviderContainer: container,
       appId: appId,
       title: 'Some custom title',
       avatar: QAvatarConfig.enabled(),

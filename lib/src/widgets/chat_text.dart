@@ -7,9 +7,9 @@ import '../utils/generate_link_text.dart';
 
 class QChatText extends ConsumerWidget {
   const QChatText({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessage message;
 

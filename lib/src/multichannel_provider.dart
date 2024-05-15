@@ -98,67 +98,8 @@ class _QMultichannelProviderState extends ConsumerState<QMultichannelProvider> {
   }
 }
 
-class Q_MultichannelProvider extends StatelessWidget {
-  const Q_MultichannelProvider({
-    Key? key,
-    required this.appId,
-    required this.builder,
-    this.onURLTapped,
-    this.avatar = const QAvatarConfig.enabled(),
-    this.rightAvatar = const QAvatarConfig.enabled(),
-    this.subtitle = const QSubtitleConfig.enabled(),
-    this.title,
-    this.channelId,
-    this.hideEventUI = false,
-    this.baseUrl = 'https://multichannel.qiscus.com',
-    this.sdkBaseUrl = 'https://api3.qiscus.com',
-    //
-    this.theme = const QAppTheme(),
-    this.parentProviderContainer,
-  }) : super(key: key);
-
-  final String appId;
-  final Widget Function(BuildContext) builder;
-  final QAppTheme theme;
-  final QAvatarConfig avatar;
-  final QAvatarConfig rightAvatar;
-  final QSubtitleConfig subtitle;
-  final String? title;
-  final String? channelId;
-  final bool hideEventUI;
-  final String baseUrl;
-  final String sdkBaseUrl;
-  final void Function(String url)? onURLTapped;
-  final ProviderContainer? parentProviderContainer;
-
-  @override
-  Widget build(BuildContext context) {
-    var overrides = <Override>[
-      appIdProvider.overrideWithValue(appId),
-      appThemeConfigProvider.overrideWithValue(theme),
-      baseUrlProvider.overrideWithValue(baseUrl),
-      avatarConfigProvider.overrideWithValue(avatar),
-      rightAvatarConfigProvider.overrideWithValue(rightAvatar),
-      subtitleConfigProvider.overrideWithValue(subtitle),
-      titleConfigProvider.overrideWithValue(title ?? 'Customer Service'),
-      channelIdConfigProvider.overrideWithValue(channelId),
-      systemEventVisibleConfigProvider.overrideWithValue(!hideEventUI),
-      baseUrlProvider.overrideWithValue(baseUrl),
-      sdkBaseUrlProvider.overrideWithValue(sdkBaseUrl),
-      onURLTappedProvider.overrideWithValue(onURLTapped),
-    ];
-
-    return ProviderScope(
-      overrides: overrides,
-      parent: parentProviderContainer,
-      child: builder(context),
-    );
-  }
-}
-
 class QMultichannelConsumer extends ConsumerWidget {
-  const QMultichannelConsumer({Key? key, required this.builder})
-      : super(key: key);
+  const QMultichannelConsumer({super.key, required this.builder});
 
   final Widget Function(BuildContext, QMultichannel) builder;
 

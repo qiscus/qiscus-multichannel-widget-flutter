@@ -12,9 +12,9 @@ part 'chat_carousel.g.dart';
 
 class QChatCarousel extends ConsumerWidget {
   const QChatCarousel({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
   final QMessageCarousel message;
 
   @override
@@ -50,10 +50,10 @@ class QChatCarousel extends ConsumerWidget {
 
 class QCarouselCardFragment extends ConsumerWidget {
   const QCarouselCardFragment({
-    Key? key,
+    super.key,
     required this.message,
     required this.card,
-  }) : super(key: key);
+  });
   final QMessage message;
   final QCarouselCard card;
 

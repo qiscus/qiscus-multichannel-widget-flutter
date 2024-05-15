@@ -9,9 +9,9 @@ import '../provider.dart';
 
 class QChatBubbleRight extends ConsumerWidget {
   const QChatBubbleRight({
-    Key? key,
+    super.key,
     required this.message,
-  }) : super(key: key);
+  });
 
   final QMessage message;
 
