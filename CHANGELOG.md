@@ -1,3 +1,8 @@
+## 1.3.2
+
+- Update dependencies
+- Fix not loading more messages
+
 ## 1.3.1
 
 - add functionality to call function without using QMultichannelConsumer
