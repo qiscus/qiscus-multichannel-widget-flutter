@@ -1,7 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class LoginPage extends Page {
   const LoginPage({
@@ -110,7 +110,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     var displayName = displayNameController.text;
 
     try {
-      print('set user! $username');
       ref.read(QMultichannel.provider).setChannelId(channelId);
       ref.read(QMultichannel.provider).setUser(
         userId: username,
@@ -126,25 +125,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     var deviceId = await FirebaseMessaging.instance.getToken();
     ref.read(QMultichannel.provider).setDeviceId(deviceId!);
 
-    print('initiate chat!');
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      sound: true,
+    );
+
     try {
-      var appId = ref.read(appIdProvider);
-      print('appId: $appId');
-      ref.read(QMultichannel.provider).initiateChat().then((room) {
-        print('success initiate chat: ${room.id}');
-      }, onError: (err) {
-        print('fail initiate chat: ${err.runtimeType}');
-        print(err);
-      });
+      ref.read(QMultichannel.provider).initiateChat();
 
       if (mounted) {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => QChatRoomScreen(onBack: (ctx) {
               ref.read(QMultichannel.provider).clearUser();
-              Navigator.of(context)
-                  .maybePop()
-                  .then((r) => debugPrint('maybePop: $r'));
+              Navigator.of(context).maybePop();
             }),
           ),
         );

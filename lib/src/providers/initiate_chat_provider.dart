@@ -97,7 +97,6 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
       roomData = await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
     } catch (e) {
       roomData = QChatRoomWithMessages(QChatRoom(id: 1, uniqueId: '1'), []);
-      print('error while getting room data: $e');
     }
     var room = roomData.room;
     var messages = roomData.messages;
@@ -128,12 +127,12 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
     // Update providers
     ref.read(isResolvedProvider.notifier).state = isResolved ?? false;
     ref.read(isSessionalProvider.notifier).state = isSessional ?? false;
+    ref.read(roomStateProvider.notifier).state =
+        QChatRoomWithMessages(room, messages);
     ref.read(appStateProvider.notifier).state = AppState.ready(
       roomId: roomId,
       account: user,
     );
-    ref.read(roomStateProvider.notifier).state =
-        QChatRoomWithMessages(room, messages);
 
     return room;
   };

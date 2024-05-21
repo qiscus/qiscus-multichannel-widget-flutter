@@ -8,7 +8,8 @@ class MessagesNotifier extends _$MessagesNotifier {
       _onMessageReceived(m);
     });
 
-    return [];
+    var m = ref.watch(roomProvider.select((v) => v.valueOrNull?.messages));
+    return m ?? [];
   }
 
   void _onMessageRead(QMessage message) {
@@ -20,8 +21,6 @@ class MessagesNotifier extends _$MessagesNotifier {
       return m;
     }).toList();
   }
-
-  void Function(QMessage) get receive => _onMessageReceived;
 
   void _onMessageReceived(QMessage message) {
     message.status = QMessageStatus.read;
@@ -66,7 +65,7 @@ class MessagesNotifier extends _$MessagesNotifier {
 
   Future<List<QMessage>> loadMoreMessage([int lastMessageId = 0]) async {
     var qiscus = await ref.read(qiscusProvider.future);
-    var roomId = await ref.read(roomIdProvider).future;
+    var roomId = await ref.read(roomIdProvider.future);
 
     var messages = await qiscus.getPreviousMessagesById(
       roomId: roomId,
@@ -107,8 +106,6 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
       return m;
     }).toList();
   }
-
-  void Function(QMessage) get receive => _onMessageReceived;
 
   void _onMessageReceived(QMessage message) {
     message.status = QMessageStatus.read;

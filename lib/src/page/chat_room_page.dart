@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
+import 'package:qiscus_multichannel_widget/src/utils/debouncer.dart';
 
 import '../models.dart';
 import '../provider.dart';
@@ -63,6 +64,8 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
   QChatRoomScreenState();
 
   late final void Function(BuildContext)? onBack = widget.onBack;
+  var _isAbleToLoadMore = true;
+  final _debouncer = Debouncer(300);
 
   @override
   void initState() {
@@ -79,13 +82,11 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
   Widget build(BuildContext context) {
     final base = appThemeConfigProvider.select((v) => v.baseColor);
     final baseBgColor = ref.watch(base);
-    var isAbleToLoadMore = false;
-    var lastCountMessage = 0;
 
     var messages = ref.watch(mappedMessagesProvider);
-    isAbleToLoadMore = lastCountMessage < messages.length;
-    var room =
-        ref.watch(roomProvider.select((v) => v.whenData((v) => v.room).value));
+    var room = ref.watch(roomProvider.select((v) => v.valueOrNull?.room));
+
+    var lastMessageId = messages.isEmpty ? null : messages.first.id;
 
     return Scaffold(
       appBar: buildAppBar(
@@ -94,12 +95,8 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
         onBack: () => ref.read(onBackBtnTappedProvider).call(context),
       ),
       body: NotificationListener<ScrollNotification>(
-        onNotification: (ScrollNotification scrollInfo) {
-          if (scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent &&
-              isAbleToLoadMore) {
-            ref.read(messagesNotifierProvider.notifier).loadMoreMessage();
-            isAbleToLoadMore = false;
-          }
+        onNotification: (notif) {
+          _debouncer.run(() => _loadMore(notif, lastMessageId));
           return false;
         },
         child: Column(
@@ -284,5 +281,34 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
         );
       },
     );
+  }
+
+  bool _loadMore(ScrollNotification scrollInfo, int? lastMessageId) {
+    var reachTop =
+        scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent;
+    if (reachTop && _isAbleToLoadMore) {
+      ref
+          .read(messagesNotifierProvider.notifier)
+          .loadMoreMessage(lastMessageId ?? 0)
+          .then((messages) {
+        // Backend return empty array (no more messages)
+        if (messages.isEmpty) {
+          setState(() {
+            _isAbleToLoadMore = false;
+          });
+        }
+
+        if (messages.isNotEmpty) {
+          var lastId = messages.first.id;
+          if (lastMessageId == lastId) {
+            setState(() {
+              _isAbleToLoadMore = false;
+            });
+          }
+        }
+      });
+    }
+
+    return false;
   }
 }
