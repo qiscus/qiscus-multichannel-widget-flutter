@@ -47,7 +47,7 @@ class _AppStateBuilder extends State<App> {
       parentProviderContainer: container,
       appId: appId,
       title: 'Some custom title',
-      avatar: QAvatarConfig.enabled(),
+      avatar: QAvatarConfig.editable('https://via.placeholder.com/200'),
       rightAvatar: QAvatarConfig.enabled(),
       hideEventUI: true,
       onURLTapped: (url) {
