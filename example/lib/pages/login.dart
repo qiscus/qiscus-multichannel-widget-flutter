@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:multichannel_flutter_sample/constants.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class LoginPage extends Page {
@@ -37,16 +38,12 @@ class LoginScreen extends ConsumerStatefulWidget {
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  late final appIdController =
-      TextEditingController(text: 'wefds-c6f0p2h1cxwz3oq');
+  late final appIdController = TextEditingController(text: appId);
   late final usernameController = TextEditingController(text: 'guest-1001');
   late final displayNameController = TextEditingController(text: 'guest-1001');
+  late final channelIdController = TextEditingController(text: channelId);
 
-  // Non Secure Channel
-  late final channelIdController = TextEditingController(text: '126962');
-
-  // Secure Channel
-  // late final channelIdController = TextEditingController(text: '126965');
+  bool initiating = false;
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +88,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => _onDoLogin(),
-                    child: const Text('Login'),
+                  child: IgnorePointer(
+                    ignoring: initiating,
+                    child: QMultichannelConsumer(
+                      builder: (context, multichannel) => ElevatedButton(
+                        onPressed: () => _onDoLogin(),
+                        child: initiating
+                            ? const Text('Logging In...')
+                            : const Text('Login'),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -109,14 +113,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     var username = usernameController.text;
     var displayName = displayNameController.text;
 
+    setState(() {
+      initiating = true;
+    });
+
     try {
       ref.read(QMultichannel.provider).setChannelId(channelId);
       ref.read(QMultichannel.provider).setUser(
-        userId: username,
-        displayName: displayName,
-        userProperties: {'name': 'something', 'username': username},
-        extras: {'extras_value1': 'value1'},
-      );
+            userId: username,
+            displayName: displayName,
+            userProperties: {'name': 'something', 'username': username},
+            extras: {'extras_value1': 'value1'},
+            avatarUrl: 'https://via.placeholder.com/200',
+          );
     } catch (e) {
       print('got error');
       print(e);
@@ -133,7 +142,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     );
 
     try {
-      ref.read(QMultichannel.provider).initiateChat();
+      await ref.read(QMultichannel.provider).initiateChat().then((_) {
+        setState(() {
+          initiating = false;
+        });
+      });
 
       if (mounted) {
         Navigator.of(context).push(

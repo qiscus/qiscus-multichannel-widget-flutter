@@ -14,7 +14,7 @@ Future<InitiateChatFunction> initiateChat(InitiateChatRef ref) async {
   var qiscus = await ref.watch(qiscusProvider.future);
   var userId = ref.watch(userIdProvider);
   var displayName = ref.watch(displayNameProvider);
-  var avatarUrl = ref.watch(avatarUrlProvider);
+  var avatarUrl = ref.watch(userAvatarUrl);
   var userProperties = ref.watch(userPropertiesProvider);
   var channelId = ref.watch(channelIdConfigProvider);
   var sdkUserExtras = ref.watch(sdkUserExtrasProvider);
