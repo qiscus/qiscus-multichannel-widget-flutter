@@ -1,3 +1,7 @@
+## 1.3.3
+
+- Fix avatar not changing
+
 ## 1.3.2
 
 - Update dependencies
