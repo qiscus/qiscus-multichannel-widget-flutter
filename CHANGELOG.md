@@ -1,3 +1,7 @@
+## 1.3.4
+
+- Change secure storage library
+
 ## 1.3.3
 
 - Fix avatar not changing
