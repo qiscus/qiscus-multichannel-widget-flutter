@@ -1,47 +1,41 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multichannel_flutter_sample/constants.dart';
+import 'package:multichannel_flutter_sample/constant.dart' as constant;
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
 
 class LoginPage extends Page {
-  const LoginPage({
-    required this.onChangeAppId,
-  }) : super(key: const ValueKey('LoginPageKey'));
-
   final void Function(String appId) onChangeAppId;
 
-  @override
-  String? get name => 'LoginPage';
+  const LoginPage({required this.onChangeAppId})
+      : super(key: const ValueKey('LoginPageKey'));
 
   @override
   Route createRoute(BuildContext context) {
     return MaterialPageRoute(
-      settings: this,
-      builder: (context) => LoginScreen(
-        onChangeAppId: onChangeAppId,
-      ),
-    );
+        settings: this,
+        builder: (BuildContext context) {
+          return LoginScreen(onChangeAppId: onChangeAppId);
+        });
   }
 }
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({
-    super.key,
-    this.onChangeAppId,
-  });
-
+  const LoginScreen({super.key, this.onChangeAppId});
   final void Function(String appId)? onChangeAppId;
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return _LoginScreenState();
+  }
 }
 
 class _LoginScreenState extends ConsumerState<LoginScreen> {
-  late final appIdController = TextEditingController(text: appId);
+  late final appIdController = TextEditingController(text: constant.appId);
   late final usernameController = TextEditingController(text: 'guest-1001');
   late final displayNameController = TextEditingController(text: 'guest-1001');
-  late final channelIdController = TextEditingController(text: channelId);
+  late final channelIdController =
+      TextEditingController(text: constant.channelId);
 
   bool initiating = false;
 
@@ -117,22 +111,20 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       initiating = true;
     });
 
-    try {
-      ref.read(QMultichannel.provider).setChannelId(channelId);
-      ref.read(QMultichannel.provider).setUser(
-            userId: username,
-            displayName: displayName,
-            userProperties: {'name': 'something', 'username': username},
-            extras: {'extras_value1': 'value1'},
-            avatarUrl: 'https://via.placeholder.com/200',
-          );
-    } catch (e) {
-      print('got error');
-      print(e);
-    }
+    ref.read(QMultichannel.provider).setChannelId(channelId);
+    ref.read(QMultichannel.provider).setUser(
+          userId: username,
+          displayName: displayName,
+          userProperties: {'name': 'something', 'username': username},
+          extras: {'extras_value1': 'value1'},
+          avatarUrl: 'https://via.placeholder.com/200',
+        );
 
-    var deviceId = await FirebaseMessaging.instance.getToken();
-    ref.read(QMultichannel.provider).setDeviceId(deviceId!);
+    await FirebaseMessaging.instance.getToken().then((token) {
+      if (token != null) ref.read(QMultichannel.provider).setDeviceId(token);
+    }).catchError((error) {
+      print('got error when setting device token: $error');
+    });
 
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
