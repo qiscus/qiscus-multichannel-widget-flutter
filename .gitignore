@@ -31,3 +31,9 @@ example/android/app/google-services.json
 example/ios/firebase_app_id_file.json
 example/ios/Runner/GoogleService-Info.plist
 example/lib/firebase_options.dart
+.flutter-plugins-dependencies
+example/macos/Flutter/GeneratedPluginRegistrant.swift
+example/macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+example/macos/Flutter/ephemeral/flutter_export_environment.sh
+example/android/app/build.gradle
+.vscode/launch.json
