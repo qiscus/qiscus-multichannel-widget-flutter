@@ -646,7 +646,7 @@ final lastMessageProvider = AutoDisposeProvider<QMessage>.internal(
 );
 
 typedef LastMessageRef = AutoDisposeProviderRef<QMessage>;
-String _$messageDeletedHash() => r'f9979ff59b1f1992d692f6ccde75dcb53eada9bc';
+String _$messageDeletedHash() => r'da3824512a3f1b265ddbc677fabd9e64396d7dfd';
 
 /// See also [messageDeleted].
 @ProviderFor(messageDeleted)
@@ -661,7 +661,7 @@ final messageDeletedProvider = AutoDisposeStreamProvider<QMessage>.internal(
 );
 
 typedef MessageDeletedRef = AutoDisposeStreamProviderRef<QMessage>;
-String _$messageDeliveredHash() => r'e20bb706cdcc7ea8ba3ef45f63dd6e189c958819';
+String _$messageDeliveredHash() => r'37ceec72345436c595ba480cc6bb34c4db647fa9';
 
 /// See also [messageDelivered].
 @ProviderFor(messageDelivered)
@@ -676,7 +676,7 @@ final messageDeliveredProvider = AutoDisposeStreamProvider<QMessage>.internal(
 );
 
 typedef MessageDeliveredRef = AutoDisposeStreamProviderRef<QMessage>;
-String _$messageReadHash() => r'8cc9214beb0856d365d2c435132dd3dfb960f873';
+String _$messageReadHash() => r'868f3e4e5e101ea2efd62204a590b67e135fa019';
 
 /// See also [messageRead].
 @ProviderFor(messageRead)
@@ -690,7 +690,7 @@ final messageReadProvider = AutoDisposeStreamProvider<QMessage>.internal(
 );
 
 typedef MessageReadRef = AutoDisposeStreamProviderRef<QMessage>;
-String _$messageReceivedHash() => r'65cc28b6febbfe6c442163559a12e8bfddfddd0e';
+String _$messageReceivedHash() => r'3c59c51801fcf1c1d455528125ddf8d7d55758b4';
 
 /// See also [messageReceived].
 @ProviderFor(messageReceived)
@@ -879,7 +879,7 @@ final userPresenceProvider = AutoDisposeStreamProvider<QUserPresence>.internal(
 );
 
 typedef UserPresenceRef = AutoDisposeStreamProviderRef<QUserPresence>;
-String _$userTypingHash() => r'e3b0cfef2e3a9d47fe38fa0bcb83853732916526';
+String _$userTypingHash() => r'04c9a226805a0036625a0751150e18682ec4136a';
 
 /// See also [userTyping].
 @ProviderFor(userTyping)
@@ -893,7 +893,7 @@ final userTypingProvider = AutoDisposeStreamProvider<QUserTyping>.internal(
 );
 
 typedef UserTypingRef = AutoDisposeStreamProviderRef<QUserTyping>;
-String _$messagesNotifierHash() => r'095fac9f6866db24bb9b858640524dc3c7ccbe85';
+String _$messagesNotifierHash() => r'e040041391b7723e746dbff4876cf65712cc3474';
 
 /// See also [MessagesNotifier].
 @ProviderFor(MessagesNotifier)

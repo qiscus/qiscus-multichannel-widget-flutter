@@ -37,6 +37,7 @@ part 'provider.g.dart';
 part 'qiscus_sdk_provider.dart';
 part 'room_id_provider.dart';
 part 'room_provider.dart';
+part 'room_realtime_provider.dart';
 part 'sessional_provider.dart';
 part 'shared_preference_provider.dart';
 part 'states_provider.dart';

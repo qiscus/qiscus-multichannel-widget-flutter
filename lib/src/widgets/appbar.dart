@@ -38,11 +38,45 @@ AppBar buildAppBar({
         ),
         Padding(
           padding: const EdgeInsets.only(left: 10.0),
-          child: Text(ref.watch(titleConfigProvider)),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(ref.watch(titleConfigProvider)),
+              const QChatRoomStatus(),
+            ],
+          ),
         ),
       ],
     ),
   );
+}
+
+/// Status realtime lawan bicara di header: typing (prioritas) atau presence.
+/// Tidak menampilkan apa pun selama presence belum diketahui.
+class QChatRoomStatus extends ConsumerWidget {
+  const QChatRoomStatus({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var isTyping = ref.watch(counterpartTypingProvider).isNotEmpty;
+    var presence = ref.watch(counterpartPresenceStatusProvider);
+
+    String? label;
+    if (isTyping) {
+      label = 'Typing...';
+    } else if (presence == QPresenceStatus.online) {
+      label = 'Online';
+    } else if (presence == QPresenceStatus.offline) {
+      label = 'Offline';
+    }
+
+    if (label == null) return const SizedBox.shrink();
+    return Text(
+      label,
+      style: const TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+    );
+  }
 }
 
 Widget buildAvatar(WidgetRef ref) {

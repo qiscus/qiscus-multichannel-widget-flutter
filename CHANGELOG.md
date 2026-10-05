@@ -1,3 +1,11 @@
+## 1.4.0
+
+- Add multiline chat composer: Return inserts a new line, the text field grows up to 3 lines
+  and then scrolls, and the attach/send buttons stay aligned to the bottom of the field.
+- Dismiss the keyboard by dragging the chat history (needed on iOS now that Return adds a line).
+- Add realtime indicators in the chat room: read and delivered receipts on sent messages, plus
+  agent typing and online/offline status in the app bar.
+
 ## 1.3.7
 
 - Fix `MissingPluginException` crash when opening the chat room on builds that resolve

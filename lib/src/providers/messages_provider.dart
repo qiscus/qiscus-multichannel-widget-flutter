@@ -9,6 +9,12 @@ class MessagesNotifier extends _$MessagesNotifier {
     ref.subscribe(messageReceivedProvider, (QMessage m) {
       _onMessageReceived(m);
     });
+    ref.subscribe(messageDeliveredProvider, (QMessage m) {
+      _onMessageStatus(m, QMessageStatus.delivered);
+    });
+    ref.subscribe(messageReadProvider, (QMessage m) {
+      _onMessageStatus(m, QMessageStatus.read);
+    });
 
     // Snapshot room (re)loads — initiateChat() pertama maupun ulang — lewat
     // listener, BUKAN ref.watch: watch akan me-rebuild notifier ini dan
@@ -66,29 +72,51 @@ class MessagesNotifier extends _$MessagesNotifier {
       if (idx == -1) {
         merged.add(msg);
       } else {
+        // Snapshot server bisa lebih lama dari receipt realtime yang sudah
+        // diterima: jangan turunkan status yang sudah diketahui.
+        msg.status = _maxStatus(merged[idx].status, msg.status);
         merged[idx] = msg;
       }
     }
     state = merged;
   }
 
-  void _onMessageRead(QMessage message) {
-    state = state.map((m) {
-      if (m.timestamp.isBefore(message.timestamp)) {
-        m.status = QMessageStatus.read;
-      }
+  /// Receipt delivered/read dari realtime/sync SDK untuk pesan [receipt]
+  /// (dicocokkan lewat uniqueId atau id).
+  ///
+  /// Hanya pesan outgoing (sender = akun ini) yang diubah: event SDK tidak
+  /// membawa siapa pengirim receipt, dan receipt untuk pesan agent bisa
+  /// berasal dari customer sendiri (SDK otomatis markAsDelivered pesan
+  /// masuk), jadi bukan bukti pesan customer sudah diterima/dibaca agent.
+  /// Sama seperti handler SDK, hanya pesan yang cocok yang diubah. Status
+  /// tidak pernah diturunkan.
+  void _onMessageStatus(QMessage receipt, QMessageStatus status) {
+    var accountId = ref.read(accountProvider).valueOrNull?.id;
+    if (accountId == null) return;
 
-      return m;
-    }).toList();
+    var idx = state.indexWhere((m) =>
+        m.uniqueId == receipt.uniqueId ||
+        (receipt.id > 0 && m.id == receipt.id));
+    if (idx == -1) return;
+
+    var target = state[idx];
+    if (target.sender.id != accountId) return;
+
+    // Selalu emit list baru: instance yang sama bisa sudah dimutasi SDK,
+    // jadi perbandingan status saja tidak cukup untuk memicu redraw.
+    target.status = _maxStatus(target.status, status);
+    state = [...state];
   }
 
   void _onMessageReceived(QMessage message) {
-    message.status = QMessageStatus.read;
     var idx = state.indexWhere((v) => v.uniqueId == message.uniqueId);
 
     if (idx == -1) {
       state = [...state, message];
     } else {
+      // Echo/sync pesan yang sudah dikenal tidak boleh menurunkan status
+      // yang sudah diketahui dari receipt (mis. delivered/read).
+      message.status = _maxStatus(state[idx].status, message.status);
       state = state.updateAt(
         index: idx,
         value: message,
@@ -104,9 +132,13 @@ class MessagesNotifier extends _$MessagesNotifier {
     Future.microtask(() async {
       var m = await qiscus.sendMessage(message: message);
       message.id = m.id;
-      message.status = QMessageStatus.read;
+      // Server sukses = minimal `sent`. delivered/read hanya dari receipt
+      // realtime yang cocok — jangan dioptimalkan ke read di sini.
+      message.status = _maxStatus(
+        message.status,
+        _maxStatus(m.status, QMessageStatus.sent),
+      );
       _onMessageReceived(message);
-      _onMessageRead(message);
       qiscus.synchronize();
     });
 
@@ -144,6 +176,19 @@ class MessagesNotifier extends _$MessagesNotifier {
     state = const [];
   }
 }
+
+/// Urutan progres status pesan. Explicit (bukan `enum.index`) karena
+/// qiscus_chat_sdk 2.2.x menambah `failed` setelah `read`; `failed` dan
+/// `sending` diperlakukan setara (belum terkirim).
+int _statusRank(QMessageStatus status) {
+  if (status == QMessageStatus.read) return 3;
+  if (status == QMessageStatus.delivered) return 2;
+  if (status == QMessageStatus.sent) return 1;
+  return 0;
+}
+
+QMessageStatus _maxStatus(QMessageStatus a, QMessageStatus b) =>
+    _statusRank(b) > _statusRank(a) ? b : a;
 
 class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
   final AutoDisposeStateNotifierProviderRef ref;

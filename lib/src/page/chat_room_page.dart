@@ -108,7 +108,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
                 child: buildMessageList(messages, room),
               ),
             ),
-            QChatForm(),
+            const QChatForm(),
           ],
         ),
       ),
@@ -126,6 +126,7 @@ class QChatRoomScreenState extends ConsumerState<QChatRoomScreen> {
     } else {
       return GroupedListView<QMessage, DateTime>(
         reverse: true,
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         elements: messages,
         groupBy: (message) => _buildGroupList(message),
         itemBuilder: (context, message) {
