@@ -95,6 +95,34 @@ void main() {
     await disposeChatRoom(tester);
   });
 
+  testWidgets('dragging the chat history dismisses the keyboard',
+      (tester) async {
+    final fake = FakeQiscus();
+    final messages = List.generate(
+      20,
+      (index) => textMessage(
+        id: index + 1,
+        uniqueId: 'u-${index + 1}',
+        sender: me,
+        timestamp: t0.add(Duration(minutes: index)),
+      ),
+    );
+    await pumpChatRoom(tester, fake, messages: messages);
+
+    final inputFinder = find.byType(TextField);
+    await tester.showKeyboard(inputFinder);
+    await tester.pump();
+    final focusNode =
+        tester.widget<EditableText>(find.byType(EditableText)).focusNode;
+    expect(focusNode.hasFocus, isTrue);
+
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 200));
+    await tester.pumpAndSettle();
+
+    expect(focusNode.hasFocus, isFalse);
+    await disposeChatRoom(tester);
+  });
+
   testWidgets('header shows typing only for other users in the active room',
       (tester) async {
     final fake = FakeQiscus();
