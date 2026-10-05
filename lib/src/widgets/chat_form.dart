@@ -123,6 +123,7 @@ class _QChatFormState extends ConsumerState<QChatForm> {
               child: Column(
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       TextButton(
                         onPressed: () async {
@@ -146,9 +147,10 @@ class _QChatFormState extends ConsumerState<QChatForm> {
                           child: TextField(
                             enabled: account.hasValue,
                             controller: _messageController,
-                            onSubmitted: (_) => _onSubmit(
-                              repliedMessage: repliedComment,
-                            ),
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+                            minLines: 1,
+                            maxLines: 3,
                             decoration: InputDecoration(
                               hintText: 'Your message here...',
                               disabledBorder: border,
