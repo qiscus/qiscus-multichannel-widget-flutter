@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:multichannel_flutter_sample/constant.dart';
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
@@ -7,9 +8,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'firebase_options.dart';
 import 'login_screen.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Show notifications while the app is open too (hidden by default on iOS).
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
 
   runApp(const App());
 }

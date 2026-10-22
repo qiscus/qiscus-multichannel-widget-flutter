@@ -1,8 +1,10 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multichannel_flutter_sample/constant.dart' as constant;
 import 'package:qiscus_multichannel_widget/qiscus_multichannel_widget.dart';
+
+import 'push_setup.dart';
 
 class LoginPage extends Page {
   final void Function(String appId) onChangeAppId;
@@ -120,18 +122,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           avatarUrl: 'https://via.placeholder.com/200',
         );
 
-    await FirebaseMessaging.instance.getToken().then((token) {
-      if (token != null) ref.read(QMultichannel.provider).setDeviceId(token);
-    }).catchError((error) {
-      print('got error when setting device token: $error');
-    });
-
-    await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      sound: true,
-    );
+    // Permission -> APNs token -> FCM token, then register before initiateChat().
+    // iOS debug builds use the APNs sandbox, so isDevelopment = kDebugMode.
+    var pushToken = await preparePushToken();
+    if (pushToken != null) {
+      ref
+          .read(QMultichannel.provider)
+          .setDeviceId(pushToken, isDevelopment: kDebugMode);
+    }
 
     try {
       await ref.read(QMultichannel.provider).initiateChat().then((_) {
