@@ -145,6 +145,59 @@ class MessagesNotifier extends _$MessagesNotifier {
     return message;
   }
 
+  /// Kirim pesan lokasi: optimistic (sending) -> POST post_comment ->
+  /// update id/status -> synchronize. Lihat [_postLocationComment].
+  Future<QMessage> sendLocationMessage(QLocation location) async {
+    var qiscus = await ref.read(qiscusProvider.future);
+    var roomId = await ref.read(roomIdProvider.future);
+    var sdkBaseUrl = ref.read(sdkBaseUrlProvider);
+    var message = _generateLocationMessage(qiscus, roomId, location);
+    _onMessageReceived(message);
+
+    Future.microtask(() async {
+      _PostedComment posted;
+      try {
+        posted = await _postLocationComment(
+          sdkBaseUrl: sdkBaseUrl,
+          qiscus: qiscus,
+          message: message,
+          location: location,
+        );
+      } catch (e) {
+        _logLocationError(e);
+        _onLocationSendFailed(message);
+        return;
+      }
+
+      message.id = posted.id;
+      message.status = _maxStatus(
+        message.status,
+        _maxStatus(posted.status, QMessageStatus.sent),
+      );
+      _onMessageReceived(message);
+      qiscus.synchronize();
+    });
+
+    return message;
+  }
+
+  /// POST gagal: tandai `failed` (SDK >= 2.2) atau hapus pesan (SDK lama),
+  /// kecuali echo realtime/sync sudah membuktikan pesan tersimpan di server
+  /// (mis. timeout setelah server menerima request).
+  void _onLocationSendFailed(QMessage message) {
+    var idx = state.indexWhere((v) => v.uniqueId == message.uniqueId);
+    if (idx == -1) return;
+    if (_statusRank(state[idx].status) > 0) return;
+
+    var failed = _locationFailedStatus;
+    if (failed == null) {
+      state = [...state]..removeAt(idx);
+    } else {
+      message.status = failed;
+      state = state.updateAt(index: idx, value: message);
+    }
+  }
+
   Future<QMessage> deleteMessage(String messageUniqueId) async {
     var qiscus = await ref.read(qiscusProvider.future);
     var messages = state.firstWhere((v) => v.uniqueId == messageUniqueId);
@@ -243,6 +296,50 @@ class MessagesStateNotifier extends StateNotifier<List<QMessage>> {
     return message;
   }
 
+  /// Lihat [MessagesNotifier.sendLocationMessage].
+  Future<QMessage> sendLocationMessage(QLocation location) async {
+    var qiscus = await ref.read(qiscusProvider.future);
+    var roomId = await ref.read(roomIdProvider.future);
+    var sdkBaseUrl = ref.read(sdkBaseUrlProvider);
+    var message = _generateLocationMessage(qiscus, roomId, location);
+    _onMessageReceived(message);
+    // _onMessageReceived di notifier lama selalu men-set `read`; pesan
+    // optimistic harus tetap `sending` sampai server menjawab.
+    message.status = QMessageStatus.sending;
+    state = [...state];
+
+    Future.microtask(() async {
+      _PostedComment posted;
+      try {
+        posted = await _postLocationComment(
+          sdkBaseUrl: sdkBaseUrl,
+          qiscus: qiscus,
+          message: message,
+          location: location,
+        );
+      } catch (e) {
+        _logLocationError(e);
+        var idx = state.indexWhere((v) => v.uniqueId == message.uniqueId);
+        if (idx == -1 || state[idx].status != QMessageStatus.sending) return;
+        var failed = _locationFailedStatus;
+        if (failed == null) {
+          state = [...state]..removeAt(idx);
+        } else {
+          message.status = failed;
+          state = state.updateAt(index: idx, value: message);
+        }
+        return;
+      }
+
+      message.id = posted.id;
+      _onMessageReceived(message);
+      _onMessageRead(message);
+      qiscus.synchronize();
+    });
+
+    return message;
+  }
+
   Future<QMessage> deleteMessage(String messageUniqueId) async {
     var qiscus = await ref.read(qiscusProvider.future);
     var messages = state.firstWhere((v) => v.uniqueId == messageUniqueId);
@@ -296,6 +393,7 @@ List<QMessage> mappedMessages(MappedMessagesRef ref) {
     QMessage? message;
 
     message ??= QMessageSystem.tryParse(it);
+    message ??= QMessageLocation.tryParse(it);
     message ??= QMessageImage.tryParse(it);
     message ??= QMessageVideo.tryParse(it);
     message ??= QMessageFile.tryParse(it);

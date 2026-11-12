@@ -28,6 +28,7 @@ abstract class IQMultichannel {
   void setDeviceId(String deviceId, {bool isDevelopment = false});
   Future<void> clearUser();
   Future<QMessage> sendMessage(QMessage message);
+  Future<QMessage> sendLocationMessage(QLocation location);
   Future<QMessage> deleteMessage(String messageUniqueId);
   Future<List<QMessage>> loadMoreMessages(int lastMessageId);
   Future<QMessage> generateMessage({
@@ -175,6 +176,13 @@ class _QMultichannelProviderRef implements IQMultichannel {
   @override
   Future<QMessage> sendMessage(QMessage message) async {
     return ref.read(messagesNotifierProvider.notifier).sendMessage(message);
+  }
+
+  @override
+  Future<QMessage> sendLocationMessage(QLocation location) async {
+    return ref
+        .read(messagesNotifierProvider.notifier)
+        .sendLocationMessage(location);
   }
 
   @override
@@ -365,6 +373,13 @@ class _QMultichannelWidgetRef implements IQMultichannel {
   @override
   Future<QMessage> sendMessage(QMessage message) async {
     return ref.read(messagesNotifierProvider.notifier).sendMessage(message);
+  }
+
+  @override
+  Future<QMessage> sendLocationMessage(QLocation location) async {
+    return ref
+        .read(messagesNotifierProvider.notifier)
+        .sendLocationMessage(location);
   }
 
   @override

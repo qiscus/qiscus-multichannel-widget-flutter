@@ -39,6 +39,13 @@ dependencies:
   # batasnya ikut terbawa ke resolusi app konsumen. Naikkan pin ini hanya
   # bareng kenaikan flutter_secure_storage_x ke >= 12.
   flutter_secure_storage_x_platform_interface: ">=1.4.1 <1.4.2"
+  # Share location (map picker + GPS). Rentang versi sengaja lebar supaya
+  # app konsumen dengan Flutter lebih lama (flutter_map 7 = Flutter >=3.10)
+  # tetap bisa resolve; flutter_map 8 butuh Flutter >=3.27.
+  flutter_map: ">=7.0.2 <9.0.0"
+  latlong2: ">=0.9.1 <0.11.0"
+  geolocator: ">=13.0.0 <15.0.0"
+  geocoding: ">=3.0.0 <5.0.0"
 
 dev_dependencies:
   # flutter_test:

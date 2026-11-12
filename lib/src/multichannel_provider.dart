@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart'
 import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart' hide QAccount;
 
 import 'config/avatar_config.dart';
+import 'config/location_map_config.dart';
 import 'config/subtitle_config.dart';
 import 'provider.dart';
 import 'states/app_theme.dart';
@@ -22,6 +23,7 @@ class QMultichannelProvider extends ConsumerStatefulWidget {
     this.hideEventUI = false,
     this.baseUrl = 'https://multichannel.qiscus.com',
     this.sdkBaseUrl = 'https://api3.qiscus.com',
+    this.shareLocation,
     //
     this.theme = const QAppTheme(),
     this.parentProviderContainer,
@@ -38,6 +40,15 @@ class QMultichannelProvider extends ConsumerStatefulWidget {
   final bool hideEventUI;
   final String baseUrl;
   final String sdkBaseUrl;
+
+  /// Share location (menu "Location" di attachment menu). `null` (default)
+  /// = mati. Aktifkan dengan salah satu opsi peta:
+  /// - [QLocationMapConfig.openStreetMap] — gratis, tanpa API key.
+  /// - [QLocationMapConfig.google] — Google Maps dengan API key milik client.
+  ///
+  /// Bila aktif, app perlu izin lokasi (Android) dan
+  /// `NSLocationWhenInUseUsageDescription` (iOS).
+  final QLocationMapConfig? shareLocation;
   final void Function(String url)? onURLTapped;
   final ProviderContainer? parentProviderContainer;
 
@@ -66,6 +77,8 @@ class _QMultichannelProviderState extends ConsumerState<QMultichannelProvider> {
             !widget.hideEventUI;
         ref.read(baseUrlProvider.notifier).state = widget.baseUrl;
         ref.read(sdkBaseUrlProvider.notifier).state = widget.sdkBaseUrl;
+        ref.read(locationMapConfigProvider.notifier).state =
+            widget.shareLocation;
         ref.read(onURLTappedProvider.notifier).state = widget.onURLTapped;
       });
     }
@@ -90,6 +103,7 @@ class _QMultichannelProviderState extends ConsumerState<QMultichannelProvider> {
       systemEventVisibleConfigProvider.overrideWithValue(!widget.hideEventUI),
       baseUrlProvider.overrideWithValue(widget.baseUrl),
       sdkBaseUrlProvider.overrideWithValue(widget.sdkBaseUrl),
+      locationMapConfigProvider.overrideWithValue(widget.shareLocation),
       onURLTappedProvider.overrideWithValue(widget.onURLTapped),
     ];
   }

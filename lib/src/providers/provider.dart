@@ -12,6 +12,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../account.dart';
 import '../config/avatar_config.dart';
+import '../config/location_map_config.dart';
 import '../config/subtitle_config.dart';
 import '../models.dart';
 import '../states/app_state.dart';
@@ -26,6 +27,7 @@ part 'avatar_url_provider.dart';
 part 'chat_bubble_color_provider.dart';
 part 'initiate_chat_provider.dart';
 part 'last_message_provider.dart';
+part 'location_provider.dart';
 part 'message_deleted_provider.dart';
 part 'message_delivered_provider.dart';
 part 'message_read_provider.dart';
