@@ -6,6 +6,7 @@ import '../models.dart';
 import '../widgets/chat_buttons.dart';
 import '../widgets/chat_file.dart';
 import '../widgets/chat_image.dart';
+import '../widgets/chat_location.dart';
 import '../widgets/chat_system.dart';
 import '../widgets/chat_text.dart';
 import '../widgets/chat_video.dart';
@@ -30,6 +31,8 @@ Widget buildMessageArea(QMessage message) {
       return QChatButton(message: message as QMessageButton);
     case QMessageCarousel:
       return QChatCarousel(message: message as QMessageCarousel);
+    case QMessageLocation:
+      return QChatLocation(message: message as QMessageLocation);
     case QMessageReply:
       return QChatReply(message: message as QMessageReply);
     default:

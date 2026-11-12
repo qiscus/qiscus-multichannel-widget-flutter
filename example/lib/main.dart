@@ -29,12 +29,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return QMultichannelProvider(
       appId: appId,
-      title: 'Some custom title',
-      // avatar: QAvatarConfig.editable('https://via.placeholder.com/200'),
-      // rightAvatar: QAvatarConfig.enabled(),
-      avatar: const QAvatarConfig.disabled(),
-      rightAvatar: const QAvatarConfig.disabled(),
-      hideEventUI: true,
+      // Shows "Location" in the attachment menu (needs location permissions
+      // in AndroidManifest.xml and NSLocationWhenInUseUsageDescription).
+      shareLocation: const QLocationMapConfig.openStreetMap(),
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);
         if (uri != null) {

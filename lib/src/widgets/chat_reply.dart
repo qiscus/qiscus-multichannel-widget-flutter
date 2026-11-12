@@ -42,7 +42,7 @@ class QChatReply extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                _processRepliedMessage(payload.repliedCommentMessage),
+                _processRepliedMessage(payload),
                 style: TextStyle(
                   color: replyTextColor,
                 ),
@@ -113,7 +113,14 @@ class QChatReply extends ConsumerWidget {
     }
   }
 
-  String _processRepliedMessage(String repliedCommentMessage) {
+  String _processRepliedMessage(QChatReplyPayload payload) {
+    // Reply ke pesan lokasi: server bisa menyimpan type asli (`location`),
+    // sedangkan SDK mengirim `custom` + payload ber-`type: location`.
+    if (payload.repliedCommentType == QLocation.messageType ||
+        payload.repliedCommentPayload?['type'] == QLocation.messageType) {
+      return QLocation.fallbackLabel;
+    }
+    var repliedCommentMessage = payload.repliedCommentMessage;
     if (repliedCommentMessage.startsWith('[file]')) {
       return 'File attachment';
     }

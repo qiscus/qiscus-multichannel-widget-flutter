@@ -8,6 +8,7 @@ import 'package:qiscus_chat_sdk/qiscus_chat_sdk.dart';
 import '../provider.dart';
 import '../providers/replied_message_provider.dart';
 import '../utils/colors.dart';
+import 'location_picker_sheet.dart';
 
 class QChatForm extends ConsumerStatefulWidget {
   const QChatForm({super.key});
@@ -46,6 +47,7 @@ class _QChatFormState extends ConsumerState<QChatForm> {
         ref.watch(accountProvider.select((v) => v.asData?.value.name));
 
     var account = ref.watch(accountProvider);
+    var locationEnabled = ref.watch(locationEnabledProvider);
 
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),
@@ -129,7 +131,10 @@ class _QChatFormState extends ConsumerState<QChatForm> {
                         onPressed: () async {
                           showModalBottomSheet(
                             context: context,
-                            builder: (c) => _modalBottomSheet(c),
+                            builder: (c) => _modalBottomSheet(
+                              c,
+                              locationEnabled: locationEnabled,
+                            ),
                             isDismissible: true,
                             // isScrollControlled: true,
                             elevation: 2,
@@ -237,12 +242,15 @@ class _QChatFormState extends ConsumerState<QChatForm> {
     }
   }
 
-  Widget _modalBottomSheet(BuildContext context) {
+  Widget _modalBottomSheet(
+    BuildContext context, {
+    bool locationEnabled = false,
+  }) {
     var iconColor = const Color.fromARGB(255, 85, 178, 154);
     var textColor = Colors.black87;
 
     return SizedBox(
-      height: 200,
+      height: locationEnabled ? 258 : 200,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 50.0),
         child: Column(
@@ -308,6 +316,38 @@ class _QChatFormState extends ConsumerState<QChatForm> {
                 },
               ),
             ),
+            if (locationEnabled)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 5.0,
+                ),
+                width: double.infinity,
+                alignment: Alignment.centerLeft,
+                child: TextButton.icon(
+                  style: TextButton.styleFrom(
+                    minimumSize: const Size.fromHeight(10),
+                    alignment: Alignment.centerLeft,
+                  ),
+                  icon: Icon(
+                    Icons.location_on,
+                    color: iconColor,
+                  ),
+                  label: Text(
+                    'Location',
+                    style: TextStyle(
+                      color: textColor,
+                    ),
+                  ),
+                  onPressed: () {
+                    // Replace the menu sheet with the map picker. Use the
+                    // chat form's context (inside the widget's ProviderScope),
+                    // not the menu sheet's context.
+                    Navigator.pop(context);
+                    showQLocationPicker(this.context);
+                  },
+                ),
+              ),
           ],
         ),
       ),
