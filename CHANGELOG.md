@@ -1,3 +1,18 @@
+## 1.5.0
+
+- Add share location: the attachment menu gets a **Location** item that opens a map picker
+  (centre pin, "Use current location", GPS accuracy indicator, reverse-geocoded address,
+  "Send location"). Opt-in with one parameter, `QMultichannelProvider(shareLocation: ...)`;
+  `null` (default) keeps it off. Host apps must declare the location permissions (see README).
+- Two map providers: `QLocationMapConfig.openStreetMap()` (free, public OSM tiles) or
+  `QLocationMapConfig.google(apiKey: ...)` (Google Map Tiles API with the client's own key).
+- Location messages use the standard Qiscus format (`type: "location"`, payload
+  `latitude/longitude/name/address/map_url`, plus `accuracy`), already rendered by the
+  Omnichannel dashboard; incoming ones show as a map bubble, and replies preview "Location".
+- New public API: `QLocation`, `QMessageLocation`, `QLocationMapConfig`, `QMapTileSource`,
+  `sendLocationMessage(QLocation)`.
+- New dependencies: `flutter_map` (>=7 <9), `latlong2`, `geolocator`, `geocoding` (<5).
+
 ## 1.4.0
 
 - Add multiline chat composer: Return inserts a new line, the text field grows up to 3 lines
