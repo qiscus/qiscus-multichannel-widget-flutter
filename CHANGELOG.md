@@ -1,3 +1,14 @@
+## 1.5.1
+
+- Fix Android build failure (D8 `Type com.it_nomads.fluttersecurestorage... is defined multiple
+  times`) when the host app also depends on `flutter_secure_storage`. The widget now uses the
+  upstream `flutter_secure_storage` (`>=9.2.4 <11.0.0`) instead of the `flutter_secure_storage_x`
+  fork, so both resolve to a single plugin.
+- Android: widget data is kept in its own preferences file (`QiscusMultichannelSecureStorage`),
+  separate from the host app's secure storage.
+- Upgrade note (Android): the chat session saved by 1.3.4–1.5.0 is not carried over, so the widget
+  initiates the chat once more after upgrading.
+
 ## 1.5.0
 
 - Add share location: the attachment menu gets a **Location** item that opens a map picker

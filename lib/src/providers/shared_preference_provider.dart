@@ -2,9 +2,14 @@ part of 'provider.dart';
 
 @riverpod
 FlutterSecureStorage encSharedPreference(EncSharedPreferenceRef _) {
+  // Upstream flutter_secure_storage (>=9.2.4 <11). Android memakai file prefs
+  // sendiri supaya tidak bercampur dengan data/opsi cipher secure storage
+  // milik host app (plugin yang sama). `sharedPreferencesName` ada di 9.x dan
+  // 10.x; `storageNamespace` penggantinya baru ada di 10.x.
   return const FlutterSecureStorage(
     aOptions: AndroidOptions(
-      dataStore: true,
+      // ignore: deprecated_member_use
+      sharedPreferencesName: 'QiscusMultichannelSecureStorage',
     ),
   );
 }
