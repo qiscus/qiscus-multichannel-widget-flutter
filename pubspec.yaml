@@ -1,6 +1,6 @@
 name: qiscus_multichannel_widget
 description: Omnichannel Platform to Increase Sales and Customer Loyalty.
-version: 1.5.0
+version: 1.5.1
 homepage: https://www.qiscus.com/en
 
 environment:
@@ -24,21 +24,14 @@ dependencies:
   riverpod: ^2.1.3
   async: ^2.10.0
   riverpod_annotation: ^2.1.5
-  flutter_secure_storage_x: ^10.1.0
-  # Pin transitif — JANGAN DIHAPUS tanpa membaca alasannya.
-  # flutter_secure_storage_x 10.2.x menarik
-  # flutter_secure_storage_x_platform_interface dengan caret ^1.4.1, tapi sejak
-  # 1.4.2 (patch bump, 22 Des 2025) paket itu memakai method channel
-  # `plugins.dr1009.com/flutter_secure_storage` sementara implementasi native
-  # 10.x-11.x masih mendaftarkan `plugins.it_nomads.com/flutter_secure_storage`
-  # (rename domain di sisi native baru ikut di flutter_secure_storage_x 12.0.0).
-  # Akibatnya `read()` melempar MissingPluginException dan app crash saat
-  # membuka chat room (kasus client Viberlink, 2026-09 v1.3.6). 1.4.1 adalah
-  # versi terakhir yang masih selaras dengan native 10.x/11.x.
-  # Catatan: ini harus dependency biasa (bukan dependency_overrides) supaya
-  # batasnya ikut terbawa ke resolusi app konsumen. Naikkan pin ini hanya
-  # bareng kenaikan flutter_secure_storage_x ke >= 12.
-  flutter_secure_storage_x_platform_interface: ">=1.4.1 <1.4.2"
+  # Pakai flutter_secure_storage upstream (bukan fork flutter_secure_storage_x):
+  # keduanya memakai package Android `com.it_nomads.fluttersecurestorage` dan
+  # channel yang sama, jadi host app yang memakai upstream gagal build (D8
+  # duplicate class) bila widget memakai fork (kasus MTI #26050). Batas atas <11
+  # karena `AndroidOptions.sharedPreferencesName` (lihat
+  # shared_preference_provider.dart) dihapus di 11.x; host app di 11.x belum
+  # didukung sampai provider dipindah ke `storageNamespace`.
+  flutter_secure_storage: ">=9.2.4 <11.0.0"
   # Share location (map picker + GPS). Rentang versi sengaja lebar supaya
   # app konsumen dengan Flutter lebih lama (flutter_map 7 = Flutter >=3.10)
   # tetap bisa resolve; flutter_map 8 butuh Flutter >=3.27.
