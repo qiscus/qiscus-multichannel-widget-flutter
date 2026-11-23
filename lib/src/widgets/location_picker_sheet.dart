@@ -124,8 +124,26 @@ class _QLocationPickerSheetState extends ConsumerState<QLocationPickerSheet>
     if (state == AppLifecycleState.resumed &&
         (_gpsStatus == _GpsStatus.serviceDisabled ||
             _gpsStatus == _GpsStatus.deniedForever)) {
-      _useCurrentLocation();
+      _retryAfterSettings();
     }
+  }
+
+  /// Retries only when the user actually fixed things in system settings.
+  /// Otherwise the existing banner stays, with no spinner flash.
+  Future<void> _retryAfterSettings() async {
+    try {
+      if (!await Geolocator.isLocationServiceEnabled()) return;
+      final permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.deniedForever ||
+          permission == LocationPermission.denied ||
+          permission == LocationPermission.unableToDetermine) {
+        return;
+      }
+    } catch (_) {
+      return; // keep the current banner
+    }
+    if (!mounted) return;
+    _useCurrentLocation();
   }
 
   // ---------------------------------------------------------------- GPS
@@ -426,7 +444,9 @@ class _QLocationPickerSheetState extends ConsumerState<QLocationPickerSheet>
                   backgroundColor: Colors.white,
                   onPressed: _gpsStatus == _GpsStatus.loading
                       ? null
-                      : _useCurrentLocation,
+                      : _gpsStatus == _GpsStatus.deniedForever
+                          ? () => Geolocator.openAppSettings()
+                          : _useCurrentLocation,
                   child: _gpsStatus == _GpsStatus.loading
                       ? SizedBox(
                           width: 18,
@@ -661,7 +681,10 @@ class _QLocationPickerSheetState extends ConsumerState<QLocationPickerSheet>
                       ),
                       onPressed: _gpsStatus == _GpsStatus.loading || _sending
                           ? null
-                          : _useCurrentLocation,
+                          : _gpsStatus == _GpsStatus.deniedForever
+                              // Permission can only be changed in settings.
+                              ? () => Geolocator.openAppSettings()
+                              : _useCurrentLocation,
                       icon: const Icon(Icons.my_location, size: 18),
                       label: const Text('Use current location'),
                     ),

@@ -8,6 +8,10 @@
   separate from the host app's secure storage.
 - Upgrade note (Android): the chat session saved by 1.3.4–1.5.0 is not carried over, so the widget
   initiates the chat once more after upgrading.
+- Location picker: improve the retry flow after a denied permission. Returning from system
+  settings no longer shows "Getting your current location..." while the permission is still
+  denied, and **Use current location** now opens the app settings when the permission is
+  permanently denied.
 
 ## 1.5.0
 
