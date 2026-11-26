@@ -104,7 +104,9 @@ indicator, the reverse-geocoded address and a **Send location** button.
 The feature is **opt-in** with a single parameter, `shareLocation`. It is
 `null` by default (feature off), so apps that upgrade the widget do not
 suddenly need location permissions. Setting it turns the **Location** menu on
-and picks the map provider at the same time (see *Map provider* below):
+and picks the map provider at the same time (see *Map provider* below). With
+`QLocationMapConfig.dashboard()` the menu and the provider follow the per-app
+setting in the Omnichannel dashboard instead:
 
 ```dart
 QMultichannelProvider(
@@ -175,17 +177,18 @@ ref.read(QMultichannel.provider).sendLocationMessage(
 );
 ```
 
-#### Map provider (2 options)
+#### Map provider (3 options)
 
-The map in the picker and in the location bubble supports two tile sources,
-chosen by the value given to `shareLocation`:
+The map in the picker and in the location bubble supports two tile sources
+(OpenStreetMap or Google Maps), chosen by the value given to `shareLocation`:
+set in code (options 1 and 2) or read from the Omnichannel dashboard (option 3).
 
-| | Option 1: OpenStreetMap | Option 2: Google Maps |
-|---|---|---|
-| Config | `QLocationMapConfig.openStreetMap()` | `QLocationMapConfig.google(apiKey: ...)` |
-| Cost | Free | Billed to **your own** Google Cloud project |
-| API key | Not needed | **Required, owned by the client app** |
-| Limits | [OSM tile usage policy](https://operations.osmfoundation.org/policies/tiles/) | Google Maps Platform quotas/pricing |
+| | Option 1: OpenStreetMap | Option 2: Google Maps | Option 3: From the dashboard |
+|---|---|---|---|
+| Config | `QLocationMapConfig.openStreetMap()` | `QLocationMapConfig.google(apiKey: ...)` | `QLocationMapConfig.dashboard()` |
+| Cost | Free | Billed to **your own** Google Cloud project | Depends on the provider chosen in the dashboard |
+| API key | Not needed | **Required, owned by the client app** | Only for Google: the client's key, saved in the dashboard |
+| Limits | [OSM tile usage policy](https://operations.osmfoundation.org/policies/tiles/) | Google Maps Platform quotas/pricing | Same as the chosen provider |
 
 **Option 1: OpenStreetMap (free).** No API key needed. Tiles
 come from the public server `https://tile.openstreetmap.org`, with the
@@ -229,8 +232,9 @@ QMultichannelProvider(
   reuses it for the picker and every location bubble; it is renewed before it
   expires. Tile requests count towards **your** Google Maps Platform usage.
 - The key ships inside the app binary: restrict it in Google Cloud Console
-  (API restriction to Map Tiles API, plus application restriction if you send
-  the headers above).
+  (API restriction to Map Tiles API + Geocoding API, plus application
+  restriction if you send the headers above). Google Cloud allows only ONE
+  application restriction type per key (Websites, Android apps or iOS apps).
 - If the key is invalid or the session cannot be created, the map background
   stays empty (the pin, GPS and sending still work) and the error from Google is
   printed with `debugPrint` (the key is not logged).
@@ -241,3 +245,57 @@ QMultichannelProvider(
 - Addresses always come from the device's own geocoder (free, no key), for
   both options. Tapping a location bubble opens `map_url` in Google Maps or the
   browser, which needs no key.
+
+**Option 3: From the dashboard.** The share location setting is saved **per
+app** in the Omnichannel dashboard (on/off, OpenStreetMap or Google Maps, and
+the client's Google API key), the same setting the web Live Chat widget uses.
+The Flutter widget reads it instead of hard-coding the provider:
+
+```dart
+QMultichannelProvider(
+  appId: appId,
+  shareLocation: const QLocationMapConfig.dashboard(
+    // Optional, only used when the dashboard picks Google:
+    // mapType: 'roadmap', language: 'en-US', region: 'ID',
+    // headers: {'X-Ios-Bundle-Identifier': 'com.example.app'},
+  ),
+  builder: (context) => MaterialApp(home: _buildNavigator()),
+);
+```
+
+- The widget calls the public endpoint
+  `GET {baseUrl}/api/v2/share_location_config/{appId}` (no auth; `baseUrl` is
+  the `QMultichannelProvider.baseUrl`) and expects
+  `{"data": {"enabled": bool, "provider": "osm" | "google", "google_api_key": string | null}}`.
+- The **Location** menu is shown only when `enabled` is `true`. If the setting
+  is disabled, the request fails (network error, non-200, unexpected body) or
+  Google is chosen without a key, the menu stays hidden. Location bubbles still
+  render (with OpenStreetMap tiles).
+- `provider: "osm"` behaves like option 1; `provider: "google"` behaves like
+  option 2 with the key from the dashboard (Map Tiles API, same session logic).
+- **Restricting the dashboard key.** The dashboard stores ONE Google key per
+  app, used by both the web widget and this widget, and Google Cloud allows
+  only ONE application restriction type per key (Websites, Android apps or iOS
+  apps):
+  - The web widget runs in a Qiscus iframe, so Google sees the Qiscus widget
+    domain as the Referer, not your website. A *Websites* restriction must
+    allow `https://multichannel.qiscus.com/*` (default iframe; different if
+    your app uses another `qismoIframeUrl`) and, if you use a Qiscus-hosted
+    WhatsApp handoff page, that page's domain.
+  - If you use both web and Flutter, choose (a) a key with a *Websites*
+    restriction (this widget reads the key from the dashboard and calls Google
+    without a Referer, so Google will reject it), or (b) no application
+    restriction, but an API restriction (enable only **Map Tiles API** and
+    **Geocoding API**) plus a quota and budget alert.
+  - Alternative for Flutter: use
+    `QLocationMapConfig.google(apiKey: <separate mobile key>)` in your app code
+    instead of `dashboard()`, and restrict that key by Android/iOS app.
+- The result is cached in memory per (`baseUrl`, `appId`) and refreshed on
+  every `initiateChat`. A failed refresh keeps the last value that loaded.
+- The Google key is delivered to every widget, so it is **not a secret**:
+  restrict it in Google Cloud Console to your apps / HTTP referrers and enable
+  only the Map Tiles API (and the Geocoding API, used by the web widget). The
+  key is never logged.
+- Your app still declares the location permissions above, because the menu can
+  be switched on from the dashboard at any time.
+- Addresses still come from the device's geocoder, as in options 1 and 2.

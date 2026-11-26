@@ -1,3 +1,15 @@
+## 1.6.0
+
+- Add a third map option, `QLocationMapConfig.dashboard()`: the share location setting
+  saved per app in the Omnichannel dashboard decides whether the **Location** menu is shown
+  and which map is used (OpenStreetMap, or Google Map Tiles API with the key saved in the
+  dashboard). The widget reads the public endpoint
+  `GET {baseUrl}/api/v2/share_location_config/{appId}`, caches it in memory per
+  (`baseUrl`, `appId`) and refreshes it on every `initiateChat`. A disabled setting or a
+  failed request hides the menu. Optional `mapType`, `language`, `region` and `headers`
+  apply when the dashboard picks Google.
+- `QLocationMapConfig.openStreetMap()` and `QLocationMapConfig.google(...)` behave as before.
+
 ## 1.5.1
 
 - Fix Android build failure (D8 `Type com.it_nomads.fluttersecurestorage... is defined multiple

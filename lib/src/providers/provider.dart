@@ -13,6 +13,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../account.dart';
 import '../config/avatar_config.dart';
 import '../config/location_map_config.dart';
+import '../config/share_location_dashboard_config.dart';
 import '../config/subtitle_config.dart';
 import '../models.dart';
 import '../states/app_state.dart';
