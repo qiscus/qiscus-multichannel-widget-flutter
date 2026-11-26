@@ -12,6 +12,11 @@ typedef InitiateChatFunction = Future<QChatRoom> Function();
 @riverpod
 InitiateChatFunction initiateChat(InitiateChatRef ref) {
   return () async {
+    // Setting share location dari dashboard (mode
+    // `QLocationMapConfig.dashboard()`) dibaca ulang setiap initiateChat;
+    // endpoint-nya publik, jadi tidak menunggu login.
+    refreshShareLocationDashboardConfig(ref);
+
     // Dibaca di sini (bukan di builder luar) agar setiap pemanggilan closure
     // selalu mengambil nilai terkini, tanpa membuat provider ini rebuild /
     // menghasilkan closure baru saat salah satu dependency berubah.
@@ -116,7 +121,8 @@ InitiateChatFunction initiateChat(InitiateChatRef ref) {
     // (bukan diganti room dummy) supaya host app tahu initiateChat benar-benar
     // gagal dan bisa menampilkan error state yang sesuai, bukan chat kosong
     // yang terlihat seperti berhasil.
-    var roomData = await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
+    var roomData =
+        await getChatRoomWithMessages(qiscus: qiscus, roomId: roomId);
     var room = roomData.room;
     var messages = roomData.messages;
 

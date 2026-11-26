@@ -18,11 +18,15 @@ enum QMapTileSource {
 ///
 /// // Opsi 2: Google Maps, pakai key milik client.
 /// shareLocation: const QLocationMapConfig.google(apiKey: 'AIza...'),
+///
+/// // Opsi 3: ikuti setting share location di dashboard Omnichannel.
+/// shareLocation: const QLocationMapConfig.dashboard(),
 /// ```
 class QLocationMapConfig {
   /// Opsi 1: tile OpenStreetMap publik (default).
   const QLocationMapConfig.openStreetMap()
       : source = QMapTileSource.openStreetMap,
+        fromDashboard = false,
         googleApiKey = null,
         googleMapType = 'roadmap',
         googleLanguage = 'en-US',
@@ -42,13 +46,45 @@ class QLocationMapConfig {
     String region = 'ID',
     Map<String, String> headers = const {},
   })  : source = QMapTileSource.google,
+        fromDashboard = false,
         googleApiKey = apiKey,
         googleMapType = mapType,
         googleLanguage = language,
         googleRegion = region,
         googleHeaders = headers;
 
+  /// Opsi 3: ikuti setting share location per app di dashboard Omnichannel.
+  ///
+  /// Widget membaca `GET {baseUrl}/api/v2/share_location_config/{appId}`
+  /// (endpoint publik): menu "Location" hanya tampil bila setting-nya
+  /// `enabled`, dan sumber peta (OpenStreetMap atau Google dengan key yang
+  /// disimpan di dashboard) mengikuti respons itu. Gagal fetch atau
+  /// disabled = menu tidak tampil. Hasilnya di-cache di memori per
+  /// (baseUrl, appId) dan di-refresh setiap `initiateChat`.
+  ///
+  /// [mapType], [language], [region] dan [headers] hanya dipakai bila
+  /// dashboard memilih Google, sama artinya dengan [QLocationMapConfig.google]
+  /// (mis. `X-Ios-Bundle-Identifier` / `X-Android-Package` + `X-Android-Cert`
+  /// bila key dibatasi per aplikasi).
+  const QLocationMapConfig.dashboard({
+    String mapType = 'roadmap',
+    String language = 'en-US',
+    String region = 'ID',
+    Map<String, String> headers = const {},
+  })  : source = QMapTileSource.openStreetMap,
+        fromDashboard = true,
+        googleApiKey = null,
+        googleMapType = mapType,
+        googleLanguage = language,
+        googleRegion = region,
+        googleHeaders = headers;
+
+  /// Sumber tile. Untuk [QLocationMapConfig.dashboard] nilai ini hanya
+  /// placeholder; sumber sebenarnya ditentukan respons dashboard.
   final QMapTileSource source;
+
+  /// `true` bila dibuat dengan [QLocationMapConfig.dashboard].
+  final bool fromDashboard;
   final String? googleApiKey;
 
   /// `roadmap`, `satellite` atau `terrain` (lihat dokumentasi Map Tiles API).
@@ -59,10 +95,30 @@ class QLocationMapConfig {
 
   bool get isGoogle => source == QMapTileSource.google;
 
+  /// Config efektif dari respons dashboard: Google memakai key dari
+  /// dashboard + opsi Google (mapType/language/region/headers) milik config
+  /// ini; selain itu OpenStreetMap.
+  QLocationMapConfig resolveDashboard({
+    required bool google,
+    String? googleApiKey,
+  }) {
+    if (google && googleApiKey != null && googleApiKey.isNotEmpty) {
+      return QLocationMapConfig.google(
+        apiKey: googleApiKey,
+        mapType: googleMapType,
+        language: googleLanguage,
+        region: googleRegion,
+        headers: googleHeaders,
+      );
+    }
+    return const QLocationMapConfig.openStreetMap();
+  }
+
   @override
   bool operator ==(Object other) =>
       other is QLocationMapConfig &&
       other.source == source &&
+      other.fromDashboard == fromDashboard &&
       other.googleApiKey == googleApiKey &&
       other.googleMapType == googleMapType &&
       other.googleLanguage == googleLanguage &&
@@ -72,6 +128,7 @@ class QLocationMapConfig {
   @override
   int get hashCode => Object.hash(
         source,
+        fromDashboard,
         googleApiKey,
         googleMapType,
         googleLanguage,

@@ -17,8 +17,9 @@ const _googleTileUrl =
     'https://tile.googleapis.com/v1/2dtiles/{z}/{x}/{y}?session={session}&key={key}';
 const _googleTermsUrl = 'https://www.google.com/intl/en_US/help/terms_maps/';
 
-/// Tile layer sesuai `locationMapConfigProvider`: OpenStreetMap (default)
-/// atau Google Map Tiles API dengan key milik client.
+/// Tile layer sesuai `effectiveLocationMapConfigProvider`: OpenStreetMap
+/// (default) atau Google Map Tiles API dengan key milik client (langsung atau
+/// dari setting dashboard).
 class QLocationTileLayer extends ConsumerWidget {
   const QLocationTileLayer({super.key, this.maxZoom = 19});
 
@@ -26,7 +27,7 @@ class QLocationTileLayer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var config = ref.watch(locationMapConfigProvider) ??
+    var config = ref.watch(effectiveLocationMapConfigProvider) ??
         const QLocationMapConfig.openStreetMap();
     if (!config.isGoogle) {
       return TileLayer(
@@ -72,8 +73,8 @@ class QLocationMapAttribution extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var isGoogle =
-        ref.watch(locationMapConfigProvider)?.source == QMapTileSource.google;
+    var isGoogle = ref.watch(effectiveLocationMapConfigProvider)?.source ==
+        QMapTileSource.google;
     var text = isGoogle
         ? 'Google · Map data ©${DateTime.now().year} Google'
         : (compact ? '© OpenStreetMap' : '© OpenStreetMap contributors');

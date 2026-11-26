@@ -31,6 +31,8 @@ class App extends StatelessWidget {
       appId: appId,
       // Shows "Location" in the attachment menu (needs location permissions
       // in AndroidManifest.xml and NSLocationWhenInUseUsageDescription).
+      // Or QLocationMapConfig.dashboard() to follow the share location setting
+      // saved in the Omnichannel dashboard (on/off, OSM or Google).
       shareLocation: const QLocationMapConfig.openStreetMap(),
       onURLTapped: (url) {
         var uri = Uri.tryParse(url);

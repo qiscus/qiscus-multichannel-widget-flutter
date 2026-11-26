@@ -45,6 +45,8 @@ class QMultichannelProvider extends ConsumerStatefulWidget {
   /// = mati. Aktifkan dengan salah satu opsi peta:
   /// - [QLocationMapConfig.openStreetMap] — gratis, tanpa API key.
   /// - [QLocationMapConfig.google] — Google Maps dengan API key milik client.
+  /// - [QLocationMapConfig.dashboard] — ikuti setting share location per app
+  ///   di dashboard Omnichannel (menu hanya tampil bila di sana `enabled`).
   ///
   /// Bila aktif, app perlu izin lokasi (Android) dan
   /// `NSLocationWhenInUseUsageDescription` (iOS).
